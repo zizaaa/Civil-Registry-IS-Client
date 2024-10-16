@@ -12,7 +12,8 @@ export default {
       colors:{
         "darkCyan":"#0E7490",
         "darkBlueTeel":"#145C7F",
-        "lightCyan":"#145b7f22"
+        "lightCyan":"#145b7f22",
+        "green":"#008000"
       }
     },
   },

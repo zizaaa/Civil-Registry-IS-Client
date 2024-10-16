@@ -1,10 +1,12 @@
-import { CustomFlowbiteTheme, FloatingLabel, Pagination } from 'flowbite-react';
+import { FloatingLabel, Pagination, Tooltip } from 'flowbite-react';
 import { useState } from 'react';
-import { AiFillPrinter, IoSearch } from '../../hooks/icons'
+import { AiFillPrinter, IoMdPersonAdd, IoSearch } from '../../../hooks/icons'
+import { useNavigate } from 'react-router-dom';
 
 function BirthCert() {
     const [currentPage, setCurrentPage] = useState<number>(1);
-
+    const navigate = useNavigate();
+    
     const onPageChange = (page: number) => setCurrentPage(page);
 
     return (
@@ -29,15 +31,27 @@ function BirthCert() {
                         />
                     </div>
                 </div>
-                <div className=''>
-                    <button className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel">
-                        <IoSearch/>
-                        <span className="sr-only">Search</span>
-                    </button>
-                    <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
-                        <AiFillPrinter/>
-                        <span className="sr-only">Print</span>
-                    </button>
+                <div className='flex items-center gap-1'>
+                    <Tooltip content="Search">
+                        <button className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel">
+                            <IoSearch/>
+                            <span className="sr-only">Search</span>
+                        </button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Print">
+                        <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                            <AiFillPrinter/>
+                            <span className="sr-only">Print</span>
+                        </button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Register">
+                        <button onClick={()=>{navigate('/birth-certificate/registering-birth-certificate')}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                            <IoMdPersonAdd/>
+                            <span className="sr-only">Register</span>
+                        </button>
+                    </Tooltip>
                 </div>
             </div>
             <div className='w-full p-2'>

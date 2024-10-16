@@ -32,7 +32,7 @@ const NavBar:React.FC<NavBarType> = ({ setIsOpen, isOpen }) => {
                         </button>
                         <figure>
                             <img 
-                                src="./nabua_header_1.png" 
+                                src="/nabua_header_1.png" 
                                 className="w-20"
                             />
                         </figure>
@@ -48,9 +48,12 @@ const NavBar:React.FC<NavBarType> = ({ setIsOpen, isOpen }) => {
                             </span>
                         </Link>
                     </div>
-                    <div>
+                    <div className="flex flex-col items-end">
                         <span className="font-semibold text-darkCyan">
                             Thursday, October 20, 2025
+                        </span>
+                        <span className="font-semibold text-darkCyan text-sm">
+                            01:30 pm
                         </span>
                     </div>
                 {/* Profile dropdown */}
