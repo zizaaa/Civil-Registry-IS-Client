@@ -20,6 +20,7 @@ import logoutStore from "./zustand/logoutStore";
 import Home from "../pages/Home";
 import BirthCertLayout from "../pages/services/birthCertificate/BirthCertLayout";
 import BirthCertInputs from "../pages/services/birthCertificate/BirthCertInputs";
+import ViewBirthCert from "../pages/services/birthCertificate/ViewBirthCert";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL;
@@ -47,5 +48,6 @@ export {
     logoutStore,
     Home,
     BirthCertLayout,
-    BirthCertInputs
+    BirthCertInputs,
+    ViewBirthCert
 }

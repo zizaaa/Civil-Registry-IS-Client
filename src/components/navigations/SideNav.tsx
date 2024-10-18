@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { FaBaby, GiTombstone, FaRing, FaChild, FiSettings, FaChartArea, FiLogOut, AiOutlineDashboard } from '../../hooks/icons';
+import { FaBaby, GiTombstone, FaRing, FaChild, FiSettings, FiLogOut, AiOutlineDashboard } from '../../hooks/icons';
 import { logoutStore } from '../../hooks/imports';
 
 const SideNav = () => {

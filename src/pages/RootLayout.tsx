@@ -1,6 +1,6 @@
 import { Breadcrumb, Drawer, Sidebar } from "flowbite-react";
 import { useState } from "react";
-import { Outlet, useLocation, Link } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { LogoutModal, NavBar, SideNav } from "../hooks/imports";
 
 function RootLayout() {
