@@ -14,6 +14,7 @@ function RootLayout() {
         "/birth-certificate": "Birth Certificate",
         "/birth-certificate/registering-birth-certificate": "Register Birth Certificate",
         "/death-certificate": "Death Certificate",
+        "/death-certificate/registering-death-certificate": "Register Death Certificate",
         "/marriage-certificate": "Marriage Certificate",
         "/foundlings": "Foundlings",
         "/settings": "Settings",

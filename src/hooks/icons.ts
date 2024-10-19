@@ -10,6 +10,7 @@ import { IoSearch } from "react-icons/io5";
 import { IoMdPersonAdd } from "react-icons/io";
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdFileDownload } from "react-icons/md";
+import { TbReportAnalytics } from "react-icons/tb";
 
 export {
     FaBaby,
@@ -23,5 +24,6 @@ export {
     IoSearch,
     IoMdPersonAdd,
     AiOutlineDashboard,
-    MdFileDownload
+    MdFileDownload,
+    TbReportAnalytics
 }

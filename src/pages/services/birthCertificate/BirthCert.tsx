@@ -97,7 +97,7 @@ function BirthCert() {
                             onChange={handleSearchChange}  // Update searchTerm on change
                             onKeyDown={handleKeyDown} 
                             placeholder='Search'
-                            className='h-9 border-0 focus:outline-none focus:border-transparent focus:ring-0'
+                            className='h-9 border-0 bg-transparent focus:outline-none focus:border-transparent focus:ring-0'
                         />
                     </div>
                     <button

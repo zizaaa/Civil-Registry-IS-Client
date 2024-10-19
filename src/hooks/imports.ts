@@ -2,7 +2,7 @@ import NavBar from "../components/navigations/NavBar";
 import SideNav from "../components/navigations/SideNav";
 import RootLayout from "../pages/RootLayout";
 import BirthCert from "../pages/services/birthCertificate/BirthCert";
-import DeathCert from "../pages/services/DeathCert";
+import DeathCert from "../pages/services/deathCert/DeathCert";
 import Foundlings from "../pages/services/Foundlings";
 import MarriageCert from "../pages/services/MarriageCert";
 import Settings from "../pages/services/Settings";
@@ -21,6 +21,8 @@ import Home from "../pages/Home";
 import BirthCertLayout from "../pages/services/birthCertificate/BirthCertLayout";
 import BirthCertInputs from "../pages/services/birthCertificate/BirthCertInputs";
 import ViewBirthCert from "../pages/services/birthCertificate/ViewBirthCert";
+import DeathCertInput from "../pages/services/deathCert/DeathCertInput";
+import DeathCertLayout from "../pages/services/deathCert/DeathCertLayout";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL;
@@ -49,5 +51,7 @@ export {
     Home,
     BirthCertLayout,
     BirthCertInputs,
-    ViewBirthCert
+    ViewBirthCert,
+    DeathCertInput,
+    DeathCertLayout
 }

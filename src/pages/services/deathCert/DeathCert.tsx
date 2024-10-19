@@ -1,10 +1,11 @@
-import { FloatingLabel, Pagination, Tooltip } from 'flowbite-react';
+import { Pagination, Tooltip } from 'flowbite-react';
 import { useState } from 'react';
-import { AiFillPrinter, IoMdPersonAdd, IoSearch } from '../../hooks/icons'
+import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { useNavigate } from 'react-router-dom';
 
 function DeathCert() {
     const [currentPage, setCurrentPage] = useState<number>(1);
-
+    const navigate = useNavigate();
     const onPageChange = (page: number) => setCurrentPage(page);
 
     return (
@@ -12,41 +13,34 @@ function DeathCert() {
             <h1 className='text-3xl font-semibold text-darkCyan flex flex-col'>
                 Registering and Issuance of <span>Death Certificate</span>
             </h1>
-            <div className='flex items-center justify-between mt-5 px-2'>
-                <div className='flex flex-row items-end gap-2'>
-                    <div>
-                        <FloatingLabel
-                            label="From"
-                            variant="standard"
-                            className="border-gray-300 focus:border-darkCyan"
+            <div className='flex items-end justify-between mt-5 px-2'>
+                {/* Search Input */}
+                <div className='flex items-end'>
+                    <div className='group flex flex-row items-end border-b-2 border-gray-300 focus-within:border-darkCyan'>
+                        <input 
+                            type='text'
+                            placeholder='Search'
+                            className='h-9 border-0 bg-transparent focus:outline-none focus:border-transparent focus:ring-0'
                         />
                     </div>
-                    <div>
-                        <FloatingLabel
-                            label="To"
-                            variant="standard"
-                            className="border-gray-300 focus:border-darkCyan"
-                        />
-                    </div>
+                    <button
+                        className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel"
+                    >
+                        <IoSearch />
+                        <span className="sr-only">Search</span>
+                    </button>
                 </div>
                 <div className='flex items-center gap-1'>
-                    <Tooltip content="Search">
-                        <button className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel">
-                            <IoSearch/>
-                            <span className="sr-only">Search</span>
-                        </button>
-                    </Tooltip>
-                    
-                    <Tooltip content="Print">
+                    <Tooltip content="Download">
                         <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
-                            <AiFillPrinter/>
-                            <span className="sr-only">Print</span>
+                            <MdFileDownload />
+                            <span className="sr-only">Download</span>
                         </button>
                     </Tooltip>
-                    
+
                     <Tooltip content="Register">
-                        <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
-                            <IoMdPersonAdd/>
+                        <button onClick={() => navigate('/death-certificate/registering-death-certificate')} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                            <IoMdPersonAdd />
                             <span className="sr-only">Register</span>
                         </button>
                     </Tooltip>

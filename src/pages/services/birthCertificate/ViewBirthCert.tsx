@@ -18,7 +18,7 @@ function ViewBirthCert() {
     });
 
 
-    const { data,isLoading,isError } = useQuery({
+    const { data,isLoading } = useQuery({
         queryKey:['single-data'],
         queryFn: async()=>{
             const { data } = await axios.get(`${serverURL}/api/cris/birth-certificate/get-single?id=${id}`, { withCredentials:true });
