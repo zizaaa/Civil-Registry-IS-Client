@@ -9,7 +9,6 @@ function RootLayout() {
     
     const handleClose = () => setIsOpen(false);
 
-    // Define paths and corresponding breadcrumb labels
     const breadcrumbMap: { [key: string]: string } = {
         "/": "Dashboard",
         "/birth-certificate": "Birth Certificate",
@@ -19,18 +18,49 @@ function RootLayout() {
         "/foundlings": "Foundlings",
         "/settings": "Settings",
     };
+    
+    const pathSegments = location.pathname.split("/").filter(Boolean); // Remove empty segments
+    const breadcrumbItems = [];
+    
+    let idSegment = '';
 
-    // Split the path and map each segment to a breadcrumb label
-    const pathSegments = location.pathname.split("/").filter(Boolean); // remove empty segments
-    const breadcrumbItems = pathSegments.map((segment, index) => {
+    // Initialize a flag to check for preview
+    let isPreview = false;
+
+    pathSegments.forEach((segment, index) => {
         const path = `/${pathSegments.slice(0, index + 1).join("/")}`;
-        const label = breadcrumbMap[path] || "Unknown"; // Default to 'Unknown' if no match
-        return (
-            <Breadcrumb.Item key={path} href={path}>
-                {label}
+
+        if (segment === "preview") {
+            isPreview = true;
+            // Capture the id segment
+            idSegment = pathSegments[index + 1] || ''; // Get the id from the path
+            // Add Preview breadcrumb
+            breadcrumbItems.push(
+                <Breadcrumb.Item key={path} href="#">
+                    Preview
+                </Breadcrumb.Item>
+            );
+        } else {
+            // Use the breadcrumb map for regular segments
+            const label = breadcrumbMap[path] || null; // Don't default to "Unknown"
+            if (label) {
+                breadcrumbItems.push(
+                    <Breadcrumb.Item key={path} href={path}>
+                        {label}
+                    </Breadcrumb.Item>
+                );
+            }
+        }
+    });
+
+    // If we found an id segment, add it as the last breadcrumb item
+    if (idSegment) {
+        breadcrumbItems.push(
+            <Breadcrumb.Item key={`/birth-certificate/preview/${idSegment}`} href="#">
+                {idSegment}
             </Breadcrumb.Item>
         );
-    });
+    }
 
     return (
         <main>
