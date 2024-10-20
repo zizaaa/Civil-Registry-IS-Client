@@ -23,6 +23,7 @@ import BirthCertInputs from "../pages/services/birthCertificate/BirthCertInputs"
 import ViewBirthCert from "../pages/services/birthCertificate/ViewBirthCert";
 import DeathCertInput from "../pages/services/deathCert/DeathCertInput";
 import DeathCertLayout from "../pages/services/deathCert/DeathCertLayout";
+import ViewDeathCertificate from "../pages/services/deathCert/ViewDeathCertificate";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL;
@@ -53,5 +54,6 @@ export {
     BirthCertInputs,
     ViewBirthCert,
     DeathCertInput,
-    DeathCertLayout
+    DeathCertLayout,
+    ViewDeathCertificate
 }

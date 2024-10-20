@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, Foundlings, Home, Login, MarriageCert, NotFound, RootLayout, Settings, ViewBirthCert } from '../hooks/imports';
+import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, Foundlings, Home, Login, MarriageCert, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertificate } from '../hooks/imports';
 import LogedIn from '../auth/LogedIn';
 import ProtectedRoute from '../auth/ProtectedRoute';
 
@@ -46,6 +46,10 @@ export const router = createBrowserRouter([
                         path:"registering-death-certificate",
                         element: <DeathCertInput/>
                     },
+                    {
+                        path:"preview/:id",
+                        element: <ViewDeathCertificate/>
+                    }
                 ]
             },
             {

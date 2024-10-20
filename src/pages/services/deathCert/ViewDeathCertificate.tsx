@@ -1,37 +1,16 @@
-import { useState } from "react"
-
-function DeathCertInput() {
-    const [deathCertCredentials, setDeathCertCredentials] = useState({
-        province:"",
-        cityOrMunicipality:"",
-        registryNumber:"",
-        remarksOrAnnotation:"",
-        one_name_first:"",
-        one_name_middle:"",
-        one_name_last:"",
-        two_sex:"",
-        three_religion:"",
-        four_A_completedYears:"",
-        four_B_months:"",
-        four_B_days:"",
-        four_C_time:"",
-        five_nameOf:"",
-        five_cityOrMunicipality:"",
-        five_province:"",
-        six_day:"",
-        six_month:"",
-        six_year:"",
-        seven_citizenship:"",
-        eight_houseNo:"",
-        eight_cityOrMunicipality:"",
-        eight_province:"",
-        nine_civiStatus:"",
-        ten_occupation:"",
-
-    });
-
+import { Tooltip } from "flowbite-react"
+import { AiFillPrinter } from '../../../hooks/icons'
+function ViewDeathCertificate() {
     return (
         <div>
+            <div className="w-full flex items-end justify-end px-4">
+                <Tooltip content="Print">
+                    <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                        <AiFillPrinter />
+                        <span className="sr-only">Print</span>
+                    </button>
+                </Tooltip>
+            </div>
             <div className='w-[65rem] m-3 h-full border-b-0 border-s-0 border-2 border-gray-700 bg-gray-100'>
                 <div className="grid grid-cols-4 border-s-2 border-b-2 border-gray-700 w-full overflow-auto">
                     <div className="col-span-3 border-e-2 border-gray-700 w-full overflow-auto">
@@ -1259,4 +1238,4 @@ function DeathCertInput() {
     )
 }
 
-export default DeathCertInput
+export default ViewDeathCertificate
