@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, Foundlings, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertificate, ViewMarriageCert } from '../hooks/imports';
+import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, Foundlings, FoundlingsInput, FoundlingsLayout, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertificate, ViewFoundLings, ViewMarriageCert } from '../hooks/imports';
 import LogedIn from '../auth/LogedIn';
 import ProtectedRoute from '../auth/ProtectedRoute';
 
@@ -72,7 +72,21 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/foundlings",
-                element:<Foundlings/>
+                element:<FoundlingsLayout/>,
+                children:[
+                    {
+                        path:"/foundlings",
+                        element:<Foundlings/>
+                    },
+                    {
+                        path:"registering-foundlings",
+                        element:<FoundlingsInput/>
+                    },
+                    {
+                        path:"preview/:id",
+                        element:<ViewFoundLings/>
+                    },
+                ]
             },
             {
                 path:"/settings",

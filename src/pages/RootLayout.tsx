@@ -18,6 +18,7 @@ function RootLayout() {
         "/marriage-certificate": "Marriage Certificate",
         "/marriage-certificate/registering-marriage-certificate":"Register Marriage Certificate",
         "/foundlings": "Foundlings",
+        "/foundlings/registering-foundlings": "Registering Foundlings",
         "/settings": "Settings",
     };
     

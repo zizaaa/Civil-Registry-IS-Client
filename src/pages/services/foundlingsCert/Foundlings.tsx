@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AiFillPrinter, IoMdPersonAdd, IoSearch } from '../../../hooks/icons'
 import { useNavigate } from 'react-router-dom';
 
-function MarriageCert() {
+function Foundlings() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function MarriageCert() {
     return (
         <section>
             <h1 className='text-3xl font-semibold text-darkCyan flex flex-col'>
-                Registering and Issuance of <span>Marriage Certificate</span>
+                Registering and Issuance of <span>Foundlings Certificate</span>
             </h1>
             <div className='flex items-center justify-between mt-5 px-2'>
                 <div className='flex flex-row items-end gap-2'>
@@ -47,7 +47,7 @@ function MarriageCert() {
                     </Tooltip>
                     
                     <Tooltip content="Register">
-                        <button onClick={()=>{navigate('/marriage-certificate/registering-marriage-certificate')}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                        <button onClick={()=>{navigate('/foundlings/registering-foundlings')}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                             <IoMdPersonAdd/>
                             <span className="sr-only">Register</span>
                         </button>
@@ -82,7 +82,7 @@ function MarriageCert() {
                             <td className='px-3 py-2'>Main St.</td>
                             <td className='px-3 py-2'>Barangay 1</td>
                             <td className='px-3 py-2 text-center'>
-                                <button onClick={()=>{navigate(`/marriage-certificate/preview/1`)}} className='bg-[#0E7490] text-white px-3 py-1 rounded-sm drop-shadow-md'>View</button>
+                                <button onClick={()=>{navigate(`/foundlings/preview/1`)}} className='bg-[#0E7490] text-white px-3 py-1 rounded-sm drop-shadow-md'>View</button>
                             </td>
                         </tr>
                     </tbody>
@@ -95,4 +95,4 @@ function MarriageCert() {
     )
 }
 
-export default MarriageCert
+export default Foundlings

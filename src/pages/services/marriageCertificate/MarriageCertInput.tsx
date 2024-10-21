@@ -393,7 +393,7 @@ function MarriageCertInput() {
                             />
                         </div>
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <div className="flex flex-col items-center justify-center">
                             <label htmlFor="five_HouseNo_wife" className="text-gray-800 text-sm font-semibold">
                                 (House No, Street, City/Municipality, Province, Country)
@@ -425,7 +425,7 @@ function MarriageCertInput() {
                             className=" border-gray-700 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full mt-2"
                         />
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <input 
                             type="text" 
                             id="six_religion_wife" 
@@ -448,7 +448,7 @@ function MarriageCertInput() {
                             className=" border-gray-700 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full h-7"
                         />
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <input 
                             type="text" 
                             id="seven_wife" 
@@ -496,7 +496,7 @@ function MarriageCertInput() {
                             />
                         </div>
                     </div>
-                    <div className="col-span-2 flex flex-row p-1">
+                    <div className="col-span-2 flex flex-row p-1 pe-5">
                         <div className="flex flex-col items-center justify-center">
                             <label htmlFor="eight_first_wife" className="text-gray-800 text-sm font-semibold">
                                 (First)
@@ -544,7 +544,7 @@ function MarriageCertInput() {
                             className=" border-gray-700 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full h-7"
                         />
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <input 
                             type="text" 
                             id="nine_wife" 
@@ -592,7 +592,7 @@ function MarriageCertInput() {
                             />
                         </div>
                     </div>
-                    <div className="col-span-2 flex flex-row p-1">
+                    <div className="col-span-2 flex flex-row p-1 pe-5">
                         <div className="flex flex-col items-center justify-center">
                             <label htmlFor="ten_first_wife" className="text-gray-800 text-sm font-semibold">
                                 (First)
@@ -640,7 +640,7 @@ function MarriageCertInput() {
                             className=" border-gray-700 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full h-7"
                         />
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <input 
                             type="text" 
                             id="eleven_wife" 
@@ -709,7 +709,7 @@ function MarriageCertInput() {
                                 className=" border-gray-700 h-5 border-x-0 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full"
                             />
                         </div>
-                        <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-col items-center justify-center pe-5">
                             <label htmlFor="twelve_last_wife" className="text-gray-800 text-sm font-semibold">
                                 (Last)
                             </label>
@@ -736,7 +736,7 @@ function MarriageCertInput() {
                             className=" border-gray-700 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full h-7"
                         />
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <input 
                             type="text" 
                             id="thirteen_wife" 
@@ -746,7 +746,7 @@ function MarriageCertInput() {
                 </div>
 
                 {/* number 14*/}
-                <div className="grid grid-cols-5 border-b-2 border-gray-800">
+                <div className="grid grid-cols-5 border-b-2 border-gray-800 ">
                     <div className="col-span-1 py-1 px-5 flex flex-col text-sm">
                         <span className="font-semibold text-gray-800">
                             14. Residence
@@ -764,7 +764,7 @@ function MarriageCertInput() {
                             />
                         </div>
                     </div>
-                    <div className="col-span-2 p-1">
+                    <div className="col-span-2 p-1 pe-5">
                         <div className="flex flex-col items-center justify-center">
                             <label htmlFor="fourteen_HouseNo_wife" className="text-gray-800 text-sm font-semibold">
                                 (House No, Street, City/Municipality, Province, Country)
@@ -779,7 +779,7 @@ function MarriageCertInput() {
                 </div>
 
                 {/* number 15*/}
-                <div className="grid grid-cols-5">
+                <div className="grid grid-cols-5 pe-5">
                     <div className="col-span-1 py-1 px-5 flex flex-col text-sm">
                         <span className="font-semibold text-gray-800">
                             15. Place of Marriage
@@ -820,7 +820,7 @@ function MarriageCertInput() {
                 </div>
 
                 {/* Number 16 and 17*/}
-                <div className="grid grid-cols-5">
+                <div className="grid grid-cols-5 pe-5">
                     <div className="col-span-1 py-1 px-5 flex flex-col text-sm">
                         <span className="font-semibold text-gray-800">
                             16. Date of Marriage
@@ -874,13 +874,327 @@ function MarriageCertInput() {
                 </div>
 
                 {/* Number 18 */}
-                <div className="grid grid-cols-5">
+                <div className="flex flex-col">
                     <span className="uppercase font-semibold text-gray-800 py-1 px-5">
                         18. Certification of The Contracting Parties
                     </span>
-                    <div className="flex items-end">
-                        <div>THIS IS CERTIFY, That I</div>
-                        <input type="text" className="h-7 text-sm border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-28"/>
+                    <div className="w-full p-1 text-sm ps-10 pe-5">
+                        <div className="flex gap-1">
+                            <span className="indent-28">THIS IS CERTIFY, That I</span>
+                            <input type="text" className="h-7 text-sm border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent flex-1"/>
+                            <span>and, I</span>
+                            <input type="text" className="h-7 text-sm border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent flex-1"/>
+                            <span>, both of legal</span>
+                        </div>
+                        <div>
+                            <span className="me-3">age, of our own free will and accord, and in the presence of the person solemnizing this marriage and of the witness named below, take each other as husband and wife and certifying further that we</span>
+                            <input 
+                                type="radio" 
+                                id="entered" 
+                                name="eighteen" 
+                                value="entered" 
+                                className="cursor-pointer" 
+                            />
+                            <span className="ms-1 me-3">have entered, a copy of which is hereto attached</span>
+                            <input 
+                                type="radio" 
+                                id="entered" 
+                                name="eighteen" 
+                                value="entered" 
+                                className="cursor-pointer" 
+                            />
+                            <span className="ms-1">have not entered into a marriage settlement.</span>
+                        </div>
+                        <div className="pe-5 mt-2">
+                            <span className="font-semibold uppercase ps-28">IN WITNESS WHEREOF, </span>
+                            <span>we have signed/maked with our fingerprint this certificate in quadruplicate this</span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-20"/>
+                            <span>, day of</span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-20"/>
+                        </div>
+                        <div className="grid grid-cols-2 mt-5 px-5 gap-5">
+                            <div className="col-span-1 flex flex-col items-center">
+                                <div className="relative w-full">
+                                    <input 
+                                        type="file" 
+                                        id="eighteen_signature_husband"
+                                        accept=".png"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    />
+                                    <div className="text-gray-700 text-xs text-center font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
+                                        Upload signature
+                                    </div>
+                                </div>
+                                <label htmlFor="eighteen_signature_husband" className="text-sm font-medium text-gray-800">
+                                        (Signature of Husband)
+                                </label>
+                            </div>
+                            <div className="col-span-1 flex flex-col items-center">
+                                <div className="relative w-full">
+                                    <input 
+                                        type="file" 
+                                        id="eighteen_signature_wife"
+                                        accept=".png"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    />
+                                    <div className="text-gray-700 text-xs text-center font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
+                                        Upload signature
+                                    </div>
+                                </div>
+                                <label htmlFor="eighteen_signature_husband" className="text-sm font-medium text-gray-800">
+                                    (Signature of Wife)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Number 19 */}
+                <div className="flex flex-col">
+                    <span className="uppercase font-semibold text-gray-800 py-1 px-5">
+                        19. Certification of the selemnizing officer:
+                    </span>
+                    <div>
+                        <div className="text-sm pe-5 ps-11">
+                            <span className="uppercase font-semibold">THIS IS TO CERTIFY: THAT BEFORE ME</span>
+                            <span>, on the date and place above-written, personally appreared the aboce-mentioned parties, with their mutual consent, lawfully joined together in marriage which was solemnized by me in the presence of the witnesses name below, all of legal age.</span>
+                        </div>
+                    </div>
+                    <div className="px-5 mt-2">
+                        <div className="flex flex-row items-end gap-1 text-sm">
+                            <input 
+                                type="radio" 
+                                id="letter_A" 
+                                name="nineTeen" 
+                                value="letter_A" 
+                                className="cursor-pointer me-2" 
+                            />
+                            <span>
+                                a. Marriage License No.
+                            </span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-36"/>
+                            <span>
+                                issued on
+                            </span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-36"/>
+                            <span>
+                                . at
+                            </span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-40"/>
+                            <span>
+                                in favor of said parties, was exhibited to me.
+                            </span>
+                        </div>
+                        <div className="flex flex-row items-end gap-1 text-sm">
+                            <input 
+                                type="radio" 
+                                id="letter_B" 
+                                name="nineTeen" 
+                                value="letter_B" 
+                                className="cursor-pointer me-2" 
+                            />
+                            <span>
+                                b. no marriage license was necessary, the marriage being solemnized under Art
+                            </span>
+                            <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-36"/>
+                            <span>
+                                of Executive Order No. 209.
+                            </span>
+                        </div>
+                        <div className="flex flex-row items-end gap-1 text-sm mt-1">
+                            <input 
+                                type="radio" 
+                                id="letter_C" 
+                                name="nineTeen" 
+                                value="letter_C" 
+                                className="cursor-pointer me-2" 
+                            />
+                            <span>
+                                c. the marriage was solemnized in accordance with the provisions of the Presidential Decree No. 1083.
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-5 mt-5 pe-5 ps-14">
+                            <div className="col-span-1">
+                                <div className="flex flex-row items-center justify-center gap-2 relative">
+                                    <div className="relative w-28">
+                                        <input 
+                                            type="file" 
+                                            id="twentyOne_signature"
+                                            accept=".png"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        />
+                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
+                                            Upload signature
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col-reverse items-center justify-center">
+                                    <label htmlFor="nineteen_nameOverSignature" className="text-[12px] text-gray-800 font-semibold">
+                                        (Signature Over Printed Name of Solemnized Officer)
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="nineteen_nameOverSignature" 
+                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-span-1">
+                                <div className="flex flex-col-reverse items-center justify-center mt-5">
+                                    <label htmlFor="ninteen_positionOrDesignation" className="text-[12px] text-gray-800 font-semibold">
+                                        (Position/Designation)
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="ninteen_positionOrDesignation" 
+                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-span-1">
+                                <div className="flex flex-col-reverse items-center justify-center mt-5 text-center">
+                                    <label htmlFor="nineteen_religion" className="text-[12px] text-gray-800 font-semibold">
+                                        (Religion/Religious, Registry No. and Expiration Date, if applicable)
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="nineteen_religion" 
+                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Number 20 a */}
+                <div className="flex flex-col py-1 border-b-2 border-gray-800">
+                    <span className="text-gray-800 px-5">
+                        20a. WITNESSES (Print Name and Sign): Additional at the back
+                    </span>
+                    <div className="grid grid-cols-4 gap-5 pe-5">
+                        <div className="col-span-1 ps-14">
+                            <input 
+                                type="text" 
+                                id="twenty_A_first_blank" 
+                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                            />
+                        </div>
+                        <div className="col-span-1">
+                            <input 
+                                type="text" 
+                                id="twenty_A_first_blank" 
+                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                            />
+                        </div>
+                        <div className="col-span-1">
+                            <input 
+                                type="text" 
+                                id="twenty_A_first_blank" 
+                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                            />
+                        </div>
+                        <div className="col-span-1">
+                            <input 
+                                type="text" 
+                                id="twenty_A_first_blank" 
+                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* number 21 */}
+                <div className="grid grid-cols-2 px-5 gap-5 pt-1 pb-5">
+                    <div className="col-span-1">
+                        <span className="uppercase font-semibold text-gray-800">
+                            21. Recieved By:
+                        </span>
+                        <div className="pe-4">
+                            <div className="flex flex-row items-end gap-2 relative">
+                                <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
+                                <div className="relative w-full">
+                                    <input 
+                                        type="file" 
+                                        id="twentyOne_signature"
+                                        accept=".png"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    />
+                                    <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
+                                        Choose File
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-row items-end">
+                                <label htmlFor="TwentyOnenameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
+                                <input 
+                                    type="text" 
+                                    id="TwentyOnenameInPrint" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                            <div className="flex flex-row items-end">
+                                <label htmlFor="twentyOnetitleOrPosition" className="text-sm text-gray-800 w-40">Title of Position</label>
+                                <input 
+                                    type="text" 
+                                    id="twentyOnetitleOrPosition" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                            <div className="flex flex-row items-end gap-2">
+                                <label htmlFor="twentyOnedate" className="text-sm text-gray-800">Date</label>
+                                <input 
+                                    type="text" 
+                                    id="twentyOnedate" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-span-1">
+                        <span className="uppercase font-semibold text-gray-800">
+                            22. Registered By the Civil Registrar:
+                        </span>
+                        <div className="pe-4">
+                            <div className="flex flex-row items-end gap-2 relative">
+                                <label htmlFor="twentyTwo_signature" className="text-sm font-medium text-gray-800">Signature</label>
+                                <div className="relative w-full">
+                                    <input 
+                                        type="file" 
+                                        id="twentyTwo_signature"
+                                        accept=".png"
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    />
+                                    <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
+                                        Choose File
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-row items-end">
+                                <label htmlFor="TwentyTwonameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
+                                <input 
+                                    type="text" 
+                                    id="TwentyTwonameInPrint" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                            <div className="flex flex-row items-end">
+                                <label htmlFor="twentyTwotitleOrPosition" className="text-sm text-gray-800 w-40">Title of Position</label>
+                                <input 
+                                    type="text" 
+                                    id="twentyTwotitleOrPosition" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                            <div className="flex flex-row items-end gap-2">
+                                <label htmlFor="twentyTwodate" className="text-sm text-gray-800">Date</label>
+                                <input 
+                                    type="text" 
+                                    id="twentyTwodate" 
+                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
