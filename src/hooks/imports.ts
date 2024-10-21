@@ -4,7 +4,7 @@ import RootLayout from "../pages/RootLayout";
 import BirthCert from "../pages/services/birthCertificate/BirthCert";
 import DeathCert from "../pages/services/deathCert/DeathCert";
 import Foundlings from "../pages/services/Foundlings";
-import MarriageCert from "../pages/services/MarriageCert";
+import MarriageCert from "../pages/services/marriageCertificate/MarriageCert";
 import Settings from "../pages/services/Settings";
 import Login from "../pages/form/Login";
 import FormLayout from "../pages/form/FormLayout";
@@ -24,6 +24,9 @@ import ViewBirthCert from "../pages/services/birthCertificate/ViewBirthCert";
 import DeathCertInput from "../pages/services/deathCert/DeathCertInput";
 import DeathCertLayout from "../pages/services/deathCert/DeathCertLayout";
 import ViewDeathCertificate from "../pages/services/deathCert/ViewDeathCertificate";
+import MarriageCertInput from "../pages/services/marriageCertificate/MarriageCertInput";
+import MarriageCertLayout from "../pages/services/marriageCertificate/MarriageCertLayout";
+import ViewMarriageCert from "../pages/services/marriageCertificate/ViewMarriageCert";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL;
@@ -55,5 +58,8 @@ export {
     ViewBirthCert,
     DeathCertInput,
     DeathCertLayout,
-    ViewDeathCertificate
+    ViewDeathCertificate,
+    MarriageCertInput,
+    MarriageCertLayout,
+    ViewMarriageCert
 }
