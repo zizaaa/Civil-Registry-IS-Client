@@ -1,6 +1,33 @@
 import { Tooltip } from "flowbite-react"
 import { AiFillPrinter } from '../../../hooks/icons'
+import { Navigate, useParams } from "react-router-dom";
+import { useRef } from "react";
+import axios from "axios";
+import { Loading, serverURL } from "../../../hooks/imports";
+import { useQuery } from "@tanstack/react-query";
+
 function ViewDeathCertificate() {
+    const { id } = useParams();
+
+    // const contentRef = useRef<HTMLDivElement>(null);  // Reference to the certificate content
+
+    const { data,isLoading } = useQuery({
+        queryKey:['deathCert-single-data'],
+        queryFn: async()=>{
+            const { data } = await axios.get(`${serverURL}/api/cris/death-certificate/get-single?id=${id}`, { withCredentials:true });
+
+            return data;
+        }
+    });
+    
+    if(isLoading) return <Loading/>
+    
+    if(!id){
+        <Navigate to='*'/>
+    }
+
+    console.log(data)
+
     return (
         <div>
             <div className="w-full flex items-end justify-end px-4">
@@ -17,7 +44,7 @@ function ViewDeathCertificate() {
                         <div className="flex items-center py-2 px-5 justify-between">
                             <div className="flex flex-col text-[12px] text-gray-800">
                                 <span>
-                                    Municipal Form No. 01
+                                    Municipal Form No. 0{id}
                                 </span>
                                 <span>
                                     (Revised January 1993)
@@ -47,47 +74,47 @@ function ViewDeathCertificate() {
                         <div className="grid grid-cols-3 w-full overflow-auto">
                             <div className="col-span-2 py-2 px-5">
                                 <div className="flex flex-row items-end gap-2 mb-2">
-                                    <label htmlFor="province" className="text-gray-800 text-sm">
+                                    <span className="text-gray-800 text-sm">
                                         Province
-                                    </label>
-                                    <input 
-                                        type="text"
-                                        id="province" 
-                                        className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                    />
+                                    </span>
+                                    <span
+                                        className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.province}
+                                    </span>
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
                                     <label htmlFor="cityAndMunicipality" className="text-gray-800 text-sm">
                                         City/Municiplity
                                     </label>
-                                    <input 
-                                        type="text" 
-                                        id="cityAndMunicipality" 
-                                        className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm"
-                                    />
+                                    <span
+                                        className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.cityOrMunicipality}
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-span-1 border-s-2 border-gray-700 px-5 py-2 ">
-                                <label htmlFor="registryNumber" className="text-gray-800 text-sm">
+                                <span className="text-gray-800 text-sm">
                                     Registry No.
-                                </label>
-                                <input 
-                                    type="number" 
-                                    id="registryNumber" 
-                                    className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                                />
+                                </span>
+                                <span 
+                                    className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.registryNumber}
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div className="col-span-1 flex flex-col items-center px-2 py-2">
-                        <label htmlFor="remarks" className="text-gray-800 text-xl font-semibold uppercase">
+                        <span className="text-gray-800 text-xl font-semibold uppercase">
                             Remarks/Annotation
-                        </label>
-                        <textarea 
-                            id="remarks" 
-                            name="remarks"
-                            className="w-full text-sm rounded-sm border-0 min-h-60 max-h-60 focus:outline-none focus:ring-transparent"
-                        ></textarea>
+                        </span>
+                        <span 
+                            className="w-full flex-wrap break-all p-2 h-7 text-sm flex items-end text-gray-800" 
+                        >
+                            {data.remarksOrAnnotation}
+                        </span>
                     </div>
                 </div>
                 {/* 2nd part and left side */}
@@ -102,34 +129,28 @@ function ViewDeathCertificate() {
                                 </span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
-                                <label htmlFor="first" className="text-gray-800 text-sm">
+                                <span className="text-gray-800 text-sm">
                                     (First)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="first" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                />
+                                </span>
+                                <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
+                                    {data.one_first}
+                                </span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
-                                <label htmlFor="middle" className="text-gray-800 text-sm">
+                                <span className="text-gray-800 text-sm">
                                     (Middle)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="middle" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                />
+                                </span>
+                                <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
+                                    {data.one_middle}
+                                </span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
-                                <label htmlFor="last" className="text-gray-800 text-sm">
+                                <span className="text-gray-800 text-sm">
                                     (Last)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="last" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                />
+                                </span>
+                                <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
+                                    {data.one_last}
+                                </span>
                             </div>
                         </div>
                         {/* Number 2, 3, 4 */}
@@ -140,39 +161,31 @@ function ViewDeathCertificate() {
                                         2. Sex
                                     </span>
                                 </div>
-                                <div className="flex flex-row gap-2 mt-2">
+                                <div className="flex flex-col pe-10 gap-2">
                                     <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="male" className="text-gray-800 text-sm cursor-pointer">Male</label>
-                                        <input 
-                                            type="radio" 
-                                            id="male" 
-                                            name="sex" 
-                                            value="male" 
-                                            className="cursor-pointer" 
-                                        />
+                                        <span className="text-gray-800 text-sm cursor-pointer">1 Male</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800" >
+                                            {data.two_sex === 'male' ? "/":""}
+                                        </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="female" className="text-gray-800 text-sm cursor-pointer">Female</label>
-                                        <input 
-                                            type="radio" 
-                                            id="female" 
-                                            name="sex" 
-                                            value="female" 
-                                            className="cursor-pointer" 
-                                        />
+                                        <span className="text-gray-800 text-sm cursor-pointer">2 Female</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800" >
+                                            {data.two_sex === 'female' ? "/":""}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-span-1 border-x-2 border-gray-800 p-1">
                                 <div className="flex flex-col items-start">
-                                    <label htmlFor="religion" className="text-gray-800 font-semibold uppercase">
+                                    <span className="text-gray-800 font-semibold uppercase">
                                         3. RELIGION
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="religion" 
-                                        className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                    />
+                                    </span>
+                                    <span 
+                                        className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.three_religion}
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-span-3 grid grid-cols-10">
@@ -193,18 +206,18 @@ function ViewDeathCertificate() {
                                         </span>
                                     </div>
                                     <div className="flex flex-row">
-                                        <div className="px-2 flex items-center justify-center border-e-2 border-gray-800">
+                                        <div className="px-2 flex items-center justify-center h-[3.4rem] border-e-2 border-gray-800">
                                             <span>2</span>
                                         </div>
-                                        <div className="p-1">
-                                            <label htmlFor="completedYears" className="text-gray-800 text-[12px]">
+                                        <div className="p-1 w-full">
+                                            <div className="text-gray-800 text-[12px] flex items-center justify-center w-full">
                                                 Completed years
-                                            </label>
-                                            <input 
-                                                type="text" 
-                                                id="completedYears" 
-                                                className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                            />
+                                            </div>
+                                            <span 
+                                                className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                            >
+                                                {data.four_A_completedYears}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -216,31 +229,31 @@ function ViewDeathCertificate() {
                                             </span>
                                         </div>
                                         <div className="flex flex-row">
-                                            <div className="px-2 flex items-center justify-center border-e-2 border-gray-800">
+                                            <div className="px-2 flex items-center justify-center h-[3.4rem] border-e-2 border-gray-800">
                                                 <span>1</span>
                                             </div>
-                                            <div className="p-1">
-                                                <label htmlFor="four_b_months" className="text-gray-800 text-[12px]">
+                                            <div className="p-1 w-full">
+                                                <span className="text-gray-800 text-[12px] flex items-center justify-center w-full">
                                                     Months
-                                                </label>
-                                                <input 
-                                                    type="text" 
-                                                    id="four_b_months" 
-                                                    className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                                />
+                                                </span>
+                                                <span 
+                                                    className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                                >
+                                                    {data.four_B_months}
+                                                </span>
                                             </div>
                                             <div className="px-2 flex items-center justify-center border-x-2 border-gray-800">
                                                 <span>0</span>
                                             </div>
-                                            <div className="p-1">
-                                                <label htmlFor="four_b_days" className="text-gray-800 text-[12px]">
+                                            <div className="p-1 w-full">
+                                                <span className="text-gray-800 text-[12px] flex items-center justify-center w-full">
                                                     Days
-                                                </label>
-                                                <input 
-                                                    type="text" 
-                                                    id="four_b_days" 
-                                                    className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                                />
+                                                </span>
+                                                <span 
+                                                    className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                                >
+                                                    {data.four_B_days}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -252,15 +265,15 @@ function ViewDeathCertificate() {
                                         </span>
                                     </div>
                                     <div className="flex flex-row">
-                                        <div className="p-1 text-center">
-                                            <label htmlFor="completedYears" className="text-gray-800 text-[12px]">
+                                        <div className="p-1 w-full">
+                                            <span className="text-gray-800 text-[12px] flex items-center justify-center w-full">
                                                 Hrs/Min/Sec
-                                            </label>
-                                            <input 
-                                                type="text" 
-                                                id="completedYears" 
-                                                className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                            />
+                                            </span>
+                                            <span 
+                                                className="flex-1 h-6 text-sm flex items-end text-gray-800" 
+                                            >
+                                                {data.four_C_time}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -273,35 +286,35 @@ function ViewDeathCertificate() {
                                     5. place of death
                                 </span>
                             </div>
-                            <div className="flex flex-col items-center w-72">
-                                <label htmlFor="five_nameOf" className="text-gray-800 text-sm">
+                            <div className="flex flex-col items-start justify-start w-72">
+                                <span className="text-gray-800 text-sm">
                                     (Name of Hospital/Clinic/Institution/House no., Street, Barangay)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="five_nameOf" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                </span>
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.five_nameOf}
+                                </span>
                             </div>
-                            <div className="flex flex-col items-center flex-1">
-                                <label htmlFor="five_cityOrMunicipality" className="text-gray-800 text-sm">
+                            <div className="flex flex-col items-start flex-1">
+                                <span className="text-gray-800 text-sm">
                                     (City/Municipality)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="five_cityOrMunicipality" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                </span>
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.five_cityOrMunicipality}
+                                </span>
                             </div>
-                            <div className="flex flex-col items-center flex-1">
-                                <label htmlFor="five_province" className="text-gray-800 text-sm">
+                            <div className="flex flex-col items-start flex-1">
+                                <span className="text-gray-800 text-sm">
                                     (Province)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="five_province" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                </span>
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.five_province}
+                                </span>
                             </div>
                         </div>
                         {/* Number 6 */}
@@ -313,46 +326,46 @@ function ViewDeathCertificate() {
                                     </span>
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
-                                    <label htmlFor="six_day" className="text-gray-800 text-sm">
+                                    <span className="text-gray-800 text-sm">
                                         (day)
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="six_day" 
-                                        className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                    />
+                                    </span>
+                                    <span 
+                                        className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.six_day}
+                                    </span>
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
-                                    <label htmlFor="six_month" className="text-gray-800 text-sm">
+                                    <span className="text-gray-800 text-sm">
                                         (month)
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="six_month" 
-                                        className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                    />
+                                    </span>
+                                    <span 
+                                        className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.six_month}
+                                    </span>
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
-                                    <label htmlFor="six_year" className="text-gray-800 text-sm">
+                                    <span className="text-gray-800 text-sm">
                                         (year)
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="six_year" 
-                                        className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                    />
+                                    </span>
+                                    <span 
+                                        className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.six_year}
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-span-1">
                                 <div className="flex flex-col items-start p-1">
-                                    <label htmlFor="religion" className="text-gray-800 font-semibold uppercase">
+                                    <span className="text-gray-800 font-semibold uppercase">
                                         7. Citizenship
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="religion" 
-                                        className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                    />
+                                    </span>
+                                    <span 
+                                        className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.seven_citizenship}
+                                    </span>
                                 </div>
                             </div>
                         </div>

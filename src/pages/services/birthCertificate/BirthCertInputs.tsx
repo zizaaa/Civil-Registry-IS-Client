@@ -308,195 +308,40 @@ function BirthCertInputs() {
         }
         setTwentyTwoSignatureSrc("");
     }
-    const handleSubmit = ()=>{
-        //* number 19 B signature ref
-        // console.log(nineteenB_SignatureRef.current?.files?.[0])
-        //* number 19 B signature src
-        // console.log(nineteenBSignatureSrc)
+    
+    const isFormEmpty = (formDataObj:BirthCertDataType) => {
+        // Check if every key in the form data is either an empty string or undefined/null
+        return Object.values(formDataObj).every((value) => !value || value === '');
+    };
 
-        //* number 20 signature ref
-        // console.log(twenty_SignatureRef.current?.files?.[0])
-        //* number 20 signature src
-        // console.log(twentySignatureSrc)
-
-        //* number 21 signature ref
-        // console.log(twentyOne_SignatureRef.current?.files?.[0])
-        //* number 21 signature src
-        // console.log(twentyOneSignatureSrc)
-
-        //* number 22 signature ref
-        // console.log(twentyTwo_SignatureRef.current?.files?.[0])
-        //* number 22 signature src
-        // console.log(twentyTwoSignatureSrc)
-
+    const handleSubmit = () => {
+        // Initialize FormData object
         const formData = new FormData();
-            formData.append('province', birthCertCredentials.province || '');
-            formData.append('cityOrMunicipality', birthCertCredentials.cityOrMunicipality || '');
-            formData.append('one_first', birthCertCredentials.one_first || '');
-            formData.append('one_middle', birthCertCredentials.one_middle || '');
-            formData.append('one_last', birthCertCredentials.one_last || '');
-            formData.append('two_sex', birthCertCredentials.two_sex || '');
-            formData.append('three_day', birthCertCredentials.three_day || '');
-            formData.append('three_month', birthCertCredentials.three_month || '');
-            formData.append('three_year', birthCertCredentials.three_year || '');
-            formData.append('four_nameOf', birthCertCredentials.four_nameOf || '');
-            formData.append('four_cityOrMunicipality', birthCertCredentials.four_cityOrMunicipality || '');
-            formData.append('four_province', birthCertCredentials.four_province || '');
-            formData.append('fiveA_typeOfBirth', birthCertCredentials.fiveA_typeOfBirth || '');
-            formData.append('fiveB_IfMultiple', birthCertCredentials.fiveB_IfMultiple || '');
-            formData.append('fiveC_birthOrder', birthCertCredentials.fiveC_birthOrder || '');
-            formData.append('fiveD_weight', birthCertCredentials.fiveD_weight || '');
-            formData.append('six_first', birthCertCredentials.six_first || '');
-            formData.append('six_middle', birthCertCredentials.six_middle || '');
-            formData.append('six_last', birthCertCredentials.six_last || '');
-            formData.append('seven_citizenship', birthCertCredentials.seven_citizenship || '');
-            formData.append('eight_religion', birthCertCredentials.eight_religion || '');
-            formData.append('nineA_totalNumber', birthCertCredentials.nineA_totalNumber || '');
-            formData.append('nineB_numberOfChild', birthCertCredentials.nineB_numberOfChild || '');
-            formData.append('nineC_numberOfChildDead', birthCertCredentials.nineC_numberOfChildDead || '');
-            formData.append('ten_occupation', birthCertCredentials.ten_occupation || '');
-            formData.append('eleven_ageAtTheTime', birthCertCredentials.eleven_ageAtTheTime || '');
-            formData.append('twelve_house', birthCertCredentials.twelve_house || '');
-            formData.append('twelve_cityOrMunicipality', birthCertCredentials.twelve_cityOrMunicipality || '');
-            formData.append('twelve_province', birthCertCredentials.twelve_province || '');
-            formData.append('thirteen_first', birthCertCredentials.thirteen_first || '');
-            formData.append('thirteen_middle', birthCertCredentials.thirteen_middle || '');
-            formData.append('thirteen_last', birthCertCredentials.thirteen_last || '');
-            formData.append('fourteen_citizenship', birthCertCredentials.fourteen_citizenship || '');
-            formData.append('fifteen_religion', birthCertCredentials.fifteen_religion || '');
-            formData.append('sixteen_occupation', birthCertCredentials.sixteen_occupation || '');
-            formData.append('seventeen_ageAtTheTime', birthCertCredentials.seventeen_ageAtTheTime || '');
-            formData.append('eighteen_DateAndPlaceOfMarriageOfParents', birthCertCredentials.eighteen_DateAndPlaceOfMarriageOfParents || '');
-            formData.append('nineteenA_attendant', birthCertCredentials.nineteenA_attendant || '');
-            formData.append('nineteenB_Signature', nineteenB_SignatureRef.current?.files?.[0] || '');
-            formData.append('nineteenB_nameInPrint', birthCertCredentials.nineteenB_nameInPrint || '');
-            formData.append('nineteenB_titleAndPosition', birthCertCredentials.nineteenB_titleAndPosition || '');
-            formData.append('nineteenB_address', birthCertCredentials.nineteenB_address || '');
-            formData.append('nineteenB_date', birthCertCredentials.nineteenB_date || '');
-            formData.append('nineteenB_bornAliveAt', birthCertCredentials.nineteenB_bornAliveAt || '');
-            formData.append('twenty_Signature', twenty_SignatureRef.current?.files?.[0] || '');
-            formData.append('twenty_nameInPrint', birthCertCredentials.twenty_nameInPrint || '');
-            formData.append('twenty_relationToChild', birthCertCredentials.twenty_relationToChild || '');
-            formData.append('twenty_address', birthCertCredentials.twenty_address || '');
-            formData.append('twenty_date', birthCertCredentials.twenty_date || '');
-            formData.append('twentyOne_Signature', twentyOne_SignatureRef.current?.files?.[0] || '');
-            formData.append('twentyOne_nameInPrint', birthCertCredentials.twentyOne_nameInPrint || '');
-            formData.append('twentyOne_titleOrPosition', birthCertCredentials.twentyOne_titleOrPosition || '');
-            formData.append('twentyOne_date', birthCertCredentials.twentyOne_date || '');
-            formData.append('twentyTwo_Signature', twentyTwo_SignatureRef.current?.files?.[0] || '');
-            formData.append('twentyTwo_nameInPrint', birthCertCredentials.twentyTwo_nameInPrint || '');
-            formData.append('twentyTwo_titleOrPosition', birthCertCredentials.twentyTwo_titleOrPosition || '');
-            formData.append('twentyTwo_date', birthCertCredentials.twentyTwo_date || '');
-            formData.append('remarksAnnotation', birthCertCredentials.remarksAnnotation || '');
-            formData.append('populationReferenceNumber', birthCertCredentials.populationReferenceNumber || '');
-            formData.append('fourtyOne', birthCertCredentials.fourtyOne || '');
-            formData.append('fourtyEight', birthCertCredentials.fourtyEight || '');
-            formData.append('fourtyNine', birthCertCredentials.fourtyNine || '');
-            formData.append('fifthy', birthCertCredentials.fifthy || '');
-            formData.append('fiftySix', birthCertCredentials.fiftySix || '');
-            formData.append('sixtyOne', birthCertCredentials.sixtyOne || '');
-            formData.append('sixtyTwo', birthCertCredentials.sixtyTwo || '');
-            formData.append('sixtyFour', birthCertCredentials.sixtyFour || '');
-            formData.append('sixtyEight', birthCertCredentials.sixtyEight || '');
-            formData.append('sixtyNine', birthCertCredentials.sixtyNine || '');
-            formData.append('seventy', birthCertCredentials.seventy || '');
-            formData.append('seventyTwo', birthCertCredentials.seventyTwo || '');
-            formData.append('seventyFour', birthCertCredentials.seventyFour || '');
-            formData.append('seventySix', birthCertCredentials.seventySix || '');
-            formData.append('seventyNine', birthCertCredentials.seventyNine || '');
-            formData.append('eightyOne', birthCertCredentials.eightyOne || '');
-            formData.append('eightySix', birthCertCredentials.eightySix || '');
-            formData.append('eightySeven', birthCertCredentials.eightySeven || '');
-            formData.append('eightyEight', birthCertCredentials.eightyEight || '');
-            formData.append('ninetyOne', birthCertCredentials.ninetyOne || '');
-            formData.append('ninetyThree', birthCertCredentials.ninetyThree || '');
-            formData.append('ninetyFour', birthCertCredentials.ninetyFour || '');
-            formData.append('registryNumber', birthCertCredentials.registryNumber || '');
-        
-            if(!birthCertCredentials.province && 
-                !birthCertCredentials.cityOrMunicipality &&
-                !birthCertCredentials.one_first &&
-                !birthCertCredentials.one_middle &&
-                !birthCertCredentials.one_last &&
-                !birthCertCredentials.two_sex &&
-                !birthCertCredentials.three_day &&
-                !birthCertCredentials.three_month &&
-                !birthCertCredentials.three_year &&
-                !birthCertCredentials.four_nameOf &&
-                !birthCertCredentials.four_cityOrMunicipality &&
-                !birthCertCredentials.four_province &&
-                !birthCertCredentials.fiveA_typeOfBirth &&
-                !birthCertCredentials.fiveB_IfMultiple &&
-                !birthCertCredentials.fiveC_birthOrder &&
-                !birthCertCredentials.fiveD_weight &&
-                !birthCertCredentials.six_first &&
-                !birthCertCredentials.six_middle &&
-                !birthCertCredentials.six_last &&
-                !birthCertCredentials.seven_citizenship &&
-                !birthCertCredentials.eight_religion &&
-                !birthCertCredentials.nineA_totalNumber &&
-                !birthCertCredentials.nineB_numberOfChild &&
-                !birthCertCredentials.nineC_numberOfChildDead &&
-                !birthCertCredentials.ten_occupation &&
-                !birthCertCredentials.eleven_ageAtTheTime &&
-                !birthCertCredentials.twelve_house &&
-                !birthCertCredentials.twelve_cityOrMunicipality &&
-                !birthCertCredentials.twelve_province &&
-                !birthCertCredentials.thirteen_first &&
-                !birthCertCredentials.thirteen_middle &&
-                !birthCertCredentials.thirteen_last &&
-                !birthCertCredentials.fourteen_citizenship &&
-                !birthCertCredentials.fifteen_religion &&
-                !birthCertCredentials.sixteen_occupation &&
-                !birthCertCredentials.seventeen_ageAtTheTime &&
-                !birthCertCredentials.eighteen_DateAndPlaceOfMarriageOfParents &&
-                !birthCertCredentials.nineteenA_attendant &&
-                !birthCertCredentials.nineteenB_nameInPrint &&
-                !birthCertCredentials.nineteenB_titleAndPosition &&
-                !birthCertCredentials.nineteenB_address &&
-                !birthCertCredentials.nineteenB_date &&
-                !birthCertCredentials.twenty_nameInPrint &&
-                !birthCertCredentials.twenty_relationToChild &&
-                !birthCertCredentials.twenty_address &&
-                !birthCertCredentials.twenty_date &&
-                !birthCertCredentials.twentyOne_nameInPrint &&
-                !birthCertCredentials.twentyOne_titleOrPosition &&
-                !birthCertCredentials.twentyOne_date &&
-                !birthCertCredentials.twentyTwo_nameInPrint &&
-                !birthCertCredentials.twentyTwo_titleOrPosition &&
-                !birthCertCredentials.twentyTwo_date &&
-                !birthCertCredentials.remarksAnnotation &&
-                !birthCertCredentials.populationReferenceNumber &&
-                !birthCertCredentials.fourtyOne &&
-                !birthCertCredentials.fourtyEight &&
-                !birthCertCredentials.fourtyNine &&
-                !birthCertCredentials.fifthy &&
-                !birthCertCredentials.fiftySix &&
-                !birthCertCredentials.sixtyOne &&
-                !birthCertCredentials.sixtyTwo &&
-                !birthCertCredentials.sixtyFour &&
-                !birthCertCredentials.sixtyEight &&
-                !birthCertCredentials.sixtyNine &&
-                !birthCertCredentials.seventy &&
-                !birthCertCredentials.seventyTwo &&
-                !birthCertCredentials.seventyFour &&
-                !birthCertCredentials.seventySix &&
-                !birthCertCredentials.seventyNine &&
-                !birthCertCredentials.eightyOne &&
-                !birthCertCredentials.eightySix &&
-                !birthCertCredentials.eightySeven &&
-                !birthCertCredentials.eightyEight &&
-                !birthCertCredentials.ninetyOne &&
-                !birthCertCredentials.ninetyThree &&
-                !birthCertCredentials.ninetyFour &&
-                !birthCertCredentials.registryNumber
-            ){
-                console.log('Empty form')
-                return;
-            }
-            // call mutation
-            mutation.mutate(formData);
-    }
+
+        // Append the credentials from the state
+        Object.entries(birthCertCredentials).forEach(([key, value]) => {
+            formData.append(key, value || '');
+        });
+
+        // Handle files using refs
+        formData.append('nineteenB_Signature', nineteenB_SignatureRef.current?.files?.[0] || '');
+        formData.append('twenty_Signature', twenty_SignatureRef.current?.files?.[0] || '');
+        formData.append('twentyOne_Signature', twentyOne_SignatureRef.current?.files?.[0] || '');
+        formData.append('twentyTwo_Signature', twentyTwo_SignatureRef.current?.files?.[0] || '');
+
+        // Check if the entire form is empty
+        if (isFormEmpty(birthCertCredentials) &&
+            !nineteenB_SignatureRef.current?.files?.[0] &&
+            !twenty_SignatureRef.current?.files?.[0] &&
+            !twentyOne_SignatureRef.current?.files?.[0] &&
+            !twentyTwo_SignatureRef.current?.files?.[0]) {
+            console.log('Empty form');
+            return;
+        }
+
+        // Call mutation if form is not empty
+        mutation.mutate(formData);
+    };
 
     return (
         <div>
@@ -1928,95 +1773,15 @@ function BirthCertInputs() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    disabled = {
-                        !birthCertCredentials.province && 
-                        !birthCertCredentials.cityOrMunicipality &&
-                        !birthCertCredentials.one_first &&
-                        !birthCertCredentials.one_middle &&
-                        !birthCertCredentials.one_last &&
-                        !birthCertCredentials.two_sex &&
-                        !birthCertCredentials.three_day &&
-                        !birthCertCredentials.three_month &&
-                        !birthCertCredentials.three_year &&
-                        !birthCertCredentials.four_nameOf &&
-                        !birthCertCredentials.four_cityOrMunicipality &&
-                        !birthCertCredentials.four_province &&
-                        !birthCertCredentials.fiveA_typeOfBirth &&
-                        !birthCertCredentials.fiveB_IfMultiple &&
-                        !birthCertCredentials.fiveC_birthOrder &&
-                        !birthCertCredentials.fiveD_weight &&
-                        !birthCertCredentials.six_first &&
-                        !birthCertCredentials.six_middle &&
-                        !birthCertCredentials.six_last &&
-                        !birthCertCredentials.seven_citizenship &&
-                        !birthCertCredentials.eight_religion &&
-                        !birthCertCredentials.nineA_totalNumber &&
-                        !birthCertCredentials.nineB_numberOfChild &&
-                        !birthCertCredentials.nineC_numberOfChildDead &&
-                        !birthCertCredentials.ten_occupation &&
-                        !birthCertCredentials.eleven_ageAtTheTime &&
-                        !birthCertCredentials.twelve_house &&
-                        !birthCertCredentials.twelve_cityOrMunicipality &&
-                        !birthCertCredentials.twelve_province &&
-                        !birthCertCredentials.thirteen_first &&
-                        !birthCertCredentials.thirteen_middle &&
-                        !birthCertCredentials.thirteen_last &&
-                        !birthCertCredentials.fourteen_citizenship &&
-                        !birthCertCredentials.fifteen_religion &&
-                        !birthCertCredentials.sixteen_occupation &&
-                        !birthCertCredentials.seventeen_ageAtTheTime &&
-                        !birthCertCredentials.eighteen_DateAndPlaceOfMarriageOfParents &&
-                        !birthCertCredentials.nineteenA_attendant &&
-                        !birthCertCredentials.nineteenB_nameInPrint &&
-                        !birthCertCredentials.nineteenB_titleAndPosition &&
-                        !birthCertCredentials.nineteenB_address &&
-                        !birthCertCredentials.nineteenB_date &&
-                        !birthCertCredentials.twenty_nameInPrint &&
-                        !birthCertCredentials.twenty_relationToChild &&
-                        !birthCertCredentials.twenty_address &&
-                        !birthCertCredentials.twenty_date &&
-                        !birthCertCredentials.twentyOne_nameInPrint &&
-                        !birthCertCredentials.twentyOne_titleOrPosition &&
-                        !birthCertCredentials.twentyOne_date &&
-                        !birthCertCredentials.twentyTwo_nameInPrint &&
-                        !birthCertCredentials.twentyTwo_titleOrPosition &&
-                        !birthCertCredentials.twentyTwo_date &&
-                        !birthCertCredentials.remarksAnnotation &&
-                        !birthCertCredentials.populationReferenceNumber &&
-                        !birthCertCredentials.fourtyOne &&
-                        !birthCertCredentials.fourtyEight &&
-                        !birthCertCredentials.fourtyNine &&
-                        !birthCertCredentials.fifthy &&
-                        !birthCertCredentials.fiftySix &&
-                        !birthCertCredentials.sixtyOne &&
-                        !birthCertCredentials.sixtyTwo &&
-                        !birthCertCredentials.sixtyFour &&
-                        !birthCertCredentials.sixtyEight &&
-                        !birthCertCredentials.sixtyNine &&
-                        !birthCertCredentials.seventy &&
-                        !birthCertCredentials.seventyTwo &&
-                        !birthCertCredentials.seventyFour &&
-                        !birthCertCredentials.seventySix &&
-                        !birthCertCredentials.seventyNine &&
-                        !birthCertCredentials.eightyOne &&
-                        !birthCertCredentials.eightySix &&
-                        !birthCertCredentials.eightySeven &&
-                        !birthCertCredentials.eightyEight &&
-                        !birthCertCredentials.ninetyOne &&
-                        !birthCertCredentials.ninetyThree &&
-                        !birthCertCredentials.ninetyFour &&
-                        !birthCertCredentials.registryNumber
-                    }
+                    disabled={isFormEmpty(birthCertCredentials)}
                 >
-                    {
-                        mutation.isPending ? (
-                            <div className="w-full h-full flex items-center justify-center">
-                                <LoaderDefault/>
-                            </div>
-                        ):(
-                            'Submit'
-                        )
-                    }
+                    {mutation.isPending ? (
+                        <div className="w-full h-full flex items-center justify-center">
+                            <LoaderDefault/>
+                        </div>
+                    ) : (
+                        'Submit'
+                    )}
                 </button>
             </div>
         </div>
