@@ -2,6 +2,7 @@ import { Tooltip } from "flowbite-react"
 import { AiFillPrinter } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
+import { useReactToPrint } from 'react-to-print';
 import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +10,12 @@ import { useQuery } from "@tanstack/react-query";
 function ViewDeathCertificate() {
     const { id } = useParams();
 
-    // const contentRef = useRef<HTMLDivElement>(null);  // Reference to the certificate content
+    const contentRef = useRef<HTMLDivElement>(null);  // Reference to the certificate content
+
+    // Setup react-to-print for printing the specific certificate content
+    const reactToPrintFn = useReactToPrint({
+        contentRef, // Correctly pass the contentRef here
+    });
 
     const { data,isLoading } = useQuery({
         queryKey:['deathCert-single-data'],
@@ -32,13 +38,13 @@ function ViewDeathCertificate() {
         <div>
             <div className="w-full flex items-end justify-end px-4">
                 <Tooltip content="Print">
-                    <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                    <button onClick={()=>{reactToPrintFn()}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                         <AiFillPrinter />
                         <span className="sr-only">Print</span>
                     </button>
                 </Tooltip>
             </div>
-            <div className='w-[65rem] m-3 h-full border-b-0 border-s-0 border-2 border-gray-700 bg-gray-100'>
+            <div ref={contentRef} className='w-[65rem] m-3 h-full border-b-0 border-s-0 border-2 border-gray-700 bg-gray-100'>
                 <div className="grid grid-cols-4 border-s-2 border-b-2 border-gray-700 w-full overflow-auto">
                     <div className="col-span-3 border-e-2 border-gray-700 w-full overflow-auto">
                         <div className="flex items-center py-2 px-5 justify-between">
@@ -377,34 +383,34 @@ function ViewDeathCertificate() {
                                 </span>
                             </div>
                             <div className="flex flex-col items-center w-72">
-                                <label htmlFor="eight_HouseNo" className="text-gray-800 text-sm">
+                                <span className="text-gray-800 text-sm">
                                     (House no., Street, Barangay)
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="eight_HouseNo" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                </span>
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.eight_houseNo}
+                                </span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
                                 <label htmlFor="eight_cityOrMunicipality" className="text-gray-800 text-sm">
                                     (City/Municipality)
                                 </label>
-                                <input 
-                                    type="text" 
-                                    id="eight_cityOrMunicipality" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.eight_cityOrMunicipality}
+                                </span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
                                 <label htmlFor="eigth_province" className="text-gray-800 text-sm">
                                     (Province)
                                 </label>
-                                <input 
-                                    type="text" 
-                                    id="eigth_province" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
-                                />
+                                <span 
+                                    className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.eight_province}
+                                </span>
                             </div>
                         </div>
                         {/* Number 9 */}
@@ -413,56 +419,36 @@ function ViewDeathCertificate() {
                                 <span className="text-gray-800 font-semibold uppercase">
                                     9. Civil status
                                 </span>
-                                <div className="flex flex-row gap-5">
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="nine_single" className="text-gray-800 text-sm cursor-pointer">1 Single</label>
-                                        <input 
-                                            type="radio" 
-                                            id="nine_single" 
-                                            name="civil_status" 
-                                            value="single" 
-                                            className="cursor-pointer" 
-                                        />
+                                <div className="flex flex-row items-end gap-5 flex-wrap">
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">1. Single</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nine_civilStatus === 'single' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="nine_married" className="text-gray-800 text-sm cursor-pointer">2 Married</label>
-                                        <input 
-                                            type="radio" 
-                                            id="nine_married" 
-                                            name="civil_status" 
-                                            value="married" 
-                                            className="cursor-pointer" 
-                                        />
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">2. Married</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nine_civilStatus === 'married' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="nine_widowed" className="text-gray-800 text-sm cursor-pointer">3 Widowed</label>
-                                        <input 
-                                            type="radio" 
-                                            id="nine_widowed" 
-                                            name="civil_status" 
-                                            value="widowed" 
-                                            className="cursor-pointer" 
-                                        />
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">3. Widowed</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nine_civilStatus === 'widowed' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="nine_others" className="text-gray-800 text-sm cursor-pointer">4 Others</label>
-                                        <input 
-                                            type="radio" 
-                                            id="nine_others" 
-                                            name="civil_status" 
-                                            value="others" 
-                                            className="cursor-pointer" 
-                                        />
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">4. Others</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nine_civilStatus === 'others' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="nine_unknown" className="text-gray-800 text-sm cursor-pointer">5 Unknown</label>
-                                        <input 
-                                            type="radio" 
-                                            id="nine_unknown" 
-                                            name="civil_status" 
-                                            value="unknown" 
-                                            className="cursor-pointer" 
-                                        />
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">5. Unknown</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nine_civilStatus === 'unknown' ? "/":""}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -471,11 +457,11 @@ function ViewDeathCertificate() {
                                     <label htmlFor="ten_occupation" className="text-gray-800 font-semibold uppercase">
                                         10. Occupation
                                     </label>
-                                    <input 
-                                        type="text" 
-                                        id="ten_occupation" 
-                                        className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
-                                    />
+                                    <span 
+                                        className="flex-1 h-5 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.ten_occupation}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -496,31 +482,31 @@ function ViewDeathCertificate() {
                                             <label htmlFor="immediateCause" className="text-gray-800 text-sm">
                                                 I. Immediate cause: a.
                                             </label>
-                                            <input 
-                                                type="text"
-                                                id="immediateCause" 
-                                                className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                            />
+                                            <span
+                                                className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                            >
+                                                {data.seventeen_I_A}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
                                             <label htmlFor="antecedentCause" className="text-gray-800 text-sm">
                                                 Antecedent cause: b.
                                             </label>
-                                            <input 
-                                                type="text"
-                                                id="antecedentCause" 
-                                                className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                            />
+                                            <span
+                                                className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                            >
+                                                {data.seventeen_I_B}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
                                             <label htmlFor="underlyingCause" className="text-gray-800 text-sm">
                                                 Underlying cause: c.
                                             </label>
-                                            <input 
-                                                type="text"
-                                                id="underlyingCause" 
-                                                className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                            />
+                                            <span
+                                                className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                            >
+                                                {data.seventeen_I_C}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -529,11 +515,11 @@ function ViewDeathCertificate() {
                                         <label htmlFor="immediateCause" className="text-gray-800 text-sm w-full">
                                             Interval Between Onset and Death
                                         </label>
-                                        <input 
-                                            type="text"
-                                            id="immediateCause" 
-                                            className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
-                                        />
+                                        <span
+                                            className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800 w-full" 
+                                        >
+                                            {data.seventeen_Interval}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -542,21 +528,21 @@ function ViewDeathCertificate() {
                                     <label htmlFor="otherSignificantCondition" className="text-gray-800 text-sm">
                                         II. Other significant conditions
                                     </label>
-                                    <input 
-                                        type="text"
-                                        id="otherSignificantCondition" 
-                                        className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                    />
+                                    <span
+                                        className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.seventeen_ContributingToDeath}
+                                    </span>
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
                                     <label htmlFor="contributingToDeath" className="text-gray-800 text-sm">
                                         Contributing to death:
                                     </label>
-                                    <input 
-                                        type="text"
-                                        id="contributingToDeath" 
-                                        className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                    />
+                                    <span
+                                        className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                    >
+                                        {data.seventeen_ContributingToDeath}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -566,57 +552,45 @@ function ViewDeathCertificate() {
                             <div className="ps-5">
                                 <span>a. Manner of Death</span>
                                 <div className="flex flex-row gap-2">
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="homicide" className="text-gray-800 text-sm cursor-pointer">1 Homicide</label>
-                                        <input 
-                                            type="radio" 
-                                            id="homicide" 
-                                            name="mannerOfDeath" 
-                                            value="homicide" 
-                                            className="cursor-pointer" 
-                                        />
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">1 Homicide</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.eighteen_A_mannerOfDeath === 'homicide' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="suicide" className="text-gray-800 text-sm cursor-pointer">2 Suicide</label>
-                                        <input 
-                                            type="radio" 
-                                            id="suicide" 
-                                            name="mannerOfDeath" 
-                                            value="suicide" 
-                                            className="cursor-pointer" 
-                                        />
+                                    
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">2 Suicide</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.eighteen_A_mannerOfDeath === 'suicide' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="accident" className="text-gray-800 text-sm cursor-pointer">3 Accident</label>
-                                        <input 
-                                            type="radio" 
-                                            id="accident" 
-                                            name="mannerOfDeath" 
-                                            value="accident" 
-                                            className="cursor-pointer" 
-                                        />
+
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">3 Accident</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.eighteen_A_mannerOfDeath === 'accident' ? "/":""}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row-reverse items-center gap-2">
-                                        <label htmlFor="eighteenOthers" className="text-gray-800 text-sm cursor-pointer">4 Others</label>
-                                        <input 
-                                            type="radio" 
-                                            id="eighteenOthers" 
-                                            name="mannerOfDeath" 
-                                            value="others" 
-                                            className="cursor-pointer" 
-                                        />
+
+                                    <div className="flex flex-row-reverse items-end gap-2">
+                                        <span className="text-gray-800 text-sm cursor-pointer">4 Others</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.eighteen_A_mannerOfDeath === 'others' ? "/":""}
+                                        </span>
                                     </div>
+
                                 </div>
                             </div>
-                            <div className="ps-5 pb-1">
-                                <label htmlFor="placeOfOccurance" className="text-gray-800 text-sm cursor-pointer">
+                            <div className="ps-5 pb-1 flex flex-row items-end gap-2">
+                                <span className="text-gray-800 text-sm cursor-pointer">
                                     b. Place of Occurance (e.g. home, farm, factory, street, seam, etc.)
-                                </label>
-                                <input 
-                                    type="text"
-                                    id="placeOfOccurance" 
-                                    className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                />
+                                </span>
+                                <span
+                                    className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 h-6 text-sm flex items-end text-gray-800" 
+                                >
+                                    {data.eighteen_B_PlaceOfOccurance}
+                                </span>
                             </div>
                         </div>
                         {/* number 19 */}
@@ -628,57 +602,37 @@ function ViewDeathCertificate() {
                                     </span>
                                     <div className="flex gap-5 items-start ps-5">
                                         <div className="flex flex-col gap-2">
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="privatePhysician" className="text-gray-800 text-sm cursor-pointer">1 Private Physician</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="privatePhysician" 
-                                                    name="attendant" 
-                                                    value="Private Physician" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">1 Private Physician</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.nineTeen_Attendant === 'Private Physician' ? "/":""}
+                                                </span>
                                             </div>
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="publicHealthOfficer" className="text-gray-800 text-sm cursor-pointer">2 Public Health Officer</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="publicHealthOfficer" 
-                                                    name="attendant" 
-                                                    value="Public Health Officer" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">2 Public Health Officer</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.nineTeen_Attendant === 'Public Health Officer' ? "/":""}
+                                                </span>
                                             </div>
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="hospitalAuthority" className="text-gray-800 text-sm cursor-pointer">3 Hospital Authority</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="hospitalAuthority" 
-                                                    name="attendant" 
-                                                    value="Hospital Authority" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">3 Hospital Authority</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.nineTeen_Attendant === 'Hospital Authority' ? "/":""}
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-2">
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="none" className="text-gray-800 text-sm cursor-pointer">4 None</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="none" 
-                                                    name="attendant" 
-                                                    value="None" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">4 None</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.nineTeen_Attendant === 'None' ? "/":""}
+                                                </span>
                                             </div>
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="none" className="text-gray-800 text-sm cursor-pointer">5 Others</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="none" 
-                                                    name="attendant" 
-                                                    value="others" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">5 Others</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.nineTeen_Attendant === 'others' ? "/":""}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -687,17 +641,13 @@ function ViewDeathCertificate() {
                                     <span>If attended, state duration:</span>
                                     <div className="flex flex-row  items-end">
                                         <label htmlFor="from">From</label>
-                                        <input 
-                                            type="text"
-                                            id="from" 
-                                            className="border-x-0 border-t-0 border-gray-700 h-7 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                        />
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nineTeen_From}
+                                        </span>
                                         <span className="pe-5">,</span>
-                                        <input 
-                                            type="text"
-                                            id="to" 
-                                            className="border-x-0 border-t-0 border-gray-700 h-7 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                        />
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                            {data.nineTeen_To}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -712,11 +662,13 @@ function ViewDeathCertificate() {
                                 <span className="ps-10">
                                     have not attended the deceased
                                 </span>
-                                <div className="ps-10">
+                                <div className="ps-10 flex flex-row">
                                     <span>
                                         have attended the deceased and that occured at
                                     </span>
-                                    <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-28"/>
+                                    <span className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-28" >
+                                            {data.twenty_time}
+                                    </span>
                                     <span>
                                         am/pm on the date indicated above.
                                     </span>
@@ -727,84 +679,54 @@ function ViewDeathCertificate() {
                                     <div className="pe-4 pt-6">
                                         <div className="flex flex-row items-end gap-2 relative">
                                             <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                            <div className="relative w-full">
-                                                <input 
-                                                    type="file" 
-                                                    id="twentyOne_signature"
-                                                    accept=".png"
-                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                />
-                                                <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                    Choose File
-                                                </div>
-                                            </div>
+                                            <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                                <img src={`${serverURL}/${data.twentySignature}`} className="h-7 ps-2"/>
+                                            </figure>
+                                        </div>
+                                        <div className="flex flex-row items-end gap-1">
+                                            <span className="text-sm text-gray-800">Name in Print</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                                {data.twenty_nameInPrint}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row items-end">
-                                            <label htmlFor="TwentyOnenameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
-                                            <input 
-                                                type="text" 
-                                                id="TwentyOnenameInPrint" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                            />
+                                            <span className="text-sm text-gray-800">Title of Position</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start ps-2 text-gray-800 h-7 w-10" >
+                                                {data.twenty_TitleOrPosition}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row items-end">
-                                            <label htmlFor="twentyOnetitleOrPosition" className="text-sm text-gray-800 w-40">Title of Position</label>
-                                            <input 
-                                                type="text" 
-                                                id="twentyOnetitleOrPosition" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                            />
+                                            <span className="text-sm text-gray-800">Address</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start ps-2 text-gray-800 h-7 w-10" >
+                                                {data.twenty_Address}
+                                            </span>
                                         </div>
-                                        <div className="flex flex-row items-end gap-2">
-                                            <label htmlFor="twentyOneAddress" className="text-sm text-gray-800">Address</label>
-                                            <input 
-                                                type="text" 
-                                                id="twentyOneAddress" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                            />
-                                        </div>
-                                        <div className="flex flex-row items-end gap-2">
-                                            <label htmlFor="twentyOnedate" className="text-sm text-gray-800">Date</label>
-                                            <input 
-                                                type="text" 
-                                                id="twentyOnedate" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                            />
+                                        <div className="flex flex-row items-end">
+                                            <span className="text-sm text-gray-800">Date</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start ps-2 text-gray-800 h-7 w-10" >
+                                                {data.twenty_Date}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-span-1 p-1">
                                     <div className="mt-5 border-2 border-gray-800 px-5 py-1">
                                         <span className="uppercase font-bold">Reviewed By:</span>
-                                        <div>
-                                            <div className="flex flex-row items-center justify-center gap-2 relative">
-                                                <div className="relative w-28">
-                                                    <input 
-                                                        type="file" 
-                                                        id="twentyOne_signature"
-                                                        accept=".png"
-                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                    />
-                                                    <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                        Upload signature
-                                                    </div>
+                                        <div className="flex flex-col items-center">
+                                            <figure className="flex-1 text-sm flex items-end justify-start text-gray-800 w-20" >
+                                                <img src={`${serverURL}/${data.twentyReviewedSignature}`} className="h-10 ps-2"/>
+                                            </figure>
+                                            <div className="flex flex-col-reverse items-center justify-center">
+                                                <label htmlFor="twentyOnedate" className="text-sm text-gray-800 font-semibold">Signature over printed name of Health Officer</label>
+                                                <div className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center ps-2 text-gray-800 h-7 w-full" >
+                                                    <span>{data.twenty_ReviewedBy_PrintedName}</span>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col-reverse items-center justify-center">
-                                                <label htmlFor="twentyOnedate" className="text-sm text-gray-800 font-semibold">Signature over printed name of Health Officer</label>
-                                                <input 
-                                                    type="text" 
-                                                    id="twentyOnedate" 
-                                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                                />
-                                            </div>
-                                            <div className="flex flex-col-reverse items-center justify-center">
                                                 <label htmlFor="twentyOnedate" className="text-sm text-gray-800 font-semibold">Date</label>
-                                                <input 
-                                                    type="text" 
-                                                    id="twentyOnedate" 
-                                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-38"
-                                                />
+                                                <div className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center ps-2 text-gray-800 h-7 w-48">
+                                                    <span>{data.twenty_ReviewedBy_Date}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -818,42 +740,30 @@ function ViewDeathCertificate() {
                                     <span className="uppercase font-semibold text-gray-800">21. Corpse disposal</span>
                                     <div className="flex flex-row">
                                         <div>
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="burial" className="text-gray-800 text-sm cursor-pointer">Burial</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="burial" 
-                                                    name="corpseDisposal" 
-                                                    value="Burial" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">Burial</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.twentyOne_CorpseDisposal === 'Burial' ? "/":""}
+                                                </span>
                                             </div>
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="cremation" className="text-gray-800 text-sm cursor-pointer">Cremation</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="cremation" 
-                                                    name="corpseDisposal" 
-                                                    value="Cremation" 
-                                                    className="cursor-pointer" 
-                                                />
+
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">Cremation</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.twentyOne_CorpseDisposal === 'Cremation' ? "/":""}
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="ps-5">
-                                            <div className="flex flex-row-reverse items-center justify-end gap-2">
-                                                <label htmlFor="others" className="text-gray-800 text-sm cursor-pointer">Others (specify)</label>
-                                                <input 
-                                                    type="radio" 
-                                                    id="others" 
-                                                    name="corpseDisposal" 
-                                                    value="Others (specify)" 
-                                                    className="cursor-pointer" 
-                                                />
+                                            <div className="flex flex-row-reverse items-end justify-end gap-2">
+                                                <span className="text-gray-800 text-sm cursor-pointer">Cremation</span>
+                                                <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                    {data.twentyOne_CorpseDisposal !== 'Cremation' && data.twentyOne_CorpseDisposal !== 'Burial' ? "/":""}
+                                                </span>
                                             </div>
-                                            <input 
-                                                type="text"
-                                                className="border-x-0 border-t-0 border-gray-700 h-3 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
-                                            />
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 h-7 " >
+                                                {data.twentyOne_CorpseDisposal !== 'Cremation' && data.twentyOne_CorpseDisposal !== 'Burial' ? (data.twentyOne_CorpseDisposal):""}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -861,20 +771,16 @@ function ViewDeathCertificate() {
                                     <span className="uppercase font-semibold text-gray-800">22. Burial/Cremation Permit</span>
                                     <div className="ps-5">
                                         <div className="flex flex-row items-end justify-start gap-2">
-                                            <label htmlFor="twentyTwoNumber" className="text-sm text-gray-800 font-semibold">Number</label>
-                                            <input 
-                                                type="text" 
-                                                id="twentyTwoNumber" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent flex-1"
-                                            />
+                                            <span className="text-sm text-gray-800 font-semibold">Number</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start ps-2 text-gray-800 h-7 w-10" >
+                                                {data.twentyTwo_Burial_Number}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row items-end justify-start gap-2">
-                                            <label htmlFor="twentyTwoDateIssued" className="text-sm text-gray-800 font-semibold w-32">Date Issued</label>
-                                            <input 
-                                                type="text" 
-                                                id="twentyTwoDateIssued" 
-                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                            />
+                                            <span className="text-sm text-gray-800 font-semibold">Date Issued</span>
+                                            <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start ps-2 text-gray-800 h-7 w-10" >
+                                                {data.twentyTwo_Burial_DateIssued}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -883,23 +789,15 @@ function ViewDeathCertificate() {
                                     <div className="ps-5">
                                         <div className="flex flex-row-reverse items-center justify-end gap-2">
                                             <label htmlFor="isAutopsyYes" className="text-gray-800 text-sm cursor-pointer">1 Yes</label>
-                                            <input 
-                                                type="radio" 
-                                                id="isAutopsyYes" 
-                                                name="autopsy" 
-                                                value="Yes" 
-                                                className="cursor-pointer" 
-                                            />
+                                            <span className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                {data.twentyThree_Autopsy === 'Yes' ? "/":""}
+                                            </span>
                                         </div>
                                         <div className="flex flex-row-reverse items-center justify-end gap-2">
                                             <label htmlFor="isAutopsyNo" className="text-gray-800 text-sm cursor-pointer">2 No</label>
-                                            <input 
-                                                type="radio" 
-                                                id="isAutopsyNo" 
-                                                name="autopsy" 
-                                                value="No" 
-                                                className="cursor-pointer" 
-                                            />
+                                            <span className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
+                                                {data.twentyThree_Autopsy === 'No' ? "/":""}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -911,10 +809,9 @@ function ViewDeathCertificate() {
                                 24. Name and Address of Cemetery or Crematory
                             </span>
                             <div>
-                                <input 
-                                    type="text" 
-                                    className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                />
+                                <span className="text-sm flex items-end justify-center text-gray-800 h-7 w-full" >
+                                    {data.twentyFour_NameAndAddress}
+                                </span>
                             </div>
                         </div>
                         {/* number 25 */}
@@ -925,52 +822,36 @@ function ViewDeathCertificate() {
                             <div className="grid grid-cols-2 mt-2 gap-10">
                                 <div>
                                     <div className="flex flex-row items-end gap-2 relative">
-                                        <label htmlFor="twentyFive_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                        <div className="relative w-full">
-                                            <input 
-                                                type="file" 
-                                                id="twentyFive_signature"
-                                                accept=".png"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
-                                        </div>
+                                        <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
+                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            <img src={`${serverURL}/${data.twentyFiveSignature}`} className="h-7 ps-2"/>
+                                        </figure>
                                     </div>
-                                    <div className="flex flex-row items-end">
-                                        <label htmlFor="twentyFiveNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
-                                        <input 
-                                            type="text" 
-                                            id="twentyFiveNameInPrint" 
-                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                        />
+                                    <div className="flex flex-row items-end gap-1">
+                                        <span className="text-sm text-gray-800">Name in Print</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                            {data.twentyFive_NameInPrint}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row items-end">
-                                        <label htmlFor="twentyFiveTitleOrPosition" className="text-sm text-gray-800 w-96">Relationship to the deceased</label>
-                                        <input 
-                                            type="text" 
-                                            id="twentyFiveTitleOrPosition" 
-                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                        />
+                                    <div className="flex flex-row items-end gap-1">
+                                        <span className="text-sm text-gray-800">Relationship to the deceased</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                            {data.twentyFive_Relationship}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="pe-2">
-                                    <div className="flex flex-row items-end gap-2">
-                                        <label htmlFor="TwentyFiveAddress" className="text-sm text-gray-800">Address</label>
-                                        <input 
-                                            type="text" 
-                                            id="TwentyFiveAddress" 
-                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                        />
+                                    <div className="flex flex-row items-end gap-1">
+                                        <span className="text-sm text-gray-800">Address</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                            {data.twentyFive_Address}
+                                        </span>
                                     </div>
-                                    <div className="flex flex-row items-end gap-2">
-                                        <label htmlFor="twentyFiveDate" className="text-sm text-gray-800">Date</label>
-                                        <input 
-                                            type="text" 
-                                            id="twentyFiveDate" 
-                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                        />
+                                    <div className="flex flex-row items-end gap-1">
+                                        <span className="text-sm text-gray-800">Date</span>
+                                        <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                            {data.twentyFive_Date}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -982,42 +863,28 @@ function ViewDeathCertificate() {
                                     26. Prepared by
                                 </span>
                                 <div className="flex flex-row items-end gap-2 relative">
-                                    <label htmlFor="twentySix_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                    <div className="relative w-full">
-                                        <input 
-                                            type="file" 
-                                            id="twentySix_signature"
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        />
-                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Choose File
-                                        </div>
-                                    </div>
+                                    <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
+                                    <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                        <img src={`${serverURL}/${data.twentySixSignature}`} className="h-7 ps-2"/>
+                                    </figure>
                                 </div>
-                                <div className="flex flex-row items-end">
-                                    <label htmlFor="twentySixNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySixNameInPrint" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Name in Print</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySix_NameInPrint}
+                                    </span>
                                 </div>
-                                <div className="flex flex-row items-end">
-                                    <label htmlFor="twentySixTitleOrPosition" className="text-sm text-gray-800 w-36">Title or Position</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySixTitleOrPosition" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Title or Position</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySix_TitleOrPosition}
+                                    </span>
                                 </div>
-                                <div className="flex flex-row items-end gap-2">
-                                    <label htmlFor="twentySixDate" className="text-sm text-gray-800">Date</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySixDate" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Date</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySix_Date}
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-span-1">
@@ -1025,42 +892,28 @@ function ViewDeathCertificate() {
                                     27. Recieved at the office of the civil registrar
                                 </span>
                                 <div className="flex flex-row items-end gap-2 relative">
-                                    <label htmlFor="twentySeve_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                    <div className="relative w-full">
-                                        <input 
-                                            type="file" 
-                                            id="twentySeve_signature"
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        />
-                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Choose File
-                                        </div>
-                                    </div>
+                                    <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
+                                    <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                        <img src={`${serverURL}/${data.twentySevenSignature}`} className="h-7 ps-2"/>
+                                    </figure>
                                 </div>
-                                <div className="flex flex-row items-end">
-                                    <label htmlFor="twentySeveNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySeveNameInPrint" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Name in Print</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySeven_NameInPrint}
+                                    </span>
                                 </div>
-                                <div className="flex flex-row items-end">
-                                    <label htmlFor="twentySevenTitleOrPosition" className="text-sm text-gray-800 w-36">Title or Position</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySevenTitleOrPosition" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Title or Position</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySeven_TitleOrPosition}
+                                    </span>
                                 </div>
-                                <div className="flex flex-row items-end gap-2">
-                                    <label htmlFor="twentySevenDate" className="text-sm text-gray-800">Date</label>
-                                    <input 
-                                        type="text" 
-                                        id="twentySevenDate" 
-                                        className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
-                                    />
+                                <div className="flex flex-row items-end gap-1">
+                                    <span className="text-sm text-gray-800">Date</span>
+                                    <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end h-7 justify-start ps-2 text-gray-800 w-10" >
+                                        {data.twentySeven_Date}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -1072,10 +925,9 @@ function ViewDeathCertificate() {
                                 <span className="font-semibold text-gray-800">FOR OCRG USE ONLY:</span>
                                 <span className="font-semibold text-gray-800 text-sm">Population reference No.</span>
                             </div>
-                            <input 
-                                type="text" 
-                                className="border-2 border-gray-500 h-9 focus:border-gray-500 focus:outline-none focus:ring-transparent"
-                            />
+                            <span className="border-2 border-gray-500 bg-gray-100 px-2 w-56 h-7">
+                                {data.populationReference}
+                            </span>
                         </div>
                         <div className="px-5 text-sm py-2">
                             <span className="text-gray-800">
@@ -1086,163 +938,291 @@ function ViewDeathCertificate() {
                         </div>
                         <div className="px-5 mt-2">
                             <span className="text-gray-800 text-sm">41</span>
-                            <input 
-                                type="text" 
-                                className="h-7 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={7}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.fourtyOne ? (
+                                        data.fourtyOne.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="px-5 mt-10 flex flex-col">
                             <span className="text-gray-800 text-sm">48</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={1}
-                            />
+                            <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                {data.fourtyEight || ''}
+                            </span>
                         </div>
                         <div className="px-5 mt-10 flex gap-2">
                             <div className="flex flex-col">
                                 <span className="text-gray-800 text-sm">49</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={1}
-                                />
+                                <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                    {data.fourtyNine || ''}
+                                </span>
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-gray-800 text-sm">50</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={1}
-                                />
+                                <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                    {data.fifthy || ''}
+                                </span>
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-gray-800 text-sm">51</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-28 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={3}
-                                />
+                                <div className="mt-3">
+                                    {
+                                        data.fifthyOne ? (
+                                            data.fifthyOne.split('').map((letter:string, index:number) => (
+                                                <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                    {letter}
+                                                </span>
+                                            ))
+                                        ):(
+                                            <div>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">54</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-28 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={5}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.fifthyFour ? (
+                                        data.fifthyFour.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="px-5 mt-10 flex flex-row gap-2">
                             <div className="flex flex-col">
                                 <span className="text-gray-800 text-sm">59</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-24 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={6}
-                                />
+                                <div className="mt-3">
+                                    {
+                                        data.fifthyNine ? (
+                                            data.fifthyNine.split('').map((letter:string, index:number) => (
+                                                <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                    {letter}
+                                                </span>
+                                            ))
+                                        ):(
+                                            <div>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-gray-800 text-sm">65</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={1}
-                                />
+                                <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                    {data.sixtyFive || ''}
+                                </span>
                             </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">66</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-24 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={5}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.sixtySix ? (
+                                        data.sixtySix.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="flex flex-row mt-10">
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-gray-800 text-sm">71</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={1}
-                                />
+                                <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                    {data.seventyOne || ''}
+                                </span>
                             </div>
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-gray-800 text-sm">72</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-20 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={3}
-                                />
+                                <div className="mt-3">
+                                {
+                                    data.seventyTwo ? (
+                                        data.seventyTwo.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                             </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">75</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-24 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={4}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.seventyFive ? (
+                                        data.seventyFive.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">79</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={1}
-                            />
+                            <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                {data.seventyNine || ''}
+                            </span>
                         </div>
                         <div className="flex flex-row mt-10">
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-gray-800 text-sm">80</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-12 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={2}
-                                />
+                                <div className="mt-3">
+                                    {
+                                        data.eighty ? (
+                                            data.eighty.split('').map((letter:string, index:number) => (
+                                                <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                    {letter}
+                                                </span>
+                                            ))
+                                        ):(
+                                            <div>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </div>
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-gray-800 text-sm">82</span>
-                                <input 
-                                    type="text" 
-                                    className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                    maxLength={1}
-                                />
+                                <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                    {data.eightyTwo || ''}
+                                </span>
                             </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">83</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-12 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={2}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.eightyThree ? (
+                                        data.eightyThree.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">85</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={1}
-                            />
+                            <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
+                                {data.eightyFive || ''}
+                            </span>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">86</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-20 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={4}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.eightySix ? (
+                                        data.eightySix.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div className="flex flex-col px-5 mt-10">
                             <span className="text-gray-800 text-sm">90</span>
-                            <input 
-                                type="text" 
-                                className="h-7 w-20 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
-                                maxLength={4}
-                            />
+                            <div className="mt-3">
+                                {
+                                    data.ninety ? (
+                                        data.ninety.split('').map((letter:string, index:number) => (
+                                            <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                {letter}
+                                            </span>
+                                        ))
+                                    ):(
+                                        <div>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -69,8 +69,8 @@ function DeathCert() {
 
             const worksheet = XLSX.utils.json_to_sheet(formattedData);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Birth Certificates");
-            XLSX.writeFile(workbook, "birth_certificates.xlsx");
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Death Certificates");
+            XLSX.writeFile(workbook, "death_certificates.xlsx");
         }
     };
 

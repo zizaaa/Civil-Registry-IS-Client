@@ -109,6 +109,16 @@ function BirthCertInputs() {
     //*  state form number 19 A if others is selected
     const [nineTeenAIsOthers, setNineTeenAIsOthers] = useState<boolean>(false);
 
+    //* get registry number
+    const { data, isLoading,  refetch } = useQuery({
+        queryKey:['registry-number'],
+        queryFn: async()=>{
+            const { data } = await axios.get(`${serverURL}/api/cris/birth-certificate/registry-number`, { withCredentials:true });
+            
+            return data.registryNumber;
+        }
+    });
+
     // * post request using mutation
     const mutation = useMutation({
         mutationFn: async(birthCertData: FormData)=>{
@@ -123,16 +133,7 @@ function BirthCertInputs() {
         onSuccess: (data)=>{
             successToast(`${data.message}`);
             handleCLearValues();
-        }
-    });
-
-    //* get registry number
-    const { data, isLoading } = useQuery({
-        queryKey:['registry-number'],
-        queryFn: async()=>{
-            const { data } = await axios.get(`${serverURL}/api/cris/birth-certificate/registry-number`, { withCredentials:true });
-            
-            return data.registryNumber;
+            refetch();
         }
     });
 

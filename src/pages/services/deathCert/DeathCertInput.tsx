@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { DeathCertData } from "../../../types/deathCertTypes";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
@@ -108,6 +108,15 @@ function DeathCertInput() {
     const twentySevenSignatureRef = useRef<HTMLInputElement | null>(null);
     const [twentySevenSignatureSrc, setTwentySevenSignatureSrc] = useState<string>('');
 
+    //* get form number
+    const { data, isLoading, refetch } = useQuery({
+        queryKey:['registry-number'],
+        queryFn: async()=>{
+            const { data } = await axios.get(`${serverURL}/api/cris/death-certificate/form-number`, { withCredentials:true });
+            return data.formNumber;
+        }
+    });
+
     // * mutation
     const mutation = useMutation({
         mutationFn: async (deathCertData:FormData) =>{
@@ -121,6 +130,8 @@ function DeathCertInput() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            clearValues();
+            refetch();
         }
     });
 
@@ -156,7 +167,7 @@ function DeathCertInput() {
 
     // * Number 19 Attendant
     const handleAttendant = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        console.log(e.target.value)
+        setDeathCertCredentials(prev => ({...prev, nineTeen_Attendant:e.target.value}))
     }
 
     // * Number 20 signature uploader
@@ -198,6 +209,116 @@ function DeathCertInput() {
     // * Number 27 signature uploader
     const handleTwentySevenSignature = () =>{
         handleFileUpload(twentySevenSignatureRef,setTwentySevenSignatureSrc)
+    }
+
+    //* clear values
+    const clearValues = () => {
+        setDeathCertCredentials({
+            province:"",
+            cityOrMunicipality:"",
+            registryNumber:"",
+            remarksOrAnnotation:"",
+            one_first:"",
+            one_middle:"",
+            one_last:"",
+            two_sex:"",
+            three_religion:"",
+            four_A_completedYears:"",
+            four_B_months:"",
+            four_B_days:"",
+            four_C_time:"",
+            five_nameOf:"",
+            five_cityOrMunicipality:"",
+            five_province:"",
+            six_day:"",
+            six_month:"",
+            six_year:"",
+            seven_citizenship:"",
+            eight_houseNo:"",
+            eight_cityOrMunicipality:"",
+            eight_province:"",
+            nine_civilStatus:"",
+            ten_occupation:"",
+            seventeen_I_A:"",
+            seventeen_I_B:"",
+            seventeen_I_C:"",
+            seventeen_II:"",
+            seventeen_ContributingToDeath:"",
+            seventeen_Interval:"",
+            eighteen_A_mannerOfDeath:"",
+            eighteen_B_PlaceOfOccurance:"",
+            nineTeen_Attendant:"",
+            nineTeen_From:"",
+            nineTeen_To:"",
+            twenty_time:"",
+            twenty_nameInPrint:"",
+            twenty_TitleOrPosition:"",
+            twenty_Address:"",
+            twenty_Date:"",
+            twenty_ReviewedBy_PrintedName:"",
+            twenty_ReviewedBy_Date:"",
+            twentyOne_CorpseDisposal:"",
+            twentyTwo_Burial_Number:"",
+            twentyTwo_Burial_DateIssued:"",
+            twentyThree_Autopsy:"",
+            twentyFour_NameAndAddress:"",
+            twentyFive_NameInPrint:"",
+            twentyFive_Relationship:"",
+            twentyFive_Address:"",
+            twentyFive_Date:"",
+            twentySix_NameInPrint:"",
+            twentySix_TitleOrPosition:"",
+            twentySix_Date:"",
+            twentySeven_NameInPrint:"",
+            twentySeven_TitleOrPosition:"",
+            twentySeven_Date:"",
+            populationReference:"",
+            fourtyOne:"",
+            fourtyEight:"",
+            fourtyNine:"",
+            fifthy:"",
+            fifthyOne:"",
+            fifthyFour:"",
+            fifthyNine:"",
+            sixtyFive:"",
+            sixtySix:"",
+            seventyOne:"",
+            seventyTwo:"",
+            seventyFive:"",
+            seventyNine:"",
+            eighty:"",
+            eightyTwo:"",
+            eightyThree:"",
+            eightyFive:"",
+            eightySix:"",
+            ninety:"",
+        });
+
+        // Clear signature files and image sources with proper checks
+        if (twentySignatureRef.current) {
+            twentySignatureRef.current.value = "";
+        }
+        setTwentySignatureSrc("");
+
+        if (twentyReviewedSignatureRef.current) {
+            twentyReviewedSignatureRef.current.value = "";
+        }
+        setTwentyReviewedSignatureSrc("");
+
+        if (twentyFiveSignatureRef.current) {
+            twentyFiveSignatureRef.current.value = "";
+        }
+        setTwentyFiveSignatureSrc("");
+
+        if (twentySixSignatureRef.current) {
+            twentySixSignatureRef.current.value = "";
+        }
+        setTwentySixSignatureSrc("");
+
+        if (twentySevenSignatureRef.current) {
+            twentySevenSignatureRef.current.value = "";
+        }
+        setTwentySevenSignatureSrc("");
     }
 
     //* submit form
@@ -252,7 +373,7 @@ function DeathCertInput() {
                         <div className="flex items-center py-2 px-5 justify-between">
                             <div className="flex flex-col text-[12px] text-gray-800">
                                 <span>
-                                    Municipal Form No. 01
+                                    Municipal Form No. 0{!isLoading && (data)}
                                 </span>
                                 <span>
                                     (Revised January 1993)
