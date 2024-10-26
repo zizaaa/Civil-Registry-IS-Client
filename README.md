@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Civil-Registry-Client
+This project serves as the front-end application for managing civil registry records, built using React and TypeScript. The project utilizes Vite as the build tool, making the development and build process faster and more efficient.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Table of Contents
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#gettingStarted">Getting Started</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#runCLient">Run Client</a></li>
+  <li><a href="#">Environment Variables</a></li>
+</ul>
 
-Currently, two official plugins are available:
+<h1 id="introduction">Introduction</h1>
+The Civil-Registry-Client is a user-friendly web application for interacting with the backend server. It provides a seamless UI to manage certificate records, registration forms, and other civil registry processes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1 id="gettingStarted">Getting Started</h1>
+Follow the steps below to set up and run the front-end of this project on your local machine.
 
-## Expanding the ESLint configuration
+<h1 id="prerequisites">Prerequisites</h1>
+Make sure you have the following installed:
+<ul>
+  <li>Node.js (v14 or higher) - <a href="https://nodejs.org/en">Download Node.js</a></li>
+  <li>npm or Yarn (latest version) – npm comes bundled with Node.js, or you can install Yarn separately. </li>
+  <li>Git (latest version) - <a href="https://git-scm.com/downloads">Download Git</a></li>
+</ul>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<h1 id="installation">Installation</h1>
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zizaaa/Civil-Registry-IS-Client.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd Civil-Registry-IS-Client
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+<h1 id="runCLient">Running the Client</h1>
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Start the client:
+   ```bash
+   npm run dev
+   ```
+<h1 id="env">Environment Variables</h1>
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Create a `.env` file at the root of the project to configure your environment variables. Below is an example `.env` file:
+  ```env
+   VITE_API_URL=http://localhost:8000
+   VITE_CLIENT_URL=http://localhost:5173
+  ```
