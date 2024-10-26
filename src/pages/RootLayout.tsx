@@ -27,14 +27,10 @@ function RootLayout() {
     
     let idSegment = '';
 
-    // Initialize a flag to check for preview
-    let isPreview = false;
-
     pathSegments.forEach((segment, index) => {
         const path = `/${pathSegments.slice(0, index + 1).join("/")}`;
 
         if (segment === "preview") {
-            isPreview = true;
             // Capture the id segment
             idSegment = pathSegments[index + 1] || ''; // Get the id from the path
             // Add Preview breadcrumb
