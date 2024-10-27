@@ -81,7 +81,7 @@ function DeathCert() {
     return (
         <section>
             <h1 className='text-3xl font-semibold text-darkCyan flex flex-col'>
-                Registering and Issuance of <span>Live Birth Certificate</span>
+                Registering and Issuance of <span>Death Certificate</span>
             </h1>
             <div className='flex items-end justify-between mt-5 px-2'>
                 {/* Search Input */}
