@@ -1,0 +1,36 @@
+export interface FoundlingsTypes{
+    id?:number;
+    province:string;
+    cityOrMunicipality:string;
+    registryNumber:string;
+    one_name:string;
+    two_sex:string;
+    three_age:string;
+    four_dateAndTime:string;
+    five_place:string;
+    six_eyesColor:string;
+    seven_hairColor:string;
+    eight_bodyFeature:string;
+    nine_condition:string;
+    ten_name:string;
+    ten_address:string;
+    ten_telephone:string;
+    ten_occupation:string;
+    eleven_name:string;
+    eleven_address:string;
+    eleven_telephone:string;
+    eleven_occupation:string;
+    twelve_address:string;
+    twelve_dateIssued:string;
+    twelve_placeIssued:string;
+    twelve_firstLine:string;
+    twelve_secondLine:string;
+    twelve_thirdLine:string;
+    twelve_fourthLine:string;
+    twelve_printedName:string;
+    thirteen_certification:string;
+    thirteen_printedName:string;
+    twelveInformantSignature?:string;
+    twelveRegistrarSignature?:string;
+    thirteenSignature?:string;
+}
