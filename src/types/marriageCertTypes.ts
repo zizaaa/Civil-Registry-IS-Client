@@ -89,4 +89,13 @@ export interface MarriageCertTypes{
     twentyTwo_NameInPrint:string;
     twentyTwo_TitleAndPosition:string;
     twentyTwo_Date:string;
+    eighteenHusbandSignature?:string;
+    eighteenWifeSignature?:string;
+    nineTeenSignature?:string;
+    twentySignatureOne?:string;
+    twentySignatureTwo?:string;
+    twentySignatureThree?:string;
+    twentySignatureFour?:string;
+    twentyOneSignature?:string;
+    twentyTwoSignature?:string;
 }

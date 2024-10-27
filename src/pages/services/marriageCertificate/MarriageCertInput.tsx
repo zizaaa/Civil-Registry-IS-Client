@@ -126,6 +126,33 @@ function MarriageCertInput() {
     const twentyTwoSignatureRef = useRef<HTMLInputElement | null>(null);
     const [twentyTwoSignatureSrc, setTwentyTwoSignatureSrc] = useState<string>('');
 
+    //* get form number
+    const { data, isLoading, refetch } = useQuery({
+        queryKey:['marriage-form-number'],
+        queryFn: async()=>{
+            const { data } = await axios.get(`${serverURL}/api/cris/marriage-certificate/form-number`, { withCredentials:true });
+            return data.formNumber;
+        }
+    });
+
+    // * mutation
+    const mutation = useMutation({
+        mutationFn: async (deathCertData:FormData) =>{
+            const { data } = await axios.post(`${serverURL}/api/cris/marriage-certificate/register`, deathCertData, {  withCredentials:true })
+            
+            return data;
+        },
+        onError:(data)=>{
+            console.error(data);
+            errorToast(`${data.message}`);
+        },
+        onSuccess: (data)=>{
+            successToast(`${data.message}`);
+            handleRemoveValue();
+            refetch();
+        }
+    });
+
     //*  file handler
     const handleFileUpload = (fileRef: React.RefObject<HTMLInputElement>, setSrc: React.Dispatch<React.SetStateAction<string>>): void => {
         const file = fileRef.current?.files?.[0];
@@ -190,19 +217,202 @@ function MarriageCertInput() {
         setMarriageCertCredentials(prev => ({...prev, nineteen_choices:e.target.value}));
     }
 
+    const handleRemoveValue = ()=>{
+        setMarriageCertCredentials({
+            province:"",
+            cityOrMunicipality:"",
+            RegistryNumber:"",
+            one_first:"",
+            one_middle:"",
+            one_last:"",
+            one_first_wife:"",
+            one_middle_wife:"",
+            one_last_wife:"",
+            two_day_husband:"",
+            two_month_husband:"",
+            two_year_husband:"",
+            two_age_husband:"",
+            two_day_wife:"",
+            two_month_wife:"",
+            two_year_wife:"",
+            two_age_wife:"",
+            three_CityOrMunicipality_husband:"",
+            three_Province_husband:"",
+            three_Country_husband:"",
+            three_CityOrMunicipality_wife:"",
+            three_Province_wife:"",
+            three_Country_wife:"",
+            four_sex_husband:"",
+            four_citizenship_husband:"",
+            four_sex_wife:"",
+            four_citizenship_wife:"",
+            five_Residence_husband:"",
+            five_Residence_wife:"",
+            six_Religion_husband:"",
+            six_Religion_wife:"",
+            seven_CivilStatus_husband:"",
+            seven_CivilStatus_wife:"",
+            eight_first_husband:"",
+            eight_middle_husband:"",
+            eight_last_husband:"",
+            eight_first_wife:"",
+            eight_middle_wife:"",
+            eight_last_wife:"",
+            nine_Citizenship_husband:"",
+            nine_Citizenship_wife:"",
+            ten_first_husband:"",
+            ten_middle_husband:"",
+            ten_last_husband:"",
+            ten_first_wife:"",
+            ten_middle_wife:"",
+            ten_last_wife:"",
+            eleven_Citizenship_husband:"",
+            eleven_Citizenship_wife:"",
+            twelve_first_husband:"",
+            twelve_middle_husband:"",
+            twelve_last_husband:"",
+            twelve_first_wife:"",
+            twelve_middle_wife:"",
+            twelve_last_wife:"",
+            thirteen_relationship_husband:"",
+            thirteen_relationship_wife:"",
+            fourteen_Residence_husband:"",
+            fourteen_Residence_wife:"",
+            fifteen_Office:"",
+            fifteen_CityOrMunicipality:"",
+            fifteen_Province:"",
+            sixteen_Day:"",
+            sixteen_Month:"",
+            sixteen_Year:"",
+            seventeen_Time:"",
+            eighteen_nameOne:"",
+            eighteen_nameTwo:"",
+            eighteen_decision:"",
+            eighteen_day:"",
+            eighteen_dayOf:"",
+            nineteen_choices:"",
+            nineteen_choose_A_first:"",
+            nineteen_choose_A_second:"",
+            nineteen_choose_A_third:"",
+            nineteen_choose_B:"",
+            nineteen_PrintedName:"",
+            nineteen_Position:"",
+            nineteen_Religion:"",
+            twenty_nameOne:"",
+            twenty_nameTwo:"",
+            twenty_nameThree:"",
+            twenty_nameFour:"",
+            twentyOne_NameInPrint:"",
+            twentyOne_TitleOfPosition:"",
+            twentyOne_Date:"",
+            twentyTwo_NameInPrint:"",
+            twentyTwo_TitleAndPosition:"",
+            twentyTwo_Date:"",
+        });
+
+        // Clear signature files and image sources with proper checks
+        if (eighteenHusbandSignatureRef.current) {
+            eighteenHusbandSignatureRef.current.value = "";
+        }
+        setEighteenHusbandSignatureSrc("");
+
+        if (eighteenWifeSignatureRef.current) {
+            eighteenWifeSignatureRef.current.value = "";
+        }
+        setEighteenWifeSignatureSrc("");
+
+        if (nineTeenSignatureRef.current) {
+            nineTeenSignatureRef.current.value = "";
+        }
+        setNineTeenSignatureSrc("");
+
+        if (twentySignatureOneRef.current) {
+            twentySignatureOneRef.current.value = "";
+        }
+        setTwentySignatureOneSrc("");
+        
+        if (twentySignatureTwoRef.current) {
+            twentySignatureTwoRef.current.value = "";
+        }
+        setTwentySignatureTwoSrc("");
+        
+        if (twentySignatureThreeRef.current) {
+            twentySignatureThreeRef.current.value = "";
+        }
+        setTwentySignatureThreeSrc("");
+        
+        if (twentySignatureFourRef.current) {
+            twentySignatureFourRef.current.value = "";
+        }
+        setTwentySignatureFourSrc("");
+        
+        if (twentyOneSignatureRef.current) {
+            twentyOneSignatureRef.current.value = "";
+        }
+        setTwentyOneSignatureSrc("");
+        
+        if (twentyTwoSignatureRef.current) {
+            twentyTwoSignatureRef.current.value = "";
+        }
+        setTwentyTwoSignatureSrc("");
+    }
+
     // submit
+    const isFormEmpty = (formDataObj:MarriageCertTypes) => {
+        // Check if every key in the form data is either an empty string or undefined/null
+        return Object.values(formDataObj).every((value) => !value || value === '');
+    };
+
     const handleSubmit = () =>{
-        console.log(marriageCertCredentials)
+        // Initialize FormData object
+        const formData = new FormData();
+
+        // Append the credentials from the state
+        Object.entries(marriageCertCredentials).forEach(([key, value]) => {
+            formData.append(key, value || '');
+        });
+
+
+        // Handle files using refs
+        formData.append('eighteenHusbandSignature', eighteenHusbandSignatureRef.current?.files?.[0] || '');
+        formData.append('eighteenWifeSignature', eighteenWifeSignatureRef.current?.files?.[0] || '');
+        formData.append('nineTeenSignature', nineTeenSignatureRef.current?.files?.[0] || '');
+        formData.append('twentySignatureOne', twentySignatureOneRef.current?.files?.[0] || '');
+        formData.append('twentySignatureTwo', twentySignatureTwoRef.current?.files?.[0] || '');
+        formData.append('twentySignatureThree', twentySignatureThreeRef.current?.files?.[0] || '');
+        formData.append('twentySignatureFour', twentySignatureFourRef.current?.files?.[0] || '');
+        formData.append('twentyOneSignature', twentyOneSignatureRef.current?.files?.[0] || '');
+        formData.append('twentyTwoSignature', twentyTwoSignatureRef.current?.files?.[0] || '');
+
+        // Check if the entire form is empty
+        if (isFormEmpty(marriageCertCredentials) &&
+            !eighteenHusbandSignatureRef.current?.files?.[0] &&
+            !eighteenWifeSignatureRef.current?.files?.[0] &&
+            !nineTeenSignatureRef.current?.files?.[0] &&
+            !twentySignatureOneRef.current?.files?.[0] &&
+            !twentySignatureTwoRef.current?.files?.[0] &&
+            !twentySignatureThreeRef.current?.files?.[0] &&
+            !twentySignatureFourRef.current?.files?.[0] &&
+            !twentyOneSignatureRef.current?.files?.[0] &&
+            !twentyTwoSignatureRef.current?.files?.[0] 
+        ) {
+            errorToast('Empty form');
+            return;
+        }
+
+         // Call mutation if form is not empty
+        mutation.mutate(formData);
     }
     return (
         <div>
+            <Toaster/>
             <div className='w-[65rem] m-3 h-full border-2 border-gray-700 bg-gray-100'>
             <div className="w-full overflow-auto border-b-2 border-gray-800">
                     <div className="w-full overflow-auto">
                         <div className="flex items-center py-2 px-5 justify-between">
                             <div className="flex flex-col text-[12px] text-gray-800">
                                 <span>
-                                    Municipal Form No. 01
+                                    Municipal Form No. 0{!isLoading && (data)}
                                 </span>
                                 <span>
                                     (Revised January 2007)
@@ -1231,6 +1441,7 @@ function MarriageCertInput() {
                                 value="agree" 
                                 className="cursor-pointer" 
                                 onChange={(e)=>{handleDecision(e)}}
+                                checked={marriageCertCredentials.eighteen_decision === 'agree'}
                             />
                             <span className="ms-1 me-3">have entered, a copy of which is hereto attached</span>
                             <input 
@@ -1240,6 +1451,7 @@ function MarriageCertInput() {
                                 value="disagree" 
                                 className="cursor-pointer" 
                                 onChange={(e)=>{handleDecision(e)}}
+                                checked={marriageCertCredentials.eighteen_decision === 'disagree'}
                             />
                             <span className="ms-1">have not entered into a marriage settlement.</span>
                         </div>
@@ -1341,6 +1553,7 @@ function MarriageCertInput() {
                                 value="A" 
                                 className="cursor-pointer me-2" 
                                 onChange={(e)=>{handleNineTeenDecision(e)}}
+                                checked={marriageCertCredentials.nineteen_choices === 'A'}
                             />
                             <span>
                                 a. Marriage License No.
@@ -1381,6 +1594,7 @@ function MarriageCertInput() {
                                 value="B" 
                                 className="cursor-pointer me-2" 
                                 onChange={(e)=>{handleNineTeenDecision(e)}}
+                                checked={marriageCertCredentials.nineteen_choices === 'B'}
                             />
                             <span>
                                 b. no marriage license was necessary, the marriage being solemnized under Art
@@ -1402,6 +1616,7 @@ function MarriageCertInput() {
                                 value="C" 
                                 className="cursor-pointer me-2" 
                                 onChange={(e)=>{handleNineTeenDecision(e)}}
+                                checked={marriageCertCredentials.nineteen_choices === 'C'}
                             />
                             <span>
                                 c. the marriage was solemnized in accordance with the provisions of the Presidential Decree No. 1083.
@@ -1754,16 +1969,15 @@ function MarriageCertInput() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    // disabled={isFormEmpty(deathCertCredentials)}
+                    disabled={isFormEmpty(marriageCertCredentials)}
                 >
-                    {/* {mutation.isPending ? (
+                    {mutation.isPending ? (
                         <div className="w-full h-full flex items-center justify-center">
                             <LoaderDefault/>
                         </div>
                     ) : (
                         'Submit'
-                    )} */}
-                    Submit
+                    )}
                 </button>
             </div>
         </div>
