@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserLogin } from "../../types/user";
 import { useMutation } from "@tanstack/react-query";
 import axios, { isAxiosError } from "axios";
