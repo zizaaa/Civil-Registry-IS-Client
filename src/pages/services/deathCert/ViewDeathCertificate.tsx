@@ -6,10 +6,11 @@ import { useReactToPrint } from 'react-to-print';
 import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
 import { useQuery } from "@tanstack/react-query";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function ViewDeathCertificate() {
     const { id } = useParams();
-
+    const activityMutation = useActivityMutation();
     const contentRef = useRef<HTMLDivElement>(null);  // Reference to the certificate content
 
     // Setup react-to-print for printing the specific certificate content
@@ -32,13 +33,17 @@ function ViewDeathCertificate() {
         <Navigate to='*'/>
     }
 
-    console.log(data)
+    const handlePrint = () =>{
+        reactToPrintFn();
+
+        activityMutation.mutate(`Death certificate printed for ${data?.one_first} (Registry No. ${data?.registryNumber})`);
+    }
 
     return (
         <div>
             <div className="w-full flex items-end justify-end px-4">
                 <Tooltip content="Print">
-                    <button onClick={()=>{reactToPrintFn()}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                    <button onClick={handlePrint} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                         <AiFillPrinter />
                         <span className="sr-only">Print</span>
                     </button>

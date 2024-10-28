@@ -1,6 +1,47 @@
+import { useQuery } from '@tanstack/react-query';
 import { FaBaby, GiTombstone, FaRing, FaChild, TbReportAnalytics, } from '../hooks/icons';
+import axios from 'axios';
+import { LoaderDefault, serverURL } from '../hooks/imports';
+
+interface RecentActivity{
+    id:number;
+    message:string;
+    issued_by:string;
+    updated_at:string;
+    created_at:string;
+}
 
 function Home() {
+    const { data:recentAct, isLoading:recentActIsLoading } = useQuery({
+        queryKey:['recent-act'],
+        queryFn: async()=>{
+            const { data } = await axios.get(`${serverURL}/api/cris/recent-activity/getAll-activity`, { withCredentials:true });
+
+            return data;
+        }
+    });
+
+    const formatDate = (timestamp:string) => {
+        console.log(timestamp)
+        // Parse the timestamp into a JavaScript Date object
+        const date = new Date(timestamp);
+        console.log(date)
+        // Format the date using toLocaleDateString and toLocaleTimeString
+        const formattedDate = date.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+        });
+
+        const formattedTime = date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        });
+    
+        return `${formattedDate}, ${formattedTime}`;
+    };
+    
     return (
         <div>
             {/* Generate Report Button */}
@@ -62,7 +103,30 @@ function Home() {
             <div className="recent-activity mt-7 w-full bg-white shadow-lg p-3 rounded-md">
                 <h2 className='text-xl font-semibold text-gray-700'>Recent Activity</h2>
                 <ul className="activity-log text-sm mt-2 h-96 overflow-auto">
-                    <li className='hover:bg-lightCyan p-1'>
+                    {
+                        recentActIsLoading ?
+                        (
+                            <div className='w-full h-full flex items-center justify-center'>
+                                <LoaderDefault/>
+                            </div>
+                        ):(
+                            recentAct.map((act:RecentActivity)=>(
+                                <li className='hover:bg-lightCyan p-1 flex flex-row gap-1'>
+                                    <span className='font-semibold'>
+                                        [{formatDate(act.created_at)}]
+                                    </span>
+                                    <span>
+                                        {act.message}
+                                    </span>
+                                    <span>by</span>
+                                    <span className='font-semibold'>
+                                        {act.issued_by}
+                                    </span>
+                                </li>
+                            ))
+                        )
+                    }
+                    {/* <li className='hover:bg-lightCyan p-1'>
                         <span className='font-semibold'>[10/19/2024, 10:35 AM] </span>
                         Birth Certificate Issued for John Doe 
                         <span className='font-semibold'> (Registry No. 12345) </span>
@@ -82,175 +146,7 @@ function Home() {
                         <span className='font-semibold'> (Registry No. 67890) </span>
                             by 
                         <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
-                    <li className='hover:bg-lightCyan p-1'>
-                        <span className='font-semibold'>[10/19/2024, 09:20 AM] </span>
-                            Death Certificate Registered for Peter Parker
-                        <span className='font-semibold'> (Registry No. 67890) </span>
-                            by 
-                        <span className='font-semibold'> Registrar Alex Johnson</span>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>

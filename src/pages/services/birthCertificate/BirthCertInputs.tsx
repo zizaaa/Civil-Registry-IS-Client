@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
 import { BirthCertDataType } from "../../../types/birthCerthTypes";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function BirthCertInputs() {
     const [birthCertCredentials, setBirthCertCredentials] = useState<BirthCertDataType>({
@@ -86,7 +87,8 @@ function BirthCertInputs() {
         ninetyFour:"",
         registryNumber:""
     });
-
+    // acitivity mutation
+    const activityMutation = useActivityMutation();
     //*  number 19 b signature
     const nineteenB_SignatureRef = useRef<HTMLInputElement | null>(null);
     const [nineteenBSignatureSrc, setNineteenBSignatureSrc] = useState<string>('');
@@ -132,6 +134,7 @@ function BirthCertInputs() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Birth Certificate Registered for ${birthCertCredentials.one_first} (Registry No. ${birthCertCredentials.registryNumber})`);
             handleCLearValues();
             refetch();
         }

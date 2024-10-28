@@ -5,6 +5,7 @@ import axios, { isAxiosError } from 'axios';
 import { ErrorInput, errorToast, LoaderDefault, serverURL, successToast } from '../../hooks/imports';
 import { User } from '../../types/user';
 import { Toaster } from 'react-hot-toast';
+import { useActivityMutation } from '../../services/sendActivity';
 
 interface PersonalStateType{
     username:string;
@@ -44,6 +45,8 @@ const Settings: React.FC = () => {
     const [passNotMatch, setPassNotMatch] = useState<boolean>(false);
     const [passError, setPassError] = useState<boolean>(false);
 
+    const activityMutation = useActivityMutation();
+
     const { data, refetch } = useQuery({
         queryKey:['get-user'],
         queryFn: async(): Promise<User>=>{
@@ -61,6 +64,7 @@ const Settings: React.FC = () => {
         },
         onSuccess:(data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Update a personal information`);
             refetch();
             setPersonalInfo({
                 username:"",
@@ -84,6 +88,7 @@ const Settings: React.FC = () => {
         },
         onSuccess:(data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Update a password`);
             setPassNotMatch(false);
             setPassError(false);
             setPasswords({

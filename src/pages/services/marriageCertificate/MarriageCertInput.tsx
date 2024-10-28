@@ -4,6 +4,7 @@ import axios from "axios";
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
 import { MarriageCertTypes } from "../../../types/marriageCertTypes";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function MarriageCertInput() {
     const [marriageCertCredentials, setMarriageCertCredentials] = useState<MarriageCertTypes>({
@@ -97,6 +98,9 @@ function MarriageCertInput() {
         twentyTwo_TitleAndPosition:"",
         twentyTwo_Date:"",
     });
+    // 
+    const activityMutation = useActivityMutation();
+    
     // * Number 18 Husband's Signature
     const eighteenHusbandSignatureRef = useRef<HTMLInputElement | null>(null);
     const [eighteenHusbandSignatureSrc, setEighteenHusbandSignatureSrc] = useState<string>('');
@@ -148,6 +152,7 @@ function MarriageCertInput() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Marriage Certificate Registered for ${marriageCertCredentials.one_first}  & ${marriageCertCredentials.one_first_wife} (Registry No. ${marriageCertCredentials.RegistryNumber})`);
             handleRemoveValue();
             refetch();
         }

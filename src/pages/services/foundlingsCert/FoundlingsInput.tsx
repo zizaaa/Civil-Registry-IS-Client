@@ -4,6 +4,7 @@ import axios from "axios";
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
 import { FoundlingsTypes } from "../../../types/foundLingTypes";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function FoundlingsInput() {
     const [foundlingCredentials, setFounlingCredentials] = useState<FoundlingsTypes>({
@@ -38,6 +39,8 @@ function FoundlingsInput() {
         thirteen_certification:"",
         thirteen_printedName:"",
     });
+    // 
+    const activityMutation = useActivityMutation();
     // * Number 12 Signature
     const twelveInformantSignatureRef = useRef<HTMLInputElement | null>(null);
     const [twelveInformantSignatureSrc, setTwelveInformantSignatureSrc] = useState<string>('');
@@ -72,6 +75,7 @@ function FoundlingsInput() {
         onSuccess: (data)=>{
             successToast(`${data.message}`);
             refetch();
+            activityMutation.mutate(`Foundling Certificate Registered for ${foundlingCredentials.one_name} (Registry No. ${foundlingCredentials.registryNumber})`);
             handleClearValues();
         }
     });

@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function DeathCertInput() {
     const [deathCertCredentials, setDeathCertCredentials] = useState<DeathCertData>({
@@ -86,7 +87,8 @@ function DeathCertInput() {
         eightySix:"",
         ninety:"",
     });
-
+    //
+    const activityMutation = useActivityMutation();
     //*  number 20 signature
     const twentySignatureRef = useRef<HTMLInputElement | null>(null);
     const [twentySignatureSrc, setTwentySignatureSrc] = useState<string>('');
@@ -130,6 +132,7 @@ function DeathCertInput() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Death Certificate Registered for ${deathCertCredentials.one_first} (Registry No. ${deathCertCredentials.registryNumber})`);
             clearValues();
             refetch();
         }
