@@ -133,9 +133,9 @@ function Login() {
                             Remember me
                         </Label>
                     </div>
-                    <div>
+                    {/* <div>
                         <Link to="/form/forgotpassword" className="text-sm font-medium text-gray-900">Forgot password?</Link>
-                    </div>
+                    </div> */}
                 </div>
                 <Button type="submit">
                 {
