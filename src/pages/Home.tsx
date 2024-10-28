@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import * as XLSX from 'xlsx'; // Import XLSX library for Excel download
-import { FaBaby, GiTombstone, FaRing, FaChild, TbReportAnalytics, MdFileDownload, } from '../hooks/icons';
+import { FaBaby, GiTombstone, FaRing, FaChild, MdFileDownload, } from '../hooks/icons';
 import { LoaderDefault, serverURL } from '../hooks/imports';
 import { Tooltip } from 'flowbite-react';
 
