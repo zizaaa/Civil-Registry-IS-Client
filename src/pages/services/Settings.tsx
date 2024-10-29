@@ -165,7 +165,7 @@ const Settings: React.FC = () => {
                         rounded={true}
                         size="lg"
                         alt="User Profile Picture"
-                        placeholderInitials={data?.name.charAt(0)}
+                        placeholderInitials={data?.name?.charAt(0)}
                     />
                     <div>
                         <div className='flex gap-1 items-center'>

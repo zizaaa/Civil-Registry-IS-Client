@@ -180,8 +180,8 @@ function Home() {
                                 <LoaderDefault/>
                             </div>
                         ):(
-                            recentAct.map((act:RecentActivity)=>(
-                                <li className='hover:bg-lightCyan p-1 flex flex-row gap-1'>
+                            recentAct.map((act:RecentActivity,index:number)=>(
+                                <li key={index} className='hover:bg-lightCyan p-1 flex flex-row gap-1'>
                                     <span className='font-semibold'>
                                         [{formatDate(act.created_at)}]
                                     </span>
