@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import * as XLSX from 'xlsx'; // Import XLSX library for Excel download
-import { FaBaby, GiTombstone, FaRing, FaChild, MdFileDownload, } from '../hooks/icons';
+import { FaBaby, GiTombstone, FaRing, FaChild, MdFileDownload, TbReportAnalytics, } from '../hooks/icons';
 import { LoaderDefault, serverURL } from '../hooks/imports';
 import { Tooltip } from 'flowbite-react';
 
@@ -101,12 +101,10 @@ function Home() {
                 <h1 className='text-3xl font-semibold text-darkCyan'>
                     Vital Records Overview
                 </h1>
-                <Tooltip content="Download Report">
-                    <button onClick={handleDownloadReports} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
-                        <MdFileDownload />
-                        <span className="sr-only">Download</span>
-                    </button>
-                </Tooltip>
+                <button onClick={handleDownloadReports} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel flex flex-row items-center gap-1'>
+                    <TbReportAnalytics />
+                    <span>Download reports</span>
+                </button>
             </div>
             <div className='grid grid-cols-4 max-[1000px]:grid-cols-3 max-[800px]:grid-cols-2 gap-5'>
                 <div className='bg-white flex flex-col gap-2 py-2 px-3 rounded-md h-36 shadow-lg'>
