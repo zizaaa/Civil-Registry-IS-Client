@@ -30,9 +30,12 @@ import ViewMarriageCert from "../pages/services/marriageCertificate/ViewMarriage
 import FoundlingsLayout from "../pages/services/foundlingsCert/FoundlingsLayout";
 import FoundlingsInput from "../pages/services/foundlingsCert/FoundlingsInput";
 import ViewFoundLings from "../pages/services/foundlingsCert/ViewFoundLings";
-
+import ViewlBirthCertFile from "../pages/services/birthCertificate/ViewlBirthCertFile";
+import ViewDeathCertFile from "../pages/services/deathCert/ViewDeathCertFile";
+import ViewFoundlingsFile from "../pages/services/foundlingsCert/ViewFoundlingsFile";
+import ViewMarriageCertFile from "../pages/services/marriageCertificate/ViewMarriageCertFile";
 const env = import.meta.env;
-const serverURL = env.VITE_REACT_SERVER_URL;
+const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
 
 export {
     RootLayout,
@@ -67,5 +70,9 @@ export {
     ViewMarriageCert,
     FoundlingsLayout,
     FoundlingsInput,
-    ViewFoundLings
+    ViewFoundLings,
+    ViewlBirthCertFile,
+    ViewDeathCertFile,
+    ViewFoundlingsFile,
+    ViewMarriageCertFile
 }

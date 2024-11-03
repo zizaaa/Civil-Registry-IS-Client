@@ -98,4 +98,19 @@ export interface MarriageCertTypes{
     twentySignatureFour?:string;
     twentyOneSignature?:string;
     twentyTwoSignature?:string;
+    scannedFile?:string;
+}
+
+export interface ScannedFileTypes{
+    one_first:string;
+    one_middle:string;
+    one_last:string;
+    one_first_wife:string;
+    one_middle_wife:string;
+    one_last_wife:string;
+    RegistryNumber:string;
+    fifteen_Office:string;
+    fifteen_CityOrMunicipality:string;
+    fifteen_Province:string;
+    scannedFile?:string;
 }

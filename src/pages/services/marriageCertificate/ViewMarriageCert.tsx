@@ -3,11 +3,9 @@ import { AiFillPrinter } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
-import { useQuery } from "@tanstack/react-query";
-import { MarriageCertTypes } from "../../../types/marriageCertTypes";
 import { useActivityMutation } from "../../../services/sendActivity";
+import { getSingleMarriageCert } from "../../../services/getSingleMarriageCert";
 
 function ViewMarriageCert() {
     const { id } = useParams();
@@ -19,14 +17,7 @@ function ViewMarriageCert() {
         contentRef, // Correctly pass the contentRef here
     });
 
-    const { data, isLoading } = useQuery({
-        queryKey:['marriageCert-single-data'],
-        queryFn: async():Promise<MarriageCertTypes>=>{
-            const { data } = await axios.get(`${serverURL}/api/cris/marriage-certificate/get-single?id=${id}`, { withCredentials:true });
-
-            return data;
-        }
-    });
+    const { data, isLoading } = getSingleMarriageCert(id as string);
     
     if(isLoading) return <Loading/>
     

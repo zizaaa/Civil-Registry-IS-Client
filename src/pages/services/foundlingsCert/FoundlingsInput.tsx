@@ -1,12 +1,21 @@
 import React, { useRef, useState } from "react"
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { errorToast, LoaderDefault, serverURL, successToast } from "../../../hooks/imports";
 import { Toaster } from "react-hot-toast";
-import { FoundlingsTypes } from "../../../types/foundLingTypes";
+import { FoundlingsTypes, ScannedFileTypes } from "../../../types/foundLingTypes";
 import { useActivityMutation } from "../../../services/sendActivity";
+import { FileInput, Label } from "flowbite-react";
+import { FaTrashCan } from "../../../hooks/icons";
 
 function FoundlingsInput() {
+    const [scannedFileData, setScannedFileData] = useState<ScannedFileTypes>({
+        one_name:"",
+        registryNumber:"",
+        five_place:"",
+        four_dateAndTime:"",
+    })
+
     const [foundlingCredentials, setFounlingCredentials] = useState<FoundlingsTypes>({
         province:"",
         cityOrMunicipality:"",
@@ -39,8 +48,14 @@ function FoundlingsInput() {
         thirteen_certification:"",
         thirteen_printedName:"",
     });
-    // 
+    //* activity mutation
     const activityMutation = useActivityMutation();
+
+    
+    //* scanned file upload 
+    const scannedFileRef = useRef<HTMLInputElement | null>(null);
+    const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
+
     // * Number 12 Signature
     const twelveInformantSignatureRef = useRef<HTMLInputElement | null>(null);
     const [twelveInformantSignatureSrc, setTwelveInformantSignatureSrc] = useState<string>('');
@@ -68,14 +83,17 @@ function FoundlingsInput() {
             
             return data;
         },
-        onError:(data)=>{
-            console.error(data);
-            errorToast(`${data.message}`);
+        onError:(error)=>{
+            if(isAxiosError(error)){
+                return errorToast(error.response?.data.error)
+            }
+            return errorToast("Something went wrong during registering foundlings certificate.");
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
             refetch();
             activityMutation.mutate(`Foundling Certificate Registered for ${foundlingCredentials.one_name} (Registry No. ${foundlingCredentials.registryNumber})`);
+            clearFileValue();
             handleClearValues();
         }
     });
@@ -94,6 +112,12 @@ function FoundlingsInput() {
                 reader.readAsDataURL(file);
             }
     }
+
+    //* scanned file
+    const handleScannedFileUpdate = () =>{
+        handleFileUpload(scannedFileRef, setScannedFileSrc);
+    }
+        
     
     const handleInformantSignature =()=>{
         handleFileUpload(twelveInformantSignatureRef,setTwelveInformantSignatureSrc);
@@ -105,6 +129,21 @@ function FoundlingsInput() {
 
     const handleThirteenSignature =()=>{
         handleFileUpload(thirteenSignatureRef,setThirteenSignatureSrc);
+    }
+
+    //* clear file values
+    const clearFileValue =()=>{
+        setScannedFileData({
+            one_name:"",
+            registryNumber:"",
+            five_place:"",
+            four_dateAndTime:"",
+        })
+        // Clear signature files and image sources with proper checks
+        if (scannedFileRef.current) {
+            scannedFileRef.current.value = "";
+        }
+        setScannedFileSrc("");
     }
 
     const handleClearValues = () =>{
@@ -162,6 +201,39 @@ function FoundlingsInput() {
         // Check if every key in the form data is either an empty string or undefined/null
         return Object.values(formDataObj).every((value) => !value || value === '');
     };
+
+        
+    const isScannedDataEmpty = (fileData:ScannedFileTypes) =>{
+        if(!fileData.one_name || !fileData.registryNumber || !fileData.four_dateAndTime || !fileData.five_place){
+            return true;
+        }
+
+        return false;
+    }
+
+    // * submit scanned file
+    const handleSubmitScannedFile = () =>{
+
+        if(isScannedDataEmpty(scannedFileData) && !scannedFileRef.current?.files?.[0]){
+            return errorToast('Please complete the form.')
+        }
+
+        const formData = new FormData();
+        // Append the credentials from the state
+        Object.entries(scannedFileData).forEach(([key, value]) => {
+            formData.append(key, value || '');
+        });
+        formData.append('scannedFile', scannedFileRef.current?.files?.[0] || '');
+        mutation.mutate(formData);
+    }
+
+    const handleRemoveFilePreview = () =>{
+        setScannedFileSrc('');
+        if(scannedFileRef.current){
+            scannedFileRef.current.value = "";
+        }
+    }
+
     const handleSubmit = ()=>{
         // Initialize FormData object
         const formData = new FormData();
@@ -192,6 +264,135 @@ function FoundlingsInput() {
     return (
         <div>
             <Toaster/>
+            <div className="px-3">
+                <h1 className="text-2xl font-semibold mb-2">Upload scanned file</h1>
+                <div className="mb-5">
+                    <div className="col-span-1 py-2 ">
+                        <label htmlFor="registryNumber" className="text-gray-800 font-semibold uppercase">
+                            Registry No.
+                        </label>
+                        <input 
+                            type="number" 
+                            id="registryNumber" 
+                            className="w-full border-0 focus:outline-none focus:ring-transparent" 
+                            value={scannedFileData.registryNumber} 
+                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value}))}}
+                        />
+                    </div>
+                    <div className="flex flex-col p-2 w-full">
+                        <div>
+                            <span className="text-gray-800 font-semibold uppercase">
+                                Name
+                            </span>
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex flex-col items-center flex-1">
+                                <input 
+                                    type="text" 
+                                    id="first" 
+                                    className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
+                                    value={scannedFileData.one_name}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_name:e.target.value}))}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col p-2">
+                        <div>
+                            <span className="text-gray-800 font-semibold uppercase">Place where found</span>
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex flex-col flex-1 justify-between gap-2">
+                                <input 
+                                    type="text" 
+                                    id="name_of_place_2" 
+                                    className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
+                                    value={scannedFileData.five_place}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, five_place:e.target.value}))}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col p-2">
+                        <div>
+                            <span className="text-gray-800 font-semibold uppercase">Date and time when found</span>
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex flex-col flex-1 justify-between gap-2">
+                                <input 
+                                    type="text" 
+                                    id="name_of_place_2" 
+                                    className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
+                                    value={scannedFileData.four_dateAndTime}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, four_dateAndTime:e.target.value}))}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex w-full items-center justify-center">
+                    <figure className={`flex items-center justify-center relative ${!scannedFileSrc ? 'hidden':''}`}>
+                        <img src={scannedFileSrc} alt="scanned file"/>
+                        <button onClick={handleRemoveFilePreview} className="absolute -top-1 -right-1 bg-gray-200 p-2 rounded-full text-red-700 drop-shadow-md">
+                            <FaTrashCan/>
+                        </button>
+                    </figure>
+                    <Label
+                        htmlFor="dropzone-file"
+                        className={`flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 ${scannedFileSrc ? "hidden":""}`}
+                    >
+                        <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                        <svg
+                            className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 16"
+                        >
+                            <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                            />
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                            <span className="font-semibold">Click to upload</span> or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">PNG or JPG</p>
+                        </div>
+                        <FileInput 
+                            id="dropzone-file" 
+                            className="hidden" 
+                            accept=".png,.jpg,.jpeg"
+                            ref={scannedFileRef}
+                            onChange={handleScannedFileUpdate}
+                        />
+                    </Label>
+                </div>
+                <div className="w-full flex justify-end">
+                    <button
+                        className="mt-5 drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed"
+                        onClick={handleSubmitScannedFile}
+                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0]}
+                    >
+                        {mutation.isPending ? (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <LoaderDefault/>
+                            </div>
+                        ) : (
+                            'Submit'
+                        )}
+                    </button>
+                </div>
+            </div>
+            {/* divider */}
+            <div className="w-full flex flex-row items-center gap-1 my-10 px-3">
+                <div className="w-full border-b-2 border-gray-400"></div>
+                <div className="text-gray-400">OR</div>
+                <div className="w-full border-b-2 border-gray-400"></div>
+            </div>
             <div className='w-[65rem] m-3 h-full border-2 border-gray-700 bg-gray-100'>
                 <div className="border-b-2 border-gray-700 w-full overflow-auto">
                     <div className="flex items-center py-2 px-5 justify-between">

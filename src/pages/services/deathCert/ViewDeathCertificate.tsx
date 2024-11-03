@@ -3,10 +3,9 @@ import { AiFillPrinter } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
-import { useQuery } from "@tanstack/react-query";
 import { useActivityMutation } from "../../../services/sendActivity";
+import { getSingleDeathCert } from "../../../services/getSingleDeathCert";
 
 function ViewDeathCertificate() {
     const { id } = useParams();
@@ -18,14 +17,7 @@ function ViewDeathCertificate() {
         contentRef, // Correctly pass the contentRef here
     });
 
-    const { data,isLoading } = useQuery({
-        queryKey:['deathCert-single-data'],
-        queryFn: async()=>{
-            const { data } = await axios.get(`${serverURL}/api/cris/death-certificate/get-single?id=${id}`, { withCredentials:true });
-
-            return data;
-        }
-    });
+    const { data,isLoading } = getSingleDeathCert(id as string);
     
     if(isLoading) return <Loading/>
     

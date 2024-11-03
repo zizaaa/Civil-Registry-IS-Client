@@ -3,11 +3,9 @@ import { AiFillPrinter } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
-import { useQuery } from "@tanstack/react-query";
-import { FoundlingsTypes } from "../../../types/foundLingTypes";
 import { useActivityMutation } from "../../../services/sendActivity";
+import { getSingleFoundlingsCert } from "../../../services/getSingleFoundlingsCert";
 
 function ViewFoundLings() {
     const { id } = useParams();
@@ -19,14 +17,7 @@ function ViewFoundLings() {
         contentRef, // Correctly pass the contentRef here
     });
 
-    const { data, isLoading } = useQuery({
-        queryKey:['foundling-single-data'],
-        queryFn: async():Promise<FoundlingsTypes>=>{
-            const { data } = await axios.get(`${serverURL}/api/cris/foundling-certificate/get-single?id=${id}`, { withCredentials:true });
-
-            return data;
-        }
-    });
+    const { data, isLoading } = getSingleFoundlingsCert(id as string);
     
     if(isLoading) return <Loading/>
     

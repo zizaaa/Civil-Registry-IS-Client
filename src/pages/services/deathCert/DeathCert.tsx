@@ -7,6 +7,7 @@ import axios from 'axios';
 import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { DeathCertData } from '../../../types/deathCertTypes';
+import { FaEye } from 'react-icons/fa6';
 
 function DeathCert() {
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -58,7 +59,7 @@ function DeathCert() {
     const handleDownload = () => {
         if (data && data.data) {
             const formattedData = data.data.map((cert: DeathCertData) => ({
-                "Register No.": cert.registryNumber || 'N/A',
+                "Registry No.": cert.registryNumber || 'N/A',
                 "First Name": cert.one_first || 'N/A',
                 "Last Name": cert.one_last || 'N/A',
                 "Middle Name": cert.one_middle || 'N/A',
@@ -130,7 +131,7 @@ function DeathCert() {
                     {/* Table Head */}
                     <thead className='bg-gradient-to-r from-darkCyan to-darkBlueTeel text-white'>
                         <tr>
-                            <th rowSpan={2} className='px-2 py-3 text-left'>Register No.</th>
+                            <th rowSpan={2} className='px-2 py-3 text-left'>Registry No.</th>
                             <th colSpan={3} className='px-2 py-3 text-center border-x-[1px]'>Full Name</th>
                             <th colSpan={3} className='px-2 py-3 text-center border-x-[1px]'>Address</th>
                             <th rowSpan={2} className='px-2 py-3 text-center'>Action</th>
@@ -161,8 +162,13 @@ function DeathCert() {
                                             <td className='px-3 py-2'>{cert.eight_houseNo  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.eight_cityOrMunicipality  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.eight_province  || 'N/A'}</td>
-                                            <td className='px-3 py-2 text-center'>
-                                                <button onClick={()=>{navigate(`preview/${cert.id}`)}} className='bg-[#0E7490] text-white px-3 py-1 rounded-sm drop-shadow-md'>View</button>
+                                            <td className='flex flex-row items-center justify-center gap-2 px-3 py-2 text-center'>
+                                                <Tooltip content="View">
+                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `preview/${cert.id}`:`preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                        <FaEye />
+                                                        <span className="sr-only">View</span>
+                                                    </button>
+                                                </Tooltip>
                                             </td>
                                         </tr>
                                     ))

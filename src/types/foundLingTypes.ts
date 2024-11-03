@@ -33,4 +33,13 @@ export interface FoundlingsTypes{
     twelveInformantSignature?:string;
     twelveRegistrarSignature?:string;
     thirteenSignature?:string;
+    scannedFile?:string;
+}
+
+export interface ScannedFileTypes{
+    one_name:string;
+    registryNumber:string;
+    five_place:string;
+    four_dateAndTime:string;
+    scannedFile?:string;
 }

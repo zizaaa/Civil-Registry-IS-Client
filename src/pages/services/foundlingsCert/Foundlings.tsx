@@ -1,6 +1,6 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useState } from 'react';
-import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { FaEye, IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -58,7 +58,7 @@ function Foundlings() {
     const handleDownload = () => {
         if (data && data.data) {
             const formattedData = data.data.map((cert: FoundlingsTypes) => ({
-                "Register No.": cert.registryNumber || 'N/A',
+                "Registry No.": cert.registryNumber || 'N/A',
                 "Name": cert.one_name || 'N/A',
                 "Place where found": cert.five_place || 'N/A',
                 "Date and Time when found": cert.four_dateAndTime || 'N/A',
@@ -127,7 +127,7 @@ function Foundlings() {
                     {/* Table Head */}
                     <thead className='bg-gradient-to-r from-darkCyan to-darkBlueTeel text-white'>
                         <tr>
-                            <th rowSpan={1} className='px-2 py-3 text-left'>Register No.</th>
+                            <th rowSpan={1} className='px-2 py-3 text-left'>Registry No.</th>
                             <th rowSpan={1} className='px-2 py-2 text-center border-x-[1px]'>Name</th>
                             <th rowSpan={1} className='px-2 py-3 text-center border-x-[1px]'>Place where found</th>
                             <th rowSpan={1} className='px-2 py-3 text-center border-x-[1px]'>Date and time when found</th>
@@ -147,8 +147,13 @@ function Foundlings() {
                                             <td className='px-3 py-2'>{cert.one_name  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.five_place  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.four_dateAndTime  || 'N/A'}</td>
-                                            <td className='px-3 py-2 text-center'>
-                                                <button onClick={()=>{navigate(`preview/${cert.id}`)}} className='bg-[#0E7490] text-white px-3 py-1 rounded-sm drop-shadow-md'>View</button>
+                                            <td className='flex flex-row items-center justify-center gap-2 px-3 py-2 text-center'>
+                                                <Tooltip content="View">
+                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `preview/${cert.id}`:`preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                        <FaEye />
+                                                        <span className="sr-only">View</span>
+                                                    </button>
+                                                </Tooltip>
                                             </td>
                                         </tr>
                                     ))

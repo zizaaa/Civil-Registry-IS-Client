@@ -78,4 +78,16 @@ export interface DeathCertData{
     eightyFive:string;
     eightySix:string;
     ninety:string;
+    scannedFile?:string;
+}
+
+export interface ScannedFileTypes{
+    one_first:string;
+    one_middle:string;
+    one_last:string;
+    registryNumber:string;
+    eight_houseNo:string;
+    eight_cityOrMunicipality:string;
+    eight_province:string;
+    scannedFile?:string;
 }

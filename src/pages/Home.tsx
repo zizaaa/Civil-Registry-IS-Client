@@ -33,7 +33,7 @@ function Home() {
         queryKey: ['recent-act'],
         queryFn: async () => {
             const { data } = await axios.get(`${serverURL}/api/cris/recent-activity/getAll-activity`, { withCredentials: true });
-            return data;
+            return data.reverse();
         }
     });
 

@@ -25,6 +25,7 @@ function Login() {
         },
         onError:(error:Error)=>{
             if(isAxiosError(error)){
+                console.log(error)
                 if(error.response?.data.message === 'User not found.'){
                     setUsernameError(true);
                     setPasswordError(false);
@@ -32,7 +33,7 @@ function Login() {
                     setPasswordError(true);
                     setUsernameError(false);
                 }
-                return errorToast(error.response?.data.message)
+                return errorToast(error.response?.data.error)
             }
             return errorToast('Could not log in. Please try again later.');
         },

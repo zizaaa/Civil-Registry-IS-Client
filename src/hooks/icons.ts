@@ -11,6 +11,8 @@ import { IoMdPersonAdd } from "react-icons/io";
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdFileDownload } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa";
 
 export {
     FaBaby,
@@ -25,5 +27,7 @@ export {
     IoMdPersonAdd,
     AiOutlineDashboard,
     MdFileDownload,
-    TbReportAnalytics
+    TbReportAnalytics,
+    FaTrashCan,
+    FaEye
 }

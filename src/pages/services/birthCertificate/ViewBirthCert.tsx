@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios";
 import { Loading, serverURL } from "../../../hooks/imports";
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
@@ -7,6 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import { Tooltip } from "flowbite-react";
 import { AiFillPrinter } from '../../../hooks/icons';
 import { useActivityMutation } from "../../../services/sendActivity";
+import { getSingleBirtCert } from "../../../services/getSingleBirtCert";
 
 function ViewBirthCert() {
     const { id } = useParams();
@@ -19,14 +18,7 @@ function ViewBirthCert() {
     });
 
 
-    const { data,isLoading } = useQuery({
-        queryKey:['single-data'],
-        queryFn: async()=>{
-            const { data } = await axios.get(`${serverURL}/api/cris/birth-certificate/get-single?id=${id}`, { withCredentials:true });
-
-            return data;
-        }
-    });
+    const { data,isLoading } = getSingleBirtCert(id as string)
     
     if(isLoading) return <Loading/>
     

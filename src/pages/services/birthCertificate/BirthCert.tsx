@@ -1,6 +1,6 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useState } from 'react';
-import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { FaEye, IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -130,7 +130,7 @@ function BirthCert() {
                     {/* Table Head */}
                     <thead className='bg-gradient-to-r from-darkCyan to-darkBlueTeel text-white'>
                         <tr>
-                            <th rowSpan={2} className='px-2 py-3 text-left'>Register No.</th>
+                            <th rowSpan={2} className='px-2 py-3 text-left'>Registry No.</th>
                             <th colSpan={3} className='px-2 py-3 text-center border-x-[1px]'>Full Name</th>
                             <th colSpan={3} className='px-2 py-3 text-center border-x-[1px]'>Address</th>
                             <th rowSpan={2} className='px-2 py-3 text-center'>Action</th>
@@ -161,8 +161,13 @@ function BirthCert() {
                                             <td className='px-3 py-2'>{cert.twelve_house  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.twelve_cityOrMunicipality  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.twelve_province  || 'N/A'}</td>
-                                            <td className='px-3 py-2 text-center'>
-                                                <button onClick={()=>{navigate(`preview/${cert.id}`)}} className='bg-[#0E7490] text-white px-3 py-1 rounded-sm drop-shadow-md'>View</button>
+                                            <td className='flex flex-row items-center justify-center gap-2 px-3 py-2 text-center'>
+                                                <Tooltip content="View">
+                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `preview/${cert.id}`:`preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                        <FaEye />
+                                                        <span className="sr-only">View</span>
+                                                    </button>
+                                                </Tooltip>
                                             </td>
                                         </tr>
                                     ))
