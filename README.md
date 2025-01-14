@@ -50,6 +50,6 @@ Make sure you have the following installed:
 
 Create a `.env` file at the root of the project to configure your environment variables. Below is an example `.env` file:
   ```env
-   VITE_API_URL=http://localhost:8000
-   VITE_CLIENT_URL=http://localhost:5173
+   VITE_REACT_SERVER_URL=http://localhost:8000
+   VITE_REACT_CLIENT_URL=http://localhost:5173
   ```
