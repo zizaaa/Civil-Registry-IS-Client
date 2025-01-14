@@ -7,8 +7,11 @@ import { Toaster } from "react-hot-toast";
 import { BirthCertDataType, ScannedFileTypes } from "../../../types/birthCerthTypes";
 import { useActivityMutation } from "../../../services/sendActivity";
 import { FileInput, Label } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 function BirthCertInputs() {
+    const navigate = useNavigate();
+
     const [scannedFileData, setScannedFileData] = useState<ScannedFileTypes>({
         one_first:"",
         one_middle:"",
@@ -105,20 +108,20 @@ function BirthCertInputs() {
     const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
 
     //*  number 19 b signature
-    const nineteenB_SignatureRef = useRef<HTMLInputElement | null>(null);
-    const [nineteenBSignatureSrc, setNineteenBSignatureSrc] = useState<string>('');
+    // const nineteenB_SignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [nineteenBSignatureSrc, setNineteenBSignatureSrc] = useState<string>('');
 
     //*  number 20 signature
-    const twenty_SignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentySignatureSrc, setTwentySignatureSrc] = useState<string>('');
+    // const twenty_SignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentySignatureSrc, setTwentySignatureSrc] = useState<string>('');
 
     //*  number 21 signature
-    const twentyOne_SignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentyOneSignatureSrc, setTwentyOneSignatureSrc] = useState<string>('');
+    // const twentyOne_SignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentyOneSignatureSrc, setTwentyOneSignatureSrc] = useState<string>('');
     
     //*  number 22 signature
-    const twentyTwo_SignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentyTwoSignatureSrc, setTwentyTwoSignatureSrc] = useState<string>('');
+    // const twentyTwo_SignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentyTwoSignatureSrc, setTwentyTwoSignatureSrc] = useState<string>('');
 
     //*  state for number 5 B if others is selected
     const [fiveBIsOthers, setFiveBIsOthers] = useState<boolean>(false);
@@ -155,39 +158,40 @@ function BirthCertInputs() {
             handleCLearValues();
             clearFileValue();
             refetch();
+            navigate('/birth-certificate');
         }
     });
 
     //*  number 2 sex
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBirthCertCredentials(prev => ({...prev, two_sex:e.target.value}))
+        setBirthCertCredentials(prev => ({...prev, two_sex:e.target.value.toUpperCase()}))
     };
 
     //*  number 5 A type of birth
     const handleChangeTypeOfBirth = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBirthCertCredentials(prev => ({...prev, fiveA_typeOfBirth:e.target.value}))
+        setBirthCertCredentials(prev => ({...prev, fiveA_typeOfBirth:e.target.value.toUpperCase()}))
     };
     
     //*  number 5 B if multiple child
     const handleChangeMultipleBirth = (e: React.ChangeEvent<HTMLInputElement>) =>{
         
-        if(e.target.value === 'others'){
+        if(e.target.value.toUpperCase() === 'others'){
             return setFiveBIsOthers(true);
         }
 
         setFiveBIsOthers(false);
-        setBirthCertCredentials(prev => ({...prev, fiveB_IfMultiple:e.target.value}))
+        setBirthCertCredentials(prev => ({...prev, fiveB_IfMultiple:e.target.value.toUpperCase()}))
     }
 
     //*  number 19 A if others is selected
     const handleChangeAttendant = (e: React.ChangeEvent<HTMLInputElement>)=>{
 
-        if(e.target.value === 'others'){
+        if(e.target.value.toUpperCase() === 'others'){
             return setNineTeenAIsOthers(true);
         }
 
         setNineTeenAIsOthers(false);
-        setBirthCertCredentials(prev => ({...prev, nineteenA_attendant:e.target.value}))
+        setBirthCertCredentials(prev => ({...prev, nineteenA_attendant:e.target.value.toUpperCase()}))
     }
 
     
@@ -212,24 +216,24 @@ function BirthCertInputs() {
     }
 
     //* number 19 B signature handler
-    const handleNumberNinteenFileChange = () =>{
-        handleFileUpload(nineteenB_SignatureRef, setNineteenBSignatureSrc);
-    }
+    // const handleNumberNinteenFileChange = () =>{
+    //     handleFileUpload(nineteenB_SignatureRef, setNineteenBSignatureSrc);
+    // }
 
     //* number 20 signature handler
-    const handleNumberTwentyFileChange = () =>{
-        handleFileUpload(twenty_SignatureRef, setTwentySignatureSrc);
-    }
+    // const handleNumberTwentyFileChange = () =>{
+    //     handleFileUpload(twenty_SignatureRef, setTwentySignatureSrc);
+    // }
 
     //* number 21 signature handler
-    const handleNumberTwentyOneFileChange = () =>{
-        handleFileUpload(twentyOne_SignatureRef, setTwentyOneSignatureSrc);
-    }
+    // const handleNumberTwentyOneFileChange = () =>{
+    //     handleFileUpload(twentyOne_SignatureRef, setTwentyOneSignatureSrc);
+    // }
 
     //* number 22 signature handler
-    const handleNumberTwentyTwoFileChange = () =>{
-        handleFileUpload(twentyTwo_SignatureRef, setTwentyTwoSignatureSrc);
-    }
+    // const handleNumberTwentyTwoFileChange = () =>{
+    //     handleFileUpload(twentyTwo_SignatureRef, setTwentyTwoSignatureSrc);
+    // }
 
     //* clear file values
     const clearFileValue =()=>{
@@ -332,25 +336,25 @@ function BirthCertInputs() {
         })
 
         // Clear signature files and image sources with proper checks
-        if (nineteenB_SignatureRef.current) {
-            nineteenB_SignatureRef.current.value = "";
-        }
-        setNineteenBSignatureSrc("");
+        // if (nineteenB_SignatureRef.current) {
+        //     nineteenB_SignatureRef.current.value = "";
+        // }
+        // setNineteenBSignatureSrc("");
         
-        if (twenty_SignatureRef.current) {
-            twenty_SignatureRef.current.value = "";
-        }
-        setTwentySignatureSrc(""); 
+        // if (twenty_SignatureRef.current) {
+        //     twenty_SignatureRef.current.value = "";
+        // }
+        // setTwentySignatureSrc(""); 
         
-        if (twentyOne_SignatureRef.current) {
-            twentyOne_SignatureRef.current.value = "";
-        }
-        setTwentyOneSignatureSrc("");
+        // if (twentyOne_SignatureRef.current) {
+        //     twentyOne_SignatureRef.current.value = "";
+        // }
+        // setTwentyOneSignatureSrc("");
         
-        if (twentyTwo_SignatureRef.current) {
-            twentyTwo_SignatureRef.current.value = "";
-        }
-        setTwentyTwoSignatureSrc("");
+        // if (twentyTwo_SignatureRef.current) {
+        //     twentyTwo_SignatureRef.current.value = "";
+        // }
+        // setTwentyTwoSignatureSrc("");
     }
     
     const isFormEmpty = (formDataObj:BirthCertDataType) => {
@@ -400,20 +404,25 @@ function BirthCertInputs() {
         });
 
         // Handle files using refs
-        formData.append('nineteenB_Signature', nineteenB_SignatureRef.current?.files?.[0] || '');
-        formData.append('twenty_Signature', twenty_SignatureRef.current?.files?.[0] || '');
-        formData.append('twentyOne_Signature', twentyOne_SignatureRef.current?.files?.[0] || '');
-        formData.append('twentyTwo_Signature', twentyTwo_SignatureRef.current?.files?.[0] || '');
+        // formData.append('nineteenB_Signature', nineteenB_SignatureRef.current?.files?.[0] || '');
+        // formData.append('twenty_Signature', twenty_SignatureRef.current?.files?.[0] || '');
+        // formData.append('twentyOne_Signature', twentyOne_SignatureRef.current?.files?.[0] || '');
+        // formData.append('twentyTwo_Signature', twentyTwo_SignatureRef.current?.files?.[0] || '');
 
         // Check if the entire form is empty
-        if (isFormEmpty(birthCertCredentials) &&
-            !nineteenB_SignatureRef.current?.files?.[0] &&
-            !twenty_SignatureRef.current?.files?.[0] &&
-            !twentyOne_SignatureRef.current?.files?.[0] &&
-            !twentyTwo_SignatureRef.current?.files?.[0]) {
+        if (isFormEmpty(birthCertCredentials)) {
             console.log('Empty form');
             return;
         }
+        // // Check if the entire form is empty
+        // if (isFormEmpty(birthCertCredentials) &&
+        //     !nineteenB_SignatureRef.current?.files?.[0] &&
+        //     !twenty_SignatureRef.current?.files?.[0] &&
+        //     !twentyOne_SignatureRef.current?.files?.[0] &&
+        //     !twentyTwo_SignatureRef.current?.files?.[0]) {
+        //     console.log('Empty form');
+        //     return;
+        // }
 
         // Call mutation if form is not empty
         mutation.mutate(formData);
@@ -430,11 +439,11 @@ function BirthCertInputs() {
                             Registry No.
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
                             id="registryNumber" 
                             className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                            value={scannedFileData.registryNumber} 
-                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value}))}}
+                            value={scannedFileData.registryNumber.toUpperCase()} 
+                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                         />
                     </div>
                     <div className="flex flex-col p-2 w-full">
@@ -452,8 +461,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="first" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                    value={scannedFileData.one_first}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_first:e.target.value}))}}
+                                    value={scannedFileData.one_first.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_first:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -464,8 +473,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="middle" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                    value={scannedFileData.one_middle}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_middle:e.target.value}))}}
+                                    value={scannedFileData.one_middle.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_middle:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -476,8 +485,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="last" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                    value={scannedFileData.one_last}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_last:e.target.value}))}}
+                                    value={scannedFileData.one_last.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_last:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -495,8 +504,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="name_of_place_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                    value={scannedFileData.twelve_house}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_house:e.target.value}))}}
+                                    value={scannedFileData.twelve_house.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_house:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col flex-1 justify-between">
@@ -507,8 +516,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="city_Municipality_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                    value={scannedFileData.twelve_cityOrMunicipality}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_cityOrMunicipality:e.target.value}))}}
+                                    value={scannedFileData.twelve_cityOrMunicipality.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col justify-between flex-1">
@@ -519,8 +528,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="province_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                    value={scannedFileData.twelve_province}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_province:e.target.value}))}}
+                                    value={scannedFileData.twelve_province.toUpperCase()}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, twelve_province:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -632,8 +641,8 @@ function BirthCertInputs() {
                                         type="text"
                                         id="province" 
                                         className="flex-1 border-x-0 border-t-0 border-green h-7 focus:outline-none focus:ring-transparent focus:border-green text-sm" 
-                                        value={birthCertCredentials.province}
-                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, province:e.target.value}))}}
+                                        value={birthCertCredentials.province.toUpperCase()}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, province:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -644,8 +653,8 @@ function BirthCertInputs() {
                                         type="text" 
                                         id="cityAndMunicipality" 
                                         className="flex-1 border-x-0 border-t-0 border-green h-7 focus:outline-none focus:ring-transparent focus:border-green text-sm"
-                                        value={birthCertCredentials.cityOrMunicipality}
-                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, cityOrMunicipality:e.target.value}))}}
+                                        value={birthCertCredentials.cityOrMunicipality.toUpperCase()}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -654,11 +663,12 @@ function BirthCertInputs() {
                                     Registry No.
                                 </label>
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     id="registryNumber" 
                                     className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                                    value={birthCertCredentials.registryNumber} 
-                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value}))}}
+                                    value={birthCertCredentials.registryNumber.toUpperCase()} 
+                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
+                                    autoCapitalize="true"
                                 />
                             </div>
                         </div>
@@ -672,7 +682,7 @@ function BirthCertInputs() {
                             name="remarks"
                             className="w-full text-sm rounded-sm border-0 min-h-60 max-h-60 focus:outline-none focus:ring-transparent"
                             value={birthCertCredentials.remarksAnnotation}
-                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, remarksAnnotation:e.target.value}))}}
+                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, remarksAnnotation:e.target.value.toUpperCase()}))}}
                         ></textarea>
                     </div>
                 </div>
@@ -703,8 +713,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="first" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.one_first}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_first:e.target.value}))}}
+                                            value={birthCertCredentials.one_first.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_first:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -715,8 +725,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="middle" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.one_middle}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_middle:e.target.value}))}}
+                                            value={birthCertCredentials.one_middle.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_middle:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -727,8 +737,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="last" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.one_last}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_last:e.target.value}))}}
+                                            value={birthCertCredentials.one_last.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, one_last:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -781,7 +791,7 @@ function BirthCertInputs() {
                                                     id="day" 
                                                     className="w-16 h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                                     value={birthCertCredentials.three_day}
-                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_day:e.target.value}))}}
+                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_day:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                             <div className="flex flex-col text-center gap-1">
@@ -792,8 +802,8 @@ function BirthCertInputs() {
                                                     type="text" 
                                                     id="month" 
                                                     className="w-16 h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                                    value={birthCertCredentials.three_month}
-                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_month:e.target.value}))}}
+                                                    value={birthCertCredentials.three_month.toUpperCase()}
+                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_month:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                             <div className="flex flex-col text-center gap-1">
@@ -805,7 +815,7 @@ function BirthCertInputs() {
                                                     id="year" 
                                                     className="w-16 h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                                     value={birthCertCredentials.three_year}
-                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_year:e.target.value}))}}
+                                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, three_year:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                         </div>
@@ -824,8 +834,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="name_of_place" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.four_nameOf}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_nameOf:e.target.value}))}}
+                                            value={birthCertCredentials.four_nameOf.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_nameOf:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1 justify-between">
@@ -836,8 +846,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="city_Municipality" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.four_cityOrMunicipality}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_cityOrMunicipality:e.target.value}))}}
+                                            value={birthCertCredentials.four_cityOrMunicipality.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col justify-between flex-1">
@@ -848,8 +858,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="province" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.four_province}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_province:e.target.value}))}}
+                                            value={birthCertCredentials.four_province.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, four_province:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -937,7 +947,7 @@ function BirthCertInputs() {
                                                             type='text' 
                                                             className="h-7  text-sm border-x-0 border-t-0 border-green focus:outline-none focus:ring-transparent focus:border-green"
                                                             value={birthCertCredentials.fiveB_IfMultiple}
-                                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveB_IfMultiple:e.target.value}))}}
+                                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveB_IfMultiple:e.target.value.toUpperCase()}))}}
                                                         />
                                                     )
                                                 }
@@ -977,8 +987,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="birthOrder" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent"
-                                                value={birthCertCredentials.fiveC_birthOrder}
-                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveC_birthOrder:e.target.value}))}}
+                                                value={birthCertCredentials.fiveC_birthOrder.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveC_birthOrder:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -996,8 +1006,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="grams" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent"
-                                                value={birthCertCredentials.fiveD_weight}
-                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveD_weight:e.target.value}))}}
+                                                value={birthCertCredentials.fiveD_weight.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fiveD_weight:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1030,8 +1040,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="first" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.six_first}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_first:e.target.value}))}}
+                                            value={birthCertCredentials.six_first.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_first:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -1042,8 +1052,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="middle" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.six_middle}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_middle:e.target.value}))}}
+                                            value={birthCertCredentials.six_middle.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_middle:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -1054,8 +1064,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="last" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.six_last}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_last:e.target.value}))}}
+                                            value={birthCertCredentials.six_last.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, six_last:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1070,8 +1080,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="citizenship" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.seven_citizenship}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, seven_citizenship:e.target.value}))}}
+                                                value={birthCertCredentials.seven_citizenship.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, seven_citizenship:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1084,8 +1094,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="religion" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.eight_religion}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eight_religion:e.target.value}))}}
+                                                value={birthCertCredentials.eight_religion.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eight_religion:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1106,8 +1116,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="total_number" 
                                                 className="w-full border-x-0 border-t-0 border-green focus:outline-none focus:ring-transparent focus:border-green h-7 text-sm mt-7"
-                                                value={birthCertCredentials.nineA_totalNumber}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineA_totalNumber:e.target.value}))}}
+                                                value={birthCertCredentials.nineA_totalNumber.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineA_totalNumber:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1125,8 +1135,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="number9_b" 
                                                 className="w-full border-x-0 border-t-0 border-green focus:outline-none focus:ring-transparent focus:border-green h-7 text-sm"
-                                                value={birthCertCredentials.nineB_numberOfChild}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineB_numberOfChild:e.target.value}))}}
+                                                value={birthCertCredentials.nineB_numberOfChild.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineB_numberOfChild:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1144,8 +1154,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="number9_b" 
                                                 className="w-full border-x-0 border-t-0 border-green focus:outline-none focus:ring-transparent focus:border-green h-7 text-sm"
-                                                value={birthCertCredentials.nineC_numberOfChildDead}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineC_numberOfChildDead:e.target.value}))}}
+                                                value={birthCertCredentials.nineC_numberOfChildDead.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, nineC_numberOfChildDead:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1161,8 +1171,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="citizenship" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.ten_occupation}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, ten_occupation:e.target.value}))}}
+                                                value={birthCertCredentials.ten_occupation.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, ten_occupation:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1182,7 +1192,7 @@ function BirthCertInputs() {
                                                 id="years" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-14"
                                                 value={birthCertCredentials.eleven_ageAtTheTime}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eleven_ageAtTheTime:e.target.value}))}}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eleven_ageAtTheTime:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1200,8 +1210,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="name_of_place_2" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.twelve_house}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_house:e.target.value}))}}
+                                            value={birthCertCredentials.twelve_house.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_house:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1 justify-between">
@@ -1212,8 +1222,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="city_Municipality_2" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.twelve_cityOrMunicipality}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_cityOrMunicipality:e.target.value}))}}
+                                            value={birthCertCredentials.twelve_cityOrMunicipality.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col justify-between flex-1">
@@ -1224,8 +1234,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="province_2" 
                                             className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
-                                            value={birthCertCredentials.twelve_province}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_province:e.target.value}))}}
+                                            value={birthCertCredentials.twelve_province.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, twelve_province:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1257,8 +1267,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="first" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.thirteen_first}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_first:e.target.value}))}}
+                                            value={birthCertCredentials.thirteen_first.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_first:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -1269,8 +1279,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="middle" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.thirteen_middle}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_middle:e.target.value}))}}
+                                            value={birthCertCredentials.thirteen_middle.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_middle:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -1281,8 +1291,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="last" 
                                             className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                            value={birthCertCredentials.thirteen_last}
-                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_last:e.target.value}))}}
+                                            value={birthCertCredentials.thirteen_last.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, thirteen_last:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1297,8 +1307,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="citizenship" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.fourteen_citizenship}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, fourteen_citizenship:e.target.value}))}}
+                                                value={birthCertCredentials.fourteen_citizenship.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, fourteen_citizenship:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1311,8 +1321,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="religion" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.fifteen_religion}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, fifteen_religion:e.target.value}))}}
+                                                value={birthCertCredentials.fifteen_religion.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, fifteen_religion:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1328,8 +1338,8 @@ function BirthCertInputs() {
                                                 type="text" 
                                                 id="citizenship" 
                                                 className="w-full border-none focus:outline-none focus:ring-transparent h-10 text-sm"
-                                                value={birthCertCredentials.sixteen_occupation}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, sixteen_occupation:e.target.value}))}}
+                                                value={birthCertCredentials.sixteen_occupation.toUpperCase()}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, sixteen_occupation:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1349,7 +1359,7 @@ function BirthCertInputs() {
                                                 id="years" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-14"
                                                 value={birthCertCredentials.seventeen_ageAtTheTime}
-                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, seventeen_ageAtTheTime:e.target.value}))}}
+                                                onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, seventeen_ageAtTheTime:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1369,8 +1379,8 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="last" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
-                                    value={birthCertCredentials.eighteen_DateAndPlaceOfMarriageOfParents}
-                                    onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eighteen_DateAndPlaceOfMarriageOfParents:e.target.value}))}}
+                                    value={birthCertCredentials.eighteen_DateAndPlaceOfMarriageOfParents.toUpperCase()}
+                                    onChange={(e)=>{setBirthCertCredentials(prev =>({...prev, eighteen_DateAndPlaceOfMarriageOfParents:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -1435,7 +1445,7 @@ function BirthCertInputs() {
                                                 type="text"
                                                 className="h-7  text-sm border-x-0 border-t-0 border-green focus:outline-none focus:ring-transparent focus:border-green"
                                                 value={birthCertCredentials.nineteenA_attendant}
-                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenA_attendant:e.target.value}))}}
+                                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenA_attendant:e.target.value.toUpperCase()}))}}
                                             />
                                         )
                                     }
@@ -1462,7 +1472,7 @@ function BirthCertInputs() {
                                 <span className="text-sm text-green ps-12">
                                     I hereby certify that I attended the birth of the child who was born alive at
                                 </span>
-                                <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-28" value={birthCertCredentials.nineteenB_bornAliveAt} onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_bornAliveAt:e.target.value}))}}/>
+                                <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-28" value={birthCertCredentials.nineteenB_bornAliveAt.toUpperCase()} onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_bornAliveAt:e.target.value.toUpperCase()}))}}/>
                                 <span className="text-sm text-green">o’clock am/pm on the date stated above.</span>
                             </div>
                             <div className="grid grid-cols-2 mt-2 gap-10">
@@ -1471,27 +1481,12 @@ function BirthCertInputs() {
                                         <label htmlFor="signature" className="text-sm font-medium text-green">Signature</label>
                                         <div className="relative w-full">
                                             <input 
-                                                type="file" 
-                                                id="signature"
-                                                accept=".png" 
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                ref={nineteenB_SignatureRef}
-                                                onChange={handleNumberNinteenFileChange}
+                                                type="text" 
+                                                id="nameInPrint" 
+                                                className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
+                                                disabled
                                             />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-green cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
                                         </div>
-                                        {
-                                            nineteenBSignatureSrc && (
-                                                <figure className="absolute right-20">
-                                                    <img 
-                                                        src={`${nineteenBSignatureSrc}`}
-                                                        className="h-10 w-28 object-contain"
-                                                    />
-                                                </figure>
-                                            )
-                                        }
                                     </div>
                                     <div className="flex flex-row items-end">
                                         <label htmlFor="nameInPrint" className="text-sm text-green w-36">Name in Print</label>
@@ -1499,8 +1494,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="nameInPrint" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.nineteenB_nameInPrint}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_nameInPrint:e.target.value}))}}
+                                            value={birthCertCredentials.nineteenB_nameInPrint.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_nameInPrint:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end">
@@ -1509,8 +1504,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="titleOrPosition_1" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.nineteenB_titleAndPosition}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_titleAndPosition:e.target.value}))}}
+                                            value={birthCertCredentials.nineteenB_titleAndPosition.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_titleAndPosition:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1521,8 +1516,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="address" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.nineteenB_address}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_address:e.target.value}))}}
+                                            value={birthCertCredentials.nineteenB_address.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_address:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end gap-2">
@@ -1531,8 +1526,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.nineteenB_date}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_date:e.target.value}))}}
+                                            value={birthCertCredentials.nineteenB_date.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1551,27 +1546,12 @@ function BirthCertInputs() {
                                         <label htmlFor="signature_2" className="text-sm font-medium text-green">Signature</label>
                                         <div className="relative w-full">
                                             <input 
-                                                type="file" 
-                                                id="signature_2"
-                                                accept=".png"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                ref={twenty_SignatureRef}
-                                                onChange={handleNumberTwentyFileChange}
+                                                type="text" 
+                                                id="nameInPrint" 
+                                                className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
+                                                disabled
                                             />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-green cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
                                         </div>
-                                        {
-                                            twentySignatureSrc && (
-                                                <figure className="absolute right-20">
-                                                    <img 
-                                                        src={`${twentySignatureSrc}`}
-                                                        className="h-10 w-28 object-contain"
-                                                    />
-                                                </figure>
-                                            )
-                                        }
                                     </div>
                                     <div className="flex flex-row items-end">
                                         <label htmlFor="nameInPrint" className="text-sm text-green w-36">Name in Print</label>
@@ -1579,8 +1559,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="nameInPrint" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twenty_nameInPrint}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_nameInPrint:e.target.value}))}}
+                                            value={birthCertCredentials.twenty_nameInPrint.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_nameInPrint:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end">
@@ -1589,8 +1569,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="titleOrPosition_2" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twenty_relationToChild}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_relationToChild:e.target.value}))}}
+                                            value={birthCertCredentials.twenty_relationToChild.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_relationToChild:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1601,8 +1581,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="address" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twenty_address}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_address:e.target.value}))}}
+                                            value={birthCertCredentials.twenty_address.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_address:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end gap-2">
@@ -1611,8 +1591,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twenty_date}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_date:e.target.value}))}}
+                                            value={birthCertCredentials.twenty_date.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twenty_date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1631,27 +1611,12 @@ function BirthCertInputs() {
                                         <label htmlFor="signature_2" className="text-sm font-medium text-green">Signature</label>
                                         <div className="relative w-full">
                                             <input 
-                                                type="file" 
-                                                id="signature_2"
-                                                accept=".png"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                ref={twentyOne_SignatureRef}
-                                                onChange={handleNumberTwentyOneFileChange}
+                                                type="text" 
+                                                id="nameInPrint" 
+                                                className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
+                                                disabled
                                             />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-green cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
                                         </div>
-                                        {
-                                            twentyOneSignatureSrc && (
-                                                <figure className="absolute right-20">
-                                                    <img 
-                                                        src={`${twentyOneSignatureSrc}`}
-                                                        className="h-10 w-28 object-contain"
-                                                    />
-                                                </figure>
-                                            )
-                                        }
                                     </div>
                                     <div className="flex flex-row items-end">
                                         <label htmlFor="nameInPrint" className="text-sm text-green w-36">Name in Print</label>
@@ -1659,8 +1624,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="nameInPrint" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyOne_nameInPrint}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_nameInPrint:e.target.value}))}}
+                                            value={birthCertCredentials.twentyOne_nameInPrint.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_nameInPrint:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end">
@@ -1669,8 +1634,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="titleOrPosition_3" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyOne_titleOrPosition}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_titleOrPosition:e.target.value}))}}
+                                            value={birthCertCredentials.twentyOne_titleOrPosition.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_titleOrPosition:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end gap-2">
@@ -1679,8 +1644,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyOne_date}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_date:e.target.value}))}}
+                                            value={birthCertCredentials.twentyOne_date.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyOne_date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1696,27 +1661,12 @@ function BirthCertInputs() {
                                         <label htmlFor="signature_2" className="text-sm font-medium text-green">Signature</label>
                                         <div className="relative w-full">
                                             <input 
-                                                type="file" 
-                                                id="signature_2"
-                                                accept=".png"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                ref={twentyTwo_SignatureRef}
-                                                onChange={handleNumberTwentyTwoFileChange}
+                                                type="text" 
+                                                id="nameInPrint" 
+                                                className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
+                                                disabled
                                             />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-green cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
                                         </div>
-                                        {
-                                            twentyTwoSignatureSrc && (
-                                                <figure className="absolute right-20">
-                                                    <img 
-                                                        src={`${twentyTwoSignatureSrc}`}
-                                                        className="h-10 w-28 object-contain"
-                                                    />
-                                                </figure>
-                                            )
-                                        }
                                     </div>
                                     <div className="flex flex-row items-end">
                                         <label htmlFor="nameInPrint" className="text-sm text-green w-36">Name in Print</label>
@@ -1724,8 +1674,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="nameInPrint" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyTwo_nameInPrint}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_nameInPrint:e.target.value}))}}
+                                            value={birthCertCredentials.twentyTwo_nameInPrint.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_nameInPrint:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end">
@@ -1734,8 +1684,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="titleOrPosition_4" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyTwo_titleOrPosition}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_titleOrPosition:e.target.value}))}}
+                                            value={birthCertCredentials.twentyTwo_titleOrPosition.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_titleOrPosition:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end gap-2">
@@ -1744,8 +1694,8 @@ function BirthCertInputs() {
                                             type="text" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
-                                            value={birthCertCredentials.twentyTwo_date}
-                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_date:e.target.value}))}}
+                                            value={birthCertCredentials.twentyTwo_date.toUpperCase()}
+                                            onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1763,7 +1713,7 @@ function BirthCertInputs() {
                                 type="text" 
                                 className="border-2 border-gray-500 h-9 focus:border-gray-500 focus:outline-none focus:ring-transparent"
                                 value={birthCertCredentials.populationReferenceNumber}
-                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, populationReferenceNumber:e.target.value}))}}
+                                onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, populationReferenceNumber:e.target.value.toUpperCase()}))}}
                             />
                         </div>
                         <div className="px-5 text-sm py-2">

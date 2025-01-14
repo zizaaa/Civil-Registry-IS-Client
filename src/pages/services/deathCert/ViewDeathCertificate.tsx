@@ -676,9 +676,9 @@ function ViewDeathCertificate() {
                                     <div className="pe-4 pt-6">
                                         <div className="flex flex-row items-end gap-2 relative">
                                             <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                            <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                                <img src={`${serverURL}/${data.twentySignature}`} className="h-7 ps-2"/>
-                                            </figure>
+                                            <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                                
+                                            </div>
                                         </div>
                                         <div className="flex flex-row items-end gap-1">
                                             <span className="text-sm text-gray-800">Name in Print</span>
@@ -710,9 +710,9 @@ function ViewDeathCertificate() {
                                     <div className="mt-5 border-2 border-gray-800 px-5 py-1">
                                         <span className="uppercase font-bold">Reviewed By:</span>
                                         <div className="flex flex-col items-center">
-                                            <figure className="flex-1 text-sm flex items-end justify-start text-gray-800 w-20" >
-                                                <img src={`${serverURL}/${data.twentyReviewedSignature}`} className="h-10 ps-2"/>
-                                            </figure>
+                                            <div className="flex-1 text-sm mt-5 flex items-end justify-start text-gray-800 w-20" >
+                                                
+                                            </div>
                                             <div className="flex flex-col-reverse items-center justify-center">
                                                 <label htmlFor="twentyOnedate" className="text-sm text-gray-800 font-semibold">Signature over printed name of Health Officer</label>
                                                 <div className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center ps-2 text-gray-800 h-7 w-full" >
@@ -820,9 +820,9 @@ function ViewDeathCertificate() {
                                 <div>
                                     <div className="flex flex-row items-end gap-2 relative">
                                         <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                            <img src={`${serverURL}/${data.twentyFiveSignature}`} className="h-7 ps-2"/>
-                                        </figure>
+                                        <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            
+                                        </div>
                                     </div>
                                     <div className="flex flex-row items-end gap-1">
                                         <span className="text-sm text-gray-800">Name in Print</span>
@@ -861,9 +861,9 @@ function ViewDeathCertificate() {
                                 </span>
                                 <div className="flex flex-row items-end gap-2 relative">
                                     <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                    <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                        <img src={`${serverURL}/${data.twentySixSignature}`} className="h-7 ps-2"/>
-                                    </figure>
+                                    <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                        
+                                    </div>
                                 </div>
                                 <div className="flex flex-row items-end gap-1">
                                     <span className="text-sm text-gray-800">Name in Print</span>
@@ -890,9 +890,9 @@ function ViewDeathCertificate() {
                                 </span>
                                 <div className="flex flex-row items-end gap-2 relative">
                                     <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
-                                    <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                        <img src={`${serverURL}/${data.twentySevenSignature}`} className="h-7 ps-2"/>
-                                    </figure>
+                                    <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                        
+                                    </div>
                                 </div>
                                 <div className="flex flex-row items-end gap-1">
                                     <span className="text-sm text-gray-800">Name in Print</span>

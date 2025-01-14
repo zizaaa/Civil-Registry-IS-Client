@@ -7,8 +7,11 @@ import { FoundlingsTypes, ScannedFileTypes } from "../../../types/foundLingTypes
 import { useActivityMutation } from "../../../services/sendActivity";
 import { FileInput, Label } from "flowbite-react";
 import { FaTrashCan } from "../../../hooks/icons";
+import { useNavigate } from "react-router-dom";
 
 function FoundlingsInput() {
+    const navigate = useNavigate();
+
     const [scannedFileData, setScannedFileData] = useState<ScannedFileTypes>({
         one_name:"",
         registryNumber:"",
@@ -57,14 +60,14 @@ function FoundlingsInput() {
     const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
 
     // * Number 12 Signature
-    const twelveInformantSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twelveInformantSignatureSrc, setTwelveInformantSignatureSrc] = useState<string>('');
+    // const twelveInformantSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twelveInformantSignatureSrc, setTwelveInformantSignatureSrc] = useState<string>('');
 
-    const twelveRegistrarSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twelveRegistrarSignatureSrc, setTwelveRegistrarSignatureSrc] = useState<string>('');
+    // const twelveRegistrarSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twelveRegistrarSignatureSrc, setTwelveRegistrarSignatureSrc] = useState<string>('');
     // * Number 13 Signature
-    const thirteenSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [thirteenSignatureSrc, setThirteenSignatureSrc] = useState<string>('');
+    // const thirteenSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [thirteenSignatureSrc, setThirteenSignatureSrc] = useState<string>('');
 
     //* get form number
     const { data, isLoading, refetch } = useQuery({
@@ -95,6 +98,7 @@ function FoundlingsInput() {
             activityMutation.mutate(`Foundling Certificate Registered for ${foundlingCredentials.one_name} (Registry No. ${foundlingCredentials.registryNumber})`);
             clearFileValue();
             handleClearValues();
+            navigate('/birth-certificate');
         }
     });
     
@@ -119,17 +123,17 @@ function FoundlingsInput() {
     }
         
     
-    const handleInformantSignature =()=>{
-        handleFileUpload(twelveInformantSignatureRef,setTwelveInformantSignatureSrc);
-    }
+    // const handleInformantSignature =()=>{
+    //     handleFileUpload(twelveInformantSignatureRef,setTwelveInformantSignatureSrc);
+    // }
 
-    const handleRegistrarSignature =()=>{
-        handleFileUpload(twelveRegistrarSignatureRef,setTwelveRegistrarSignatureSrc);
-    }
+    // const handleRegistrarSignature =()=>{
+    //     handleFileUpload(twelveRegistrarSignatureRef,setTwelveRegistrarSignatureSrc);
+    // }
 
-    const handleThirteenSignature =()=>{
-        handleFileUpload(thirteenSignatureRef,setThirteenSignatureSrc);
-    }
+    // const handleThirteenSignature =()=>{
+    //     handleFileUpload(thirteenSignatureRef,setThirteenSignatureSrc);
+    // }
 
     //* clear file values
     const clearFileValue =()=>{
@@ -181,20 +185,20 @@ function FoundlingsInput() {
         });
 
         // Clear signature files and image sources with proper checks
-        if (twelveInformantSignatureRef.current) {
-            twelveInformantSignatureRef.current.value = "";
-        }
-        setTwelveInformantSignatureSrc("");
+        // if (twelveInformantSignatureRef.current) {
+        //     twelveInformantSignatureRef.current.value = "";
+        // }
+        // setTwelveInformantSignatureSrc("");
 
-        if (twelveRegistrarSignatureRef.current) {
-            twelveRegistrarSignatureRef.current.value = "";
-        }
-        setTwelveRegistrarSignatureSrc("");
+        // if (twelveRegistrarSignatureRef.current) {
+        //     twelveRegistrarSignatureRef.current.value = "";
+        // }
+        // setTwelveRegistrarSignatureSrc("");
 
-        if (thirteenSignatureRef.current) {
-            thirteenSignatureRef.current.value = "";
-        }
-        setThirteenSignatureSrc("");
+        // if (thirteenSignatureRef.current) {
+        //     thirteenSignatureRef.current.value = "";
+        // }
+        // setThirteenSignatureSrc("");
     }
     // submit
     const isFormEmpty = (formDataObj:FoundlingsTypes) => {
@@ -244,19 +248,23 @@ function FoundlingsInput() {
         });
 
         // Handle files using refs
-        formData.append('twelveInformantSignature', twelveInformantSignatureRef.current?.files?.[0] || '');
-        formData.append('twelveRegistrarSignature', twelveRegistrarSignatureRef.current?.files?.[0] || '');
-        formData.append('thirteenSignature', thirteenSignatureRef.current?.files?.[0] || '');
+        // formData.append('twelveInformantSignature', twelveInformantSignatureRef.current?.files?.[0] || '');
+        // formData.append('twelveRegistrarSignature', twelveRegistrarSignatureRef.current?.files?.[0] || '');
+        // formData.append('thirteenSignature', thirteenSignatureRef.current?.files?.[0] || '');
 
         // Check if the entire form is empty
-        if (isFormEmpty(foundlingCredentials) &&
-            !twelveInformantSignatureRef.current?.files?.[0] &&
-            !twelveRegistrarSignatureRef.current?.files?.[0] &&
-            !thirteenSignatureRef.current?.files?.[0] 
-        ) {
+        if (isFormEmpty(foundlingCredentials)) {
             errorToast('Empty form');
             return;
         }
+        // if (isFormEmpty(foundlingCredentials) &&
+        //     !twelveInformantSignatureRef.current?.files?.[0] &&
+        //     !twelveRegistrarSignatureRef.current?.files?.[0] &&
+        //     !thirteenSignatureRef.current?.files?.[0] 
+        // ) {
+        //     errorToast('Empty form');
+        //     return;
+        // }
 
          // Call mutation if form is not empty
         mutation.mutate(formData);
@@ -272,11 +280,11 @@ function FoundlingsInput() {
                             Registry No.
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
                             id="registryNumber" 
                             className="w-full border-0 focus:outline-none focus:ring-transparent" 
                             value={scannedFileData.registryNumber} 
-                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value}))}}
+                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toLocaleUpperCase()}))}}
                         />
                     </div>
                     <div className="flex flex-col p-2 w-full">
@@ -292,7 +300,7 @@ function FoundlingsInput() {
                                     id="first" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={scannedFileData.one_name}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_name:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_name:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -308,7 +316,7 @@ function FoundlingsInput() {
                                     id="name_of_place_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                     value={scannedFileData.five_place}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, five_place:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, five_place:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -324,7 +332,7 @@ function FoundlingsInput() {
                                     id="name_of_place_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                     value={scannedFileData.four_dateAndTime}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, four_dateAndTime:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, four_dateAndTime:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -429,7 +437,7 @@ function FoundlingsInput() {
                                     id="province" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.province}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, province:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, province:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-row items-end gap-2">
@@ -441,7 +449,7 @@ function FoundlingsInput() {
                                     id="cityAndMunicipality" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm"
                                     value={foundlingCredentials.cityOrMunicipality}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, cityOrMunicipality:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, cityOrMunicipality:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -450,11 +458,11 @@ function FoundlingsInput() {
                                 Registry No.
                             </label>
                             <input 
-                                type="number" 
+                                type="text" 
                                 id="registryNumber" 
                                 className="w-full border-0 focus:outline-none focus:ring-transparent" 
                                 value={foundlingCredentials.registryNumber}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, registryNumber:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, registryNumber:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                     </div>
@@ -481,7 +489,7 @@ function FoundlingsInput() {
                                     id="one_name_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.one_name}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, one_name:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, one_name:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col px-2 w-60">
@@ -493,7 +501,7 @@ function FoundlingsInput() {
                                     id="one_sex_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.two_sex}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, two_sex:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, two_sex:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -509,7 +517,7 @@ function FoundlingsInput() {
                                     id="one_age_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.three_age}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, three_age:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, three_age:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col px-2 w-96">
@@ -521,7 +529,7 @@ function FoundlingsInput() {
                                     id="one_dateAndTime_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.four_dateAndTime}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, four_dateAndTime:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, four_dateAndTime:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -536,7 +544,7 @@ function FoundlingsInput() {
                                 id="one_placeWhereFound_child" 
                                 className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                 value={foundlingCredentials.five_place}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, five_place:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, five_place:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
 
@@ -551,7 +559,7 @@ function FoundlingsInput() {
                                     id="one_eyesColor_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.six_eyesColor}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, six_eyesColor:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, six_eyesColor:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col px-2 w-72">
@@ -563,7 +571,7 @@ function FoundlingsInput() {
                                     id="one_hairColor_child" 
                                     className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={foundlingCredentials.seven_hairColor}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, seven_hairColor:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, seven_hairColor:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -578,7 +586,7 @@ function FoundlingsInput() {
                                 id="one_bodyFeatures_child" 
                                 className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                 value={foundlingCredentials.eight_bodyFeature}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eight_bodyFeature:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eight_bodyFeature:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                         
@@ -592,7 +600,7 @@ function FoundlingsInput() {
                                 id="one_childCondition_child" 
                                 className="flex-1 border-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                 value={foundlingCredentials.nine_condition}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, nine_condition:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, nine_condition:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                     </div>
@@ -618,7 +626,7 @@ function FoundlingsInput() {
                                 id="ten_name_finder" 
                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                 value={foundlingCredentials.ten_name}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_name:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_name:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                         <div className="flex flex-row items-end gap-2 mb-2 w-full ps-5">
@@ -630,7 +638,7 @@ function FoundlingsInput() {
                                 id="ten_address_finder" 
                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                 value={foundlingCredentials.ten_address}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_address:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_address:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                         <div className="flex flex-row">
@@ -643,7 +651,7 @@ function FoundlingsInput() {
                                     id="ten_telephone_finder" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                     value={foundlingCredentials.ten_telephone}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_telephone:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_telephone:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-row items-end gap-2 mb-2 w-full ps-5">
@@ -655,7 +663,7 @@ function FoundlingsInput() {
                                     id="ten_occupation_finder" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                     value={foundlingCredentials.ten_occupation}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_occupation:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, ten_occupation:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -685,7 +693,7 @@ function FoundlingsInput() {
                                 id="eleven_name_finder" 
                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                 value={foundlingCredentials.eleven_name}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_name:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_name:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                         <div className="flex flex-row items-end gap-2 mb-2 w-full ps-5">
@@ -697,7 +705,7 @@ function FoundlingsInput() {
                                 id="eleven_address_finder" 
                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                 value={foundlingCredentials.eleven_address}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_address:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_address:e.target.value.toLocaleUpperCase()}))}}
                             />
                         </div>
                         <div className="flex flex-row">
@@ -710,7 +718,7 @@ function FoundlingsInput() {
                                     id="eleven_telephone_finder" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                     value={foundlingCredentials.eleven_telephone}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_telephone:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_telephone:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-row items-end gap-2 mb-2 w-full ps-5">
@@ -722,7 +730,7 @@ function FoundlingsInput() {
                                     id="eleven_occupation_finder" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                     value={foundlingCredentials.eleven_occupation}
-                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_occupation:e.target.value}))}}
+                                    onChange={(e)=>{setFounlingCredentials(prev => ({...prev, eleven_occupation:e.target.value.toLocaleUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -743,29 +751,11 @@ function FoundlingsInput() {
                             <div className="flex flex-col items-end justify-end">
                                 <div className="flex flex-col-reverse items-center gap-2 relative p-1 w-96 pe-5">
                                     <label htmlFor="twelve_signature" className="text-sm font-medium text-gray-800">(Signature of informant)</label>
-                                    <div className="relative w-full">
-                                        <input 
-                                            type="file" 
-                                            id="twelve_signature"
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            ref={twelveInformantSignatureRef}
-                                            onChange={handleInformantSignature}
-                                        />
+                                    <div className="relative mt-5 w-full">
                                         <div className="text-gray-700 text-xs text-center font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Choose File
+                                            
                                         </div>
                                     </div>
-                                    {
-                                        twelveInformantSignatureSrc && (
-                                            <figure className="absolute -top-5 right-10">
-                                                <img 
-                                                    src={`${twelveInformantSignatureSrc}`}
-                                                    className="h-10 w-28 object-contain"
-                                                />
-                                            </figure>
-                                        )
-                                    }
                                 </div>
                                 <div className="flex flex-row items-end gap-2 mb-2 w-96 pe-5">
                                     <label htmlFor="twelve_CommunityTax" className="text-gray-800 text-sm font-medium">
@@ -776,7 +766,7 @@ function FoundlingsInput() {
                                         id="twelve_CommunityTax" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                         value={foundlingCredentials.twelve_address}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_address:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_address:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2 mb-2 w-96 pe-5">
@@ -788,7 +778,7 @@ function FoundlingsInput() {
                                         id="twelve_DateIssued" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                         value={foundlingCredentials.twelve_dateIssued}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_dateIssued:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_dateIssued:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2 mb-2 w-96 pe-5">
@@ -800,7 +790,7 @@ function FoundlingsInput() {
                                         id="twelve_PlacedIssued" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                         value={foundlingCredentials.twelve_placeIssued}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_placeIssued:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_placeIssued:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -814,7 +804,7 @@ function FoundlingsInput() {
                                         type="text"
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-30" 
                                         value={foundlingCredentials.twelve_firstLine}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_firstLine:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_firstLine:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                     <span className="text-gray-800 ms-2">
                                         day of
@@ -823,7 +813,7 @@ function FoundlingsInput() {
                                         type="text"
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-30" 
                                         value={foundlingCredentials.twelve_secondLine}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_secondLine:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_secondLine:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                     <span>,</span>
                                 </div>
@@ -832,42 +822,23 @@ function FoundlingsInput() {
                                         type="text"
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-30" 
                                         value={foundlingCredentials.twelve_thirdLine}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_thirdLine:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_thirdLine:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                     <span>at</span>
                                     <input 
                                         type="text"
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-96" 
                                         value={foundlingCredentials.twelve_fourthLine}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_fourthLine:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_fourthLine:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                     <span>, Philippines.</span>
                                 </div>
                                 <div className="flex flex-col items-end justify-end mt-5 pe-5">
                                     <div>
                                         <div className="flex flex-row items-center justify-center gap-2 relative">
-                                            <div className="relative w-28">
-                                                <input 
-                                                    type="file" 
-                                                    accept=".png"
-                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                    ref={twelveRegistrarSignatureRef}
-                                                    onChange={handleRegistrarSignature}
-                                                />
-                                                <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                    Upload signature
-                                                </div>
+                                            <div className="relative mt-5 w-28">
+                                                
                                             </div>
-                                            {
-                                                twelveRegistrarSignatureSrc && (
-                                                    <figure className="absolute -top-5 right-10">
-                                                        <img 
-                                                            src={`${twelveRegistrarSignatureSrc}`}
-                                                            className="h-10 w-28 object-contain"
-                                                        />
-                                                    </figure>
-                                                )
-                                            }
                                         </div>
                                         <div className="flex flex-col-reverse items-center justify-center w-96">
                                             <label htmlFor="twelve_Name" className="text-sm text-gray-800 font-semibold">Signature over printed name of the Civil Registrar</label>
@@ -876,7 +847,7 @@ function FoundlingsInput() {
                                                 id="twelve_Name" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={foundlingCredentials.twelve_printedName}
-                                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_printedName:e.target.value}))}}
+                                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, twelve_printedName:e.target.value.toLocaleUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -918,7 +889,7 @@ function FoundlingsInput() {
                                 type="text"
                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-96" 
                                 value={foundlingCredentials.thirteen_certification}
-                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, thirteen_certification:e.target.value}))}}
+                                onChange={(e)=>{setFounlingCredentials(prev => ({...prev, thirteen_certification:e.target.value.toLocaleUpperCase()}))}}
                             />
                             <span className="ps-2">
                                 and properly recorded in the Registar of Foundling.
@@ -927,28 +898,9 @@ function FoundlingsInput() {
                         <div className="flex flex-col items-end justify-end mt-10 pe-5">
                             <div>
                                 <div className="flex flex-row items-center justify-center gap-2 relative">
-                                    <div className="relative w-28">
-                                        <input 
-                                            type="file" 
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            ref={thirteenSignatureRef}
-                                            onChange={handleThirteenSignature}
-                                        />
-                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Upload signature
-                                        </div>
+                                    <div className="relative mt-5 w-28">
+                                        
                                     </div>
-                                    {
-                                        thirteenSignatureSrc && (
-                                            <figure className="absolute -top-5 right-10">
-                                                <img 
-                                                    src={`${thirteenSignatureSrc}`}
-                                                    className="h-10 w-28 object-contain"
-                                                />
-                                            </figure>
-                                        )
-                                    }
                                 </div>
                                 <div className="flex flex-col-reverse items-center justify-center w-96">
                                     <label htmlFor="thirteen_Name" className="text-sm text-gray-800 font-semibold">Signature over printed name of the Civil Registrar</label>
@@ -957,7 +909,7 @@ function FoundlingsInput() {
                                         id="thirteen_Name" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={foundlingCredentials.thirteen_printedName}
-                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, thirteen_printedName:e.target.value}))}}
+                                        onChange={(e)=>{setFounlingCredentials(prev => ({...prev, thirteen_printedName:e.target.value.toLocaleUpperCase()}))}}
                                     />
                                 </div>
                             </div>

@@ -994,27 +994,20 @@ function ViewMarriageCert() {
                         </div>
                         <div className="grid grid-cols-2 mt-5 px-5 gap-5">
                             <div className="col-span-1 flex flex-col items-center">
-                                <figure 
+                                <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
                                 >
-                                    <img 
-                                        src={`${serverURL}/${data?.eighteenHusbandSignature}`}
-                                        className="w-20"
-                                    />
-                                </figure>
+                                </div>
                                 <span className="text-sm font-medium text-gray-800">
                                     (Signature of Husband)
                                 </span>
                             </div>
                             <div className="col-span-1 flex flex-col items-center">
-                                <figure 
+                                <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
                                 >
-                                    <img 
-                                        src={`${serverURL}/${data?.eighteenWifeSignature}`}
-                                        className="w-20"
-                                    />
-                                </figure>
+                                    
+                                </div>
                                 <span className="text-sm font-medium text-gray-800">
                                     (Signature of Wife)
                                 </span>
@@ -1102,14 +1095,11 @@ function ViewMarriageCert() {
                         </div>
                         <div className="grid grid-cols-3 gap-5 mt-5 pe-5 ps-14">
                             <div className="col-span-1">
-                                <figure 
+                                <div 
                                     className="flex items-center justify-center p-1 w-full h-6" 
                                 >
-                                    <img 
-                                        src={`${serverURL}/${data?.eighteenWifeSignature}`}
-                                        className="w-20"
-                                    />
-                                </figure>
+                                    
+                                </div>
                                 <div className="flex flex-col-reverse items-center justify-center">
                                     <span className="text-[12px] text-gray-800 font-semibold">
                                         (Signature Over Printed Name of Solemnized Officer)
@@ -1156,14 +1146,11 @@ function ViewMarriageCert() {
                     </span>
                     <div className="grid grid-cols-4 gap-5 pe-5">
                         <div className="col-span-1 ps-14">
-                            <figure 
+                            <div 
                                 className="flex items-center justify-center p-1 w-full h-6" 
                             >
-                                <img 
-                                    src={`${serverURL}/${data?.twentySignatureOne}`}
-                                    className="w-20"
-                                />
-                            </figure>
+                                
+                            </div>
                             <div className="flex flex-col-reverse items-center justify-center">
                                 <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
@@ -1173,14 +1160,11 @@ function ViewMarriageCert() {
                             </div>
                         </div>
                         <div className="col-span-1">
-                            <figure 
+                            <div 
                                 className="flex items-center justify-center p-1 w-full h-6" 
                             >
-                                <img 
-                                    src={`${serverURL}/${data?.twentySignatureTwo}`}
-                                    className="w-20"
-                                />
-                            </figure>
+                                
+                            </div>
                             <div className="flex flex-col-reverse items-center justify-center">
                                 <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
@@ -1190,14 +1174,11 @@ function ViewMarriageCert() {
                             </div>
                         </div>
                         <div className="col-span-1">
-                            <figure 
+                            <div 
                                 className="flex items-center justify-center p-1 w-full h-6" 
                             >
-                                <img 
-                                    src={`${serverURL}/${data?.twentySignatureThree}`}
-                                    className="w-20"
-                                />
-                            </figure>
+                                
+                            </div>
                             <div className="flex flex-col-reverse items-center justify-center">
                                 <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
@@ -1207,14 +1188,11 @@ function ViewMarriageCert() {
                             </div>
                         </div>
                         <div className="col-span-1">
-                            <figure 
+                            <div 
                                 className="flex items-center justify-center p-1 w-full h-6" 
                             >
-                                <img 
-                                    src={`${serverURL}/${data?.twentySignatureFour}`}
-                                    className="w-20"
-                                />
-                            </figure>
+                        
+                            </div>
                             <div className="flex flex-col-reverse items-center justify-center">
                                 <div 
                                     className="flex items-center justify-center p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
@@ -1235,14 +1213,11 @@ function ViewMarriageCert() {
                         <div className="pe-4">
                             <div className="flex flex-row items-end gap-2 relative">
                                 <span className="text-sm font-medium text-gray-800">Signature</span>
-                                <figure 
+                                <div 
                                     className="flex items-center justify-start p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
                                 >
-                                    <img 
-                                        src={`${serverURL}/${data?.twentyOneSignature}`}
-                                        className="w-20 ms-10"
-                                    />
-                                </figure>
+                                
+                                </div>
                             </div>
                             <div className="flex flex-row items-end">
                                 <span className="text-sm text-gray-800 w-36">Name in Print</span>
@@ -1277,14 +1252,11 @@ function ViewMarriageCert() {
                         <div className="pe-4">
                             <div className="flex flex-row items-end gap-2 relative">
                                 <span className="text-sm font-medium text-gray-800">Signature</span>
-                                <figure 
+                                <div 
                                     className="flex items-center justify-start p-1 w-full border-[1px] h-6 border-gray-700 text-sm border-x-0 border-t-0" 
                                 >
-                                    <img 
-                                        src={`${serverURL}/${data?.twentyTwoSignature}`}
-                                        className="w-20 ms-10"
-                                    />
-                                </figure>
+                                
+                                </div>
                             </div>
                             <div className="flex flex-row items-end">
                                 <span className="text-sm text-gray-800 w-36">Name in Print</span>

@@ -4,26 +4,24 @@ import { FaEye, IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/i
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { Foundlings, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import { BirthCertDataType } from '../../../types/birthCerthTypes';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 
 function BirthCert() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [searchTerm, setSearchTerm] = useState<string>(''); // State for input
-    const [currentSearchTerm, setCurrentSearchTerm] = useState<string>(''); // State for current search term
     const navigate = useNavigate();
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
     const { data, isLoading, error } = useQuery({
-        queryKey: ['birth-certificates', currentPage, currentSearchTerm],
+        queryKey: ['birth-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/birth-certificate/get-all`, {
                 params: {
                     page: currentPage,
                     limit: itemsPerPage,
-                    searchTerm: currentSearchTerm || '',  // Use currentSearchTerm as a parameter
                 },
                 withCredentials: true,
             });
@@ -32,6 +30,7 @@ function BirthCert() {
         }
     });
 
+
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -39,19 +38,6 @@ function BirthCert() {
     // Function to handle the search input change
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);  // Update searchTerm state on input change
-    };
-
-    // Function to handle the search button click
-    const handleSearchClick = () => {
-        setCurrentSearchTerm(searchTerm);  // Set the current search term on button click
-        setCurrentPage(1);  // Reset to the first page when a search is performed
-    };
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent default form submission if it's inside a form
-            handleSearchClick(); // Call the search function
-        }
     };
 
     // Function to handle the download of data as Excel
@@ -85,7 +71,7 @@ function BirthCert() {
             </h1>
             <div className='flex items-end justify-between mt-5 px-2'>
                 {/* Search Input */}
-                <div className='flex items-end'>
+                <div className='flex items-end relative'>
                     <div className='group flex flex-row items-end border-b-2 border-gray-300 focus-within:border-darkCyan'>
                         {/* <span className="py-2.5 ps-2 font-medium text-gray-400 group-focus-within:text-darkCyan">
                             <IoSearch />
@@ -95,18 +81,38 @@ function BirthCert() {
                             type='text'
                             value={searchTerm}  // Bind input to searchTerm state
                             onChange={handleSearchChange}  // Update searchTerm on change
-                            onKeyDown={handleKeyDown} 
+                            // onKeyDown={handleKeyDown} 
                             placeholder='Search'
                             className='h-9 border-0 bg-transparent focus:outline-none focus:border-transparent focus:ring-0'
                         />
                     </div>
                     <button
                         className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel"
-                        onClick={handleSearchClick} // Trigger search on button click
+                        // onClick={handleSearchClick} // Trigger search on button click
                     >
                         <IoSearch />
                         <span className="sr-only">Search</span>
                     </button>
+
+                    {/* suggestions */}
+                    {/* <div className=' bg-white absolute -bottom-[11.3rem] rounded-b-sm left-0 right-0 p-3 h-44 drop-shadow-md border-t-0 border-[1px] border-slate-200 overflow-y-auto'>
+                        <div className='flex items-center gap-5 border-b-[1px] border-slate-300 p-1'>
+                            <p>3232</p>
+                            <p>Jay Ar V. Nava</p>
+                        </div>
+                        <div className='flex items-center gap-5 border-b-[1px] border-slate-300 p-1'>
+                            <p>3232</p>
+                            <p>Jay Ar V. Nava</p>
+                        </div>
+                        <div className='flex items-center gap-5 border-b-[1px] border-slate-300 p-1'>
+                            <p>3232</p>
+                            <p>John Michael V. De Vera</p>
+                        </div>
+                        <div className='flex items-center gap-5 border-b-[1px] border-slate-300 p-1'>
+                            <p>3232</p>
+                            <p>John Michael V. De Vera</p>
+                        </div>
+                    </div> */}
                 </div>
                 <div className='flex items-center gap-1'>
                     <Tooltip content="Download">
@@ -138,8 +144,8 @@ function BirthCert() {
                         {/* Subhead */}
                         <tr>
                             <th className='px-2 py-2 text-left border-s-[1px]'>First</th>
+                            <th className='px-2 py-2 text-left'>Middle</th>
                             <th className='px-2 py-2 text-left'>Last</th>
-                            <th className='px-2 py-2 text-left border-e-[1px]'>Middle</th>
                             <th className='px-2 py-2 text-left border-s-[1px]'>House No., Street, Barangay</th>
                             <th className='px-2 py-2 text-left'>City/Municipality</th>
                             <th className='px-2 py-2 text-left border-e-[1px]'>Province</th>
@@ -156,8 +162,8 @@ function BirthCert() {
                                         <tr key={cert.id} className='bg-white hover:bg-[#145C7F11] transition-colors'>
                                             <td className='px-3 py-2'>{cert.registryNumber  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_first  || 'N/A'}</td>
-                                            <td className='px-3 py-2'>{cert.one_last  || 'N/A'}</td>
-                                            <td className='px-3 py-2'>{cert.one_middle || 'N/A'}</td>
+                                            <td className='px-3 py-2'>{cert.one_middle  || 'N/A'}</td>
+                                            <td className='px-3 py-2'>{cert.one_last|| 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.twelve_house  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.twelve_cityOrMunicipality  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.twelve_province  || 'N/A'}</td>
@@ -192,6 +198,8 @@ function BirthCert() {
                 />
             </div>
             )}
+
+            <Foundlings/>
         </section>
     );
 }

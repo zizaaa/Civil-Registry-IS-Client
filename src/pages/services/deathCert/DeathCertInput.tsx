@@ -7,8 +7,10 @@ import { Toaster } from "react-hot-toast";
 import { useActivityMutation } from "../../../services/sendActivity";
 import { FileInput, Label } from "flowbite-react";
 import { FaTrashCan } from "../../../hooks/icons";
+import { useNavigate } from "react-router-dom";
 
 function DeathCertInput() {
+    const navigate = useNavigate();
     const [scannedFileData, setScannedFileData] = useState<ScannedFileTypes>({
         one_first:"",
         one_middle:"",
@@ -108,25 +110,25 @@ function DeathCertInput() {
     const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
 
     //*  number 20 signature
-    const twentySignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentySignatureSrc, setTwentySignatureSrc] = useState<string>('');
-    const twentyReviewedSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentyReviewedSignatureSrc, setTwentyReviewedSignatureSrc] = useState<string>('');
+    // const twentySignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentySignatureSrc, setTwentySignatureSrc] = useState<string>('');
+    // const twentyReviewedSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentyReviewedSignatureSrc, setTwentyReviewedSignatureSrc] = useState<string>('');
 
     // * Number 21
     const [twentyOneIsOthers, setIsTwentyOneOthers] = useState<boolean>(false);
     
     // * Number 25 Signature
-    const twentyFiveSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentyFiveSignatureSrc, setTwentyFiveSignatureSrc] = useState<string>('');
+    // const twentyFiveSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentyFiveSignatureSrc, setTwentyFiveSignatureSrc] = useState<string>('');
     
     // * Number 26 Signature
-    const twentySixSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentySixSignatureSrc, setTwentySixSignatureSrc] = useState<string>('');
+    // const twentySixSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentySixSignatureSrc, setTwentySixSignatureSrc] = useState<string>('');
     
     // * Number 27 Signature
-    const twentySevenSignatureRef = useRef<HTMLInputElement | null>(null);
-    const [twentySevenSignatureSrc, setTwentySevenSignatureSrc] = useState<string>('');
+    // const twentySevenSignatureRef = useRef<HTMLInputElement | null>(null);
+    // const [twentySevenSignatureSrc, setTwentySevenSignatureSrc] = useState<string>('');
 
     //* get form number
     const { data, isLoading, refetch } = useQuery({
@@ -156,6 +158,7 @@ function DeathCertInput() {
             clearValues();
             clearFileValue();
             refetch();
+            navigate('/death-certificate');
         }
     });
 
@@ -181,64 +184,64 @@ function DeathCertInput() {
     
     //* Number 2 Sex event
     const handleSexChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        setDeathCertCredentials(prev => ({...prev, two_sex:e.target.value}))
+        setDeathCertCredentials(prev => ({...prev, two_sex:e.target.value.toUpperCase()}))
     }
 
     //* Number 9 civil status event
     const handleCivilStatusChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setDeathCertCredentials(prev => ({...prev, nine_civilStatus:e.target.value}))
+        setDeathCertCredentials(prev => ({...prev, nine_civilStatus:e.target.value.toUpperCase()}))
     }
 
     //* Number 18 Manner of Death
     const handleMannerOfDeath = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setDeathCertCredentials(prev => ({...prev, eighteen_A_mannerOfDeath:e.target.value}))
+        setDeathCertCredentials(prev => ({...prev, eighteen_A_mannerOfDeath:e.target.value.toUpperCase()}))
     }
 
     // * Number 19 Attendant
     const handleAttendant = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setDeathCertCredentials(prev => ({...prev, nineTeen_Attendant:e.target.value}))
+        setDeathCertCredentials(prev => ({...prev, nineTeen_Attendant:e.target.value.toUpperCase()}))
     }
 
     // * Number 20 signature uploader
-    const handleTwentySignature = () =>{
-        handleFileUpload(twentySignatureRef,setTwentySignatureSrc)
-    }
-    const handleTwentyReviewedSignature = () =>{
-        handleFileUpload(twentyReviewedSignatureRef,setTwentyReviewedSignatureSrc)
-    }
+    // const handleTwentySignature = () =>{
+    //     handleFileUpload(twentySignatureRef,setTwentySignatureSrc)
+    // }
+    // const handleTwentyReviewedSignature = () =>{
+    //     handleFileUpload(twentyReviewedSignatureRef,setTwentyReviewedSignatureSrc)
+    // }
 
     // * Number 21 change event
     const handleTwentyOneChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) =>{
         
-        if(e.target.value === 'Others (specify)'){
+        if(e.target.value.toUpperCase() === 'Others (specify)'){
             setDeathCertCredentials(prev => ({...prev, twentyOne_CorpseDisposal:''}));
             setIsTwentyOneOthers(true);
             return;
         }
 
         setIsTwentyOneOthers(false);
-        setDeathCertCredentials(prev => ({...prev, twentyOne_CorpseDisposal:e.target.value}));
+        setDeathCertCredentials(prev => ({...prev, twentyOne_CorpseDisposal:e.target.value.toUpperCase()}));
     }
 
     // * Number 23 change event
     const handleTwentyThreehangeEvent = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setDeathCertCredentials(prev => ({...prev, twentyThree_Autopsy:e.target.value}));
+        setDeathCertCredentials(prev => ({...prev, twentyThree_Autopsy:e.target.value.toUpperCase()}));
     }
 
     // * Number 25 signature uploader
-    const handleTwentyFiveSignature = () =>{
-        handleFileUpload(twentyFiveSignatureRef,setTwentyFiveSignatureSrc)
-    }
+    // const handleTwentyFiveSignature = () =>{
+    //     handleFileUpload(twentyFiveSignatureRef,setTwentyFiveSignatureSrc)
+    // }
 
     // * Number 26 signature uploader
-    const handleTwentySixSignature = () =>{
-        handleFileUpload(twentySixSignatureRef,setTwentySixSignatureSrc)
-    }
+    // const handleTwentySixSignature = () =>{
+    //     handleFileUpload(twentySixSignatureRef,setTwentySixSignatureSrc)
+    // }
 
     // * Number 27 signature uploader
-    const handleTwentySevenSignature = () =>{
-        handleFileUpload(twentySevenSignatureRef,setTwentySevenSignatureSrc)
-    }
+    // const handleTwentySevenSignature = () =>{
+    //     handleFileUpload(twentySevenSignatureRef,setTwentySevenSignatureSrc)
+    // }
 
     //* clear file values
     const clearFileValue =()=>{
@@ -341,30 +344,30 @@ function DeathCertInput() {
         });
 
         // Clear signature files and image sources with proper checks
-        if (twentySignatureRef.current) {
-            twentySignatureRef.current.value = "";
-        }
-        setTwentySignatureSrc("");
+        // if (twentySignatureRef.current) {
+        //     twentySignatureRef.current.value = "";
+        // }
+        // setTwentySignatureSrc("");
 
-        if (twentyReviewedSignatureRef.current) {
-            twentyReviewedSignatureRef.current.value = "";
-        }
-        setTwentyReviewedSignatureSrc("");
+        // if (twentyReviewedSignatureRef.current) {
+        //     twentyReviewedSignatureRef.current.value = "";
+        // }
+        // setTwentyReviewedSignatureSrc("");
 
-        if (twentyFiveSignatureRef.current) {
-            twentyFiveSignatureRef.current.value = "";
-        }
-        setTwentyFiveSignatureSrc("");
+        // if (twentyFiveSignatureRef.current) {
+        //     twentyFiveSignatureRef.current.value = "";
+        // }
+        // setTwentyFiveSignatureSrc("");
 
-        if (twentySixSignatureRef.current) {
-            twentySixSignatureRef.current.value = "";
-        }
-        setTwentySixSignatureSrc("");
+        // if (twentySixSignatureRef.current) {
+        //     twentySixSignatureRef.current.value = "";
+        // }
+        // setTwentySixSignatureSrc("");
 
-        if (twentySevenSignatureRef.current) {
-            twentySevenSignatureRef.current.value = "";
-        }
-        setTwentySevenSignatureSrc("");
+        // if (twentySevenSignatureRef.current) {
+        //     twentySevenSignatureRef.current.value = "";
+        // }
+        // setTwentySevenSignatureSrc("");
     }
 
     const isScannedDataEmpty = (fileData:ScannedFileTypes) =>{
@@ -414,23 +417,27 @@ function DeathCertInput() {
         });
 
         // Handle files using refs
-        formData.append('twentySignature', twentySignatureRef.current?.files?.[0] || '');
-        formData.append('twentyReviewedSignature', twentyReviewedSignatureRef.current?.files?.[0] || '');
-        formData.append('twentyFiveSignature', twentyFiveSignatureRef.current?.files?.[0] || '');
-        formData.append('twentySixSignature', twentySixSignatureRef.current?.files?.[0] || '');
-        formData.append('twentySevenSignature', twentySevenSignatureRef.current?.files?.[0] || '');
+        // formData.append('twentySignature', twentySignatureRef.current?.files?.[0] || '');
+        // formData.append('twentyReviewedSignature', twentyReviewedSignatureRef.current?.files?.[0] || '');
+        // formData.append('twentyFiveSignature', twentyFiveSignatureRef.current?.files?.[0] || '');
+        // formData.append('twentySixSignature', twentySixSignatureRef.current?.files?.[0] || '');
+        // formData.append('twentySevenSignature', twentySevenSignatureRef.current?.files?.[0] || '');
 
         // Check if the entire form is empty
-        if (isFormEmpty(deathCertCredentials) &&
-            !twentySignatureRef.current?.files?.[0] &&
-            !twentyReviewedSignatureRef.current?.files?.[0] &&
-            !twentyFiveSignatureRef.current?.files?.[0] &&
-            !twentySixSignatureRef.current?.files?.[0] &&
-            !twentySevenSignatureRef.current?.files?.[0] 
-        ) {
+        if (isFormEmpty(deathCertCredentials)) {
             console.log('Empty form');
             return;
         }
+        // if (isFormEmpty(deathCertCredentials) &&
+        //     !twentySignatureRef.current?.files?.[0] &&
+        //     !twentyReviewedSignatureRef.current?.files?.[0] &&
+        //     !twentyFiveSignatureRef.current?.files?.[0] &&
+        //     !twentySixSignatureRef.current?.files?.[0] &&
+        //     !twentySevenSignatureRef.current?.files?.[0] 
+        // ) {
+        //     console.log('Empty form');
+        //     return;
+        // }
 
         // Call mutation if form is not empty
         mutation.mutate(formData);
@@ -447,11 +454,11 @@ function DeathCertInput() {
                             Registry No.
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
                             id="registryNumber" 
                             className="w-full border-0 focus:outline-none focus:ring-transparent" 
                             value={scannedFileData.registryNumber} 
-                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value}))}}
+                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                         />
                     </div>
                     <div className="flex flex-col p-2 w-full">
@@ -470,7 +477,7 @@ function DeathCertInput() {
                                     id="first" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={scannedFileData.one_first}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_first:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_first:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -482,7 +489,7 @@ function DeathCertInput() {
                                     id="middle" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={scannedFileData.one_middle}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_middle:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_middle:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -494,7 +501,7 @@ function DeathCertInput() {
                                     id="last" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={scannedFileData.one_last}
-                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_last:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev => ({...prev, one_last:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -513,7 +520,7 @@ function DeathCertInput() {
                                     id="name_of_place_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                     value={scannedFileData.eight_houseNo}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_houseNo:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_houseNo:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col flex-1 justify-between">
@@ -525,7 +532,7 @@ function DeathCertInput() {
                                     id="city_Municipality_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                     value={scannedFileData.eight_cityOrMunicipality}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_cityOrMunicipality:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col justify-between flex-1">
@@ -537,7 +544,7 @@ function DeathCertInput() {
                                     id="province_2" 
                                     className="w-full h-7 text-sm border-none focus:outline-none focus:ring-transparent"
                                     value={scannedFileData.eight_province}
-                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_province:e.target.value}))}}
+                                    onChange={(e)=>{setScannedFileData(prev =>({...prev, eight_province:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -650,7 +657,7 @@ function DeathCertInput() {
                                         id="province" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                         value={deathCertCredentials.province}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, province:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, province:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -662,7 +669,7 @@ function DeathCertInput() {
                                         id="cityAndMunicipality" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm"
                                         value={deathCertCredentials.cityOrMunicipality}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, cityOrMunicipality:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -671,11 +678,11 @@ function DeathCertInput() {
                                     Registry No.
                                 </label>
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     id="registryNumber" 
                                     className="w-full border-0 focus:outline-none focus:ring-transparent" 
                                     value={deathCertCredentials.registryNumber}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, registryNumber:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -688,7 +695,7 @@ function DeathCertInput() {
                             id="remarks" 
                             name="remarks"
                             className="w-full text-sm rounded-sm border-0 min-h-60 max-h-60 focus:outline-none focus:ring-transparent"
-                            onChange={(e)=>{setDeathCertCredentials(prev =>({...prev, remarksOrAnnotation:e.target.value}))}}
+                            onChange={(e)=>{setDeathCertCredentials(prev =>({...prev, remarksOrAnnotation:e.target.value.toUpperCase()}))}}
                         ></textarea>
                     </div>
                 </div>
@@ -712,7 +719,7 @@ function DeathCertInput() {
                                     id="first" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={deathCertCredentials.one_first}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_first:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_first:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -724,7 +731,7 @@ function DeathCertInput() {
                                     id="middle" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={deathCertCredentials.one_middle}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_middle:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_middle:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -736,7 +743,7 @@ function DeathCertInput() {
                                     id="last" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={deathCertCredentials.one_last}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_last:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, one_last:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -783,7 +790,7 @@ function DeathCertInput() {
                                         id="religion" 
                                         className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                         value={deathCertCredentials.three_religion}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, three_religion:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, three_religion:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -817,7 +824,7 @@ function DeathCertInput() {
                                                 id="completedYears" 
                                                 className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                                 value={deathCertCredentials.four_A_completedYears}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_A_completedYears:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_A_completedYears:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -842,7 +849,7 @@ function DeathCertInput() {
                                                     id="four_b_months" 
                                                     className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                                     value={deathCertCredentials.four_B_months}
-                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_B_months:e.target.value}))}}
+                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_B_months:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                             <div className="px-2 flex items-center justify-center border-x-2 border-gray-800">
@@ -857,7 +864,7 @@ function DeathCertInput() {
                                                     id="four_b_days" 
                                                     className="w-full h-5 border-none focus:outline-none focus:ring-transparent px-2 text-sm"
                                                     value={deathCertCredentials.four_B_days}
-                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_B_days:e.target.value}))}}
+                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_B_days:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                         </div>
@@ -879,7 +886,7 @@ function DeathCertInput() {
                                                 id="completedYears" 
                                                 className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                                 value={deathCertCredentials.four_C_time}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_C_time:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, four_C_time:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -902,7 +909,7 @@ function DeathCertInput() {
                                     id="five_nameOf" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.five_nameOf}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_nameOf:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_nameOf:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -914,7 +921,7 @@ function DeathCertInput() {
                                     id="five_cityOrMunicipality" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.five_cityOrMunicipality}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_cityOrMunicipality:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -926,7 +933,7 @@ function DeathCertInput() {
                                     id="five_province" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.five_province}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_province:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, five_province:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -947,7 +954,7 @@ function DeathCertInput() {
                                         id="six_day" 
                                         className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                         value={deathCertCredentials.six_day}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_day:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_day:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
@@ -959,7 +966,7 @@ function DeathCertInput() {
                                         id="six_month" 
                                         className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                         value={deathCertCredentials.six_month}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_month:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_month:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
@@ -971,7 +978,7 @@ function DeathCertInput() {
                                         id="six_year" 
                                         className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                         value={deathCertCredentials.six_year}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_year:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, six_year:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -985,7 +992,7 @@ function DeathCertInput() {
                                         id="religion" 
                                         className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                         value={deathCertCredentials.seven_citizenship}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seven_citizenship:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seven_citizenship:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -1006,7 +1013,7 @@ function DeathCertInput() {
                                     id="eight_HouseNo" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.eight_houseNo}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_houseNo:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_houseNo:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -1018,7 +1025,7 @@ function DeathCertInput() {
                                     id="eight_cityOrMunicipality" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.eight_cityOrMunicipality}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_cityOrMunicipality:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_cityOrMunicipality:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                             <div className="flex flex-col items-center flex-1">
@@ -1030,7 +1037,7 @@ function DeathCertInput() {
                                     id="eigth_province" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-5 text-sm"
                                     value={deathCertCredentials.eight_province}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_province:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eight_province:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -1108,7 +1115,7 @@ function DeathCertInput() {
                                         id="ten_occupation" 
                                         className="w-full h-5 border-none focus:outline-none focus:ring-transparent text-sm"
                                         value={deathCertCredentials.ten_occupation}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, ten_occupation:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, ten_occupation:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -1135,7 +1142,7 @@ function DeathCertInput() {
                                                 id="immediateCause" 
                                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                                 value={deathCertCredentials.seventeen_I_A}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_A:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_A:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
@@ -1147,7 +1154,7 @@ function DeathCertInput() {
                                                 id="antecedentCause" 
                                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                                 value={deathCertCredentials.seventeen_I_B}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_B:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_B:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
@@ -1159,7 +1166,7 @@ function DeathCertInput() {
                                                 id="underlyingCause" 
                                                 className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                                 value={deathCertCredentials.seventeen_I_C}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_C:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_I_C:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1174,7 +1181,7 @@ function DeathCertInput() {
                                             id="immediateCause" 
                                             className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                             value={deathCertCredentials.seventeen_Interval}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_Interval:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_Interval:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1189,7 +1196,7 @@ function DeathCertInput() {
                                         id="otherSignificantCondition" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                         value={deathCertCredentials.seventeen_II}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_II:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_II:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -1201,7 +1208,7 @@ function DeathCertInput() {
                                         id="contributingToDeath" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                         value={deathCertCredentials.seventeen_ContributingToDeath}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_ContributingToDeath:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, seventeen_ContributingToDeath:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -1267,7 +1274,7 @@ function DeathCertInput() {
                                     id="placeOfOccurance" 
                                     className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                     value={deathCertCredentials.eighteen_B_PlaceOfOccurance}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eighteen_B_PlaceOfOccurance:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, eighteen_B_PlaceOfOccurance:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -1349,7 +1356,7 @@ function DeathCertInput() {
                                             id="from" 
                                             className="border-x-0 border-t-0 border-gray-700 h-7 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                             value={deathCertCredentials.nineTeen_From}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, nineTeen_From:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, nineTeen_From:e.target.value.toUpperCase()}))}}
                                         />
                                         <span className="pe-5">,</span>
                                         <input 
@@ -1357,7 +1364,7 @@ function DeathCertInput() {
                                             id="to" 
                                             className="border-x-0 border-t-0 border-gray-700 h-7 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                             value={deathCertCredentials.nineTeen_To}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, nineTeen_To:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, nineTeen_To:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1381,7 +1388,7 @@ function DeathCertInput() {
                                         type="text" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-28"
                                         value={deathCertCredentials.twenty_time}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_time:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_time:e.target.value.toUpperCase()}))}}
                                     />
                                     <span>
                                         am/pm on the date indicated above.
@@ -1395,26 +1402,11 @@ function DeathCertInput() {
                                             <label htmlFor="twentyOne_signature" className="text-sm font-medium text-gray-800">Signature</label>
                                             <div className="relative w-full">
                                                 <input 
-                                                    type="file" 
-                                                    id="twentyOne_signature"
-                                                    accept=".png"
-                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                    ref={twentySignatureRef}
-                                                    onChange={handleTwentySignature}
+                                                    type="text" 
+                                                    id="twentySeveNameInPrint" 
+                                                    className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                                    disabled
                                                 />
-                                                <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                    Choose File
-                                                </div>
-                                                {
-                                                    twentySignatureSrc && (
-                                                        <figure className="absolute -top-3 left-20">
-                                                            <img 
-                                                                src={`${twentySignatureSrc}`}
-                                                                className="h-10 w-28 object-contain"
-                                                            />
-                                                        </figure>
-                                                    )
-                                                }
                                             </div>
                                         </div>
                                         <div className="flex flex-row items-end">
@@ -1424,7 +1416,7 @@ function DeathCertInput() {
                                                 id="TwentyOnenameInPrint" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twenty_nameInPrint}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_nameInPrint:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_nameInPrint:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end">
@@ -1434,7 +1426,7 @@ function DeathCertInput() {
                                                 id="twentyOnetitleOrPosition" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twenty_TitleOrPosition}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_TitleOrPosition:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_TitleOrPosition:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
@@ -1444,7 +1436,7 @@ function DeathCertInput() {
                                                 id="twentyOneAddress" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twenty_Address}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_Address:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_Address:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end gap-2">
@@ -1454,7 +1446,7 @@ function DeathCertInput() {
                                                 id="twentyOnedate" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twenty_Date}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_Date:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_Date:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1464,28 +1456,15 @@ function DeathCertInput() {
                                         <span className="uppercase font-bold">Reviewed By:</span>
                                         <div>
                                             <div className="flex flex-row items-center justify-center gap-2 relative">
-                                                <div className="relative w-28">
-                                                    <input 
+                                                <div className="relative w-28 mt-5">
+                                                    {/* <input 
                                                         type="file" 
                                                         id="twentyOne_signature"
                                                         accept=".png"
                                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                         ref={twentyReviewedSignatureRef}
                                                         onChange={handleTwentyReviewedSignature}
-                                                    />
-                                                    <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                        Upload signature
-                                                    </div>
-                                                    {
-                                                        twentyReviewedSignatureSrc && (
-                                                            <figure className="absolute -top-5 -right-24">
-                                                                <img 
-                                                                    src={`${twentyReviewedSignatureSrc}`}
-                                                                    className="h-10 w-28 object-contain"
-                                                                />
-                                                            </figure>
-                                                        )
-                                                    }
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="flex flex-col-reverse items-center justify-center">
@@ -1495,7 +1474,7 @@ function DeathCertInput() {
                                                     id="twentyOnedate" 
                                                     className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                     value={deathCertCredentials.twenty_ReviewedBy_PrintedName}
-                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_ReviewedBy_PrintedName:e.target.value}))}}
+                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_ReviewedBy_PrintedName:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                             <div className="flex flex-col-reverse items-center justify-center">
@@ -1505,7 +1484,7 @@ function DeathCertInput() {
                                                     id="twentyOnedate" 
                                                     className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-38"
                                                     value={deathCertCredentials.twenty_ReviewedBy_Date}
-                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_ReviewedBy_Date:e.target.value}))}}
+                                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twenty_ReviewedBy_Date:e.target.value.toUpperCase()}))}}
                                                 />
                                             </div>
                                         </div>
@@ -1561,7 +1540,7 @@ function DeathCertInput() {
                                                         type="text"
                                                         className="border-x-0 border-t-0 border-gray-700 h-3 w-24 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm" 
                                                         value={deathCertCredentials.twentyOne_CorpseDisposal}
-                                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyOne_CorpseDisposal:e.target.value}))}}
+                                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyOne_CorpseDisposal:e.target.value.toUpperCase()}))}}
                                                     />
                                                 )
                                             }
@@ -1578,7 +1557,7 @@ function DeathCertInput() {
                                                 id="twentyTwoNumber" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent flex-1"
                                                 value={deathCertCredentials.twentyTwo_Burial_Number}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyTwo_Burial_Number:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyTwo_Burial_Number:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                         <div className="flex flex-row items-end justify-start gap-2">
@@ -1588,7 +1567,7 @@ function DeathCertInput() {
                                                 id="twentyTwoDateIssued" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twentyTwo_Burial_DateIssued}
-                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyTwo_Burial_DateIssued:e.target.value}))}}
+                                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyTwo_Burial_DateIssued:e.target.value.toUpperCase()}))}}
                                             />
                                         </div>
                                     </div>
@@ -1632,7 +1611,7 @@ function DeathCertInput() {
                                     type="text" 
                                     className="w-full border-none focus:outline-none focus:ring-transparent h-7 text-sm"
                                     value={deathCertCredentials.twentyFour_NameAndAddress}
-                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFour_NameAndAddress:e.target.value}))}}
+                                    onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFour_NameAndAddress:e.target.value.toUpperCase()}))}}
                                 />
                             </div>
                         </div>
@@ -1647,27 +1626,12 @@ function DeathCertInput() {
                                         <label htmlFor="twentyFive_signature" className="text-sm font-medium text-gray-800">Signature</label>
                                         <div className="relative w-full">
                                             <input 
-                                                type="file" 
-                                                id="twentyFive_signature"
-                                                accept=".png"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                ref={twentyFiveSignatureRef}
-                                                onChange={handleTwentyFiveSignature}
+                                                type="text" 
+                                                id="twentySeveNameInPrint" 
+                                                className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                                disabled
                                             />
-                                            <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                                Choose File
-                                            </div>
                                         </div>
-                                        {
-                                            twentyFiveSignatureSrc && (
-                                                <figure className="absolute -top-5 left-36">
-                                                    <img 
-                                                        src={`${twentyFiveSignatureSrc}`}
-                                                        className="h-10 w-28 object-contain"
-                                                    />
-                                                </figure>
-                                            )
-                                        }
                                     </div>
                                     <div className="flex flex-row items-end">
                                         <label htmlFor="twentyFiveNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
@@ -1676,7 +1640,7 @@ function DeathCertInput() {
                                             id="twentyFiveNameInPrint" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                             value={deathCertCredentials.twentyFive_NameInPrint}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_NameInPrint:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_NameInPrint:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end">
@@ -1686,7 +1650,7 @@ function DeathCertInput() {
                                             id="twentyFiveTitleOrPosition" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                             value={deathCertCredentials.twentyFive_Relationship}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Relationship:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Relationship:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1698,7 +1662,7 @@ function DeathCertInput() {
                                             id="TwentyFiveAddress" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                             value={deathCertCredentials.twentyFive_Address}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Address:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Address:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                     <div className="flex flex-row items-end gap-2">
@@ -1708,7 +1672,7 @@ function DeathCertInput() {
                                             id="twentyFiveDate" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                             value={deathCertCredentials.twentyFive_Date}
-                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Date:e.target.value}))}}
+                                            onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentyFive_Date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
                                 </div>
@@ -1724,27 +1688,12 @@ function DeathCertInput() {
                                     <label htmlFor="twentySix_signature" className="text-sm font-medium text-gray-800">Signature</label>
                                     <div className="relative w-full">
                                         <input 
-                                            type="file" 
-                                            id="twentySix_signature"
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            ref={twentySixSignatureRef}
-                                            onChange={handleTwentySixSignature}
+                                            type="text" 
+                                            id="twentySeveNameInPrint" 
+                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                            disabled
                                         />
-                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Choose File
-                                        </div>
                                     </div>
-                                    {
-                                        twentySixSignatureSrc && (
-                                            <figure className="absolute -top-5 left-36">
-                                                <img 
-                                                    src={`${twentySixSignatureSrc}`}
-                                                    className="h-10 w-28 object-contain"
-                                                />
-                                            </figure>
-                                        )
-                                    }
                                 </div>
                                 <div className="flex flex-row items-end">
                                     <label htmlFor="twentySixNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
@@ -1753,7 +1702,7 @@ function DeathCertInput() {
                                         id="twentySixNameInPrint" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySix_NameInPrint}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_NameInPrint:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_NameInPrint:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end">
@@ -1763,7 +1712,7 @@ function DeathCertInput() {
                                         id="twentySixTitleOrPosition" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySix_TitleOrPosition}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_TitleOrPosition:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_TitleOrPosition:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -1773,7 +1722,7 @@ function DeathCertInput() {
                                         id="twentySixDate" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySix_Date}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_Date:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySix_Date:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -1785,27 +1734,12 @@ function DeathCertInput() {
                                     <label htmlFor="twentySeve_signature" className="text-sm font-medium text-gray-800">Signature</label>
                                     <div className="relative w-full">
                                         <input 
-                                            type="file" 
-                                            id="twentySeve_signature"
-                                            accept=".png"
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                            ref={twentySevenSignatureRef}
-                                            onChange={handleTwentySevenSignature}
+                                            type="text" 
+                                            id="twentySeveNameInPrint" 
+                                            className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
+                                            disabled
                                         />
-                                        <div className="text-gray-700 text-xs text-start font-medium py-1 px-2 border-b-[1px] border-gray-800 cursor-pointer hover:border-gray-600">
-                                            Choose File
-                                        </div>
                                     </div>
-                                    {
-                                        twentySevenSignatureSrc && (
-                                            <figure className="absolute -top-5 left-36">
-                                                <img 
-                                                    src={`${twentySevenSignatureSrc}`}
-                                                    className="h-10 w-28 object-contain"
-                                                />
-                                            </figure>
-                                        )
-                                    }
                                 </div>
                                 <div className="flex flex-row items-end">
                                     <label htmlFor="twentySeveNameInPrint" className="text-sm text-gray-800 w-36">Name in Print</label>
@@ -1814,7 +1748,7 @@ function DeathCertInput() {
                                         id="twentySeveNameInPrint" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySeven_NameInPrint}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_NameInPrint:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_NameInPrint:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end">
@@ -1824,7 +1758,7 @@ function DeathCertInput() {
                                         id="twentySevenTitleOrPosition" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySeven_TitleOrPosition}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_TitleOrPosition:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_TitleOrPosition:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -1834,7 +1768,7 @@ function DeathCertInput() {
                                         id="twentySevenDate" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySeven_Date}
-                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_Date:e.target.value}))}}
+                                        onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, twentySeven_Date:e.target.value.toUpperCase()}))}}
                                     />
                                 </div>
                             </div>
@@ -1851,7 +1785,7 @@ function DeathCertInput() {
                                 type="text" 
                                 className="border-2 border-gray-500 h-9 focus:border-gray-500 focus:outline-none focus:ring-transparent"
                                 value={deathCertCredentials.populationReference}
-                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, populationReference:e.target.value}))}}
+                                onChange={(e)=>{setDeathCertCredentials(prev => ({...prev, populationReference:e.target.value.toUpperCase()}))}}
                             />
                         </div>
                         <div className="px-5 text-sm py-2">

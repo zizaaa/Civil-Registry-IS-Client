@@ -683,9 +683,9 @@ function ViewBirthCert() {
                                 <div>
                                     <div className="flex flex-row items-end gap-2 relative">
                                         <span className="text-green text-sm font-medium">Signature</span>
-                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                            <img src={`${serverURL}/${data.nineteenB_Signature}`} className="h-7 ps-2"/>
-                                        </figure>
+                                        <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            
+                                        </div>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
@@ -727,9 +727,9 @@ function ViewBirthCert() {
                                 <div>
                                     <div className="flex flex-row items-end gap-2 relative">
                                         <span className="text-green text-sm font-medium">Signature</span>
-                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                            <img src={`${serverURL}/${data.twenty_Signature}`} className="h-7 ps-2"/>
-                                        </figure>
+                                        <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            
+                                        </div>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
@@ -771,9 +771,9 @@ function ViewBirthCert() {
                                 <div className="pe-4">
                                     <div className="flex flex-row items-end gap-2 relative">
                                         <span className="text-green text-sm font-medium">Signature</span>
-                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                            <img src={`${serverURL}/${data.twentyOne_Signature}`} className="h-7 ps-2"/>
-                                        </figure>
+                                        <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            
+                                        </div>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
@@ -804,9 +804,9 @@ function ViewBirthCert() {
                                 <div className="pe-4">
                                     <div className="flex flex-row items-end gap-2 relative">
                                         <span className="text-green text-sm font-medium">Signature</span>
-                                        <figure className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
-                                            <img src={`${serverURL}/${data.twentyTwo_Signature}`} className="h-7 ps-2"/>
-                                        </figure>
+                                        <div className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start text-gray-800 w-10 " >
+                                            
+                                        </div>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>

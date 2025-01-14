@@ -139,11 +139,11 @@ function MarriageCert() {
                         {/* Subhead */}
                         <tr>
                             <th className='px-2 py-2 text-left border-s-[1px]'>First</th>
+                            <th className='px-2 py-2 text-left'>Middle</th>
                             <th className='px-2 py-2 text-left'>Last</th>
-                            <th className='px-2 py-2 text-left border-e-[1px]'>Middle</th>
                             <th className='px-2 py-2 text-left border-s-[1px]'>First</th>
+                            <th className='px-2 py-2 text-left'>Middle</th>
                             <th className='px-2 py-2 text-left'>Last</th>
-                            <th className='px-2 py-2 text-left border-e-[1px]'>Middle</th>
                             <th className='px-2 py-2 text-left border-s-[1px]'>Office of the House/Church/Mosque</th>
                             <th className='px-2 py-2 text-left'>City/Municipality</th>
                             <th className='px-2 py-2 text-left border-e-[1px]'>Province</th>
@@ -160,11 +160,11 @@ function MarriageCert() {
                                         <tr key={cert.id} className='bg-white hover:bg-[#145C7F11] transition-colors'>
                                             <td className='px-3 py-2'>{cert.RegistryNumber  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_first  || 'N/A'}</td>
-                                            <td className='px-3 py-2'>{cert.one_last  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_middle || 'N/A'}</td>
+                                            <td className='px-3 py-2'>{cert.one_last  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_first_wife  || 'N/A'}</td>
-                                            <td className='px-3 py-2'>{cert.one_last_wife  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_middle_wife || 'N/A'}</td>
+                                            <td className='px-3 py-2'>{cert.one_last_wife  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.fifteen_Office  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.fifteen_CityOrMunicipality  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.fifteen_Province  || 'N/A'}</td>

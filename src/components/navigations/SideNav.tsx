@@ -63,7 +63,7 @@ const SideNav = () => {
                     Marriage Certificate
                 </NavLink>
             </li>
-            <li>
+            {/* <li>
                 <NavLink
                     to="/foundlings"
                     className={
@@ -76,7 +76,7 @@ const SideNav = () => {
                     <FaChild />
                     Foundlings
                 </NavLink>
-            </li>
+            </li> */}
             <li>
                 <NavLink
                     to="/settings"

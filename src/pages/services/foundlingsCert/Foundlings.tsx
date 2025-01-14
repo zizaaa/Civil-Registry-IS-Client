@@ -149,7 +149,7 @@ function Foundlings() {
                                             <td className='px-3 py-2'>{cert.four_dateAndTime  || 'N/A'}</td>
                                             <td className='flex flex-row items-center justify-center gap-2 px-3 py-2 text-center'>
                                                 <Tooltip content="View">
-                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `preview/${cert.id}`:`preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `/foundlings/preview/${cert.id}`:`/foundlings/preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEye />
                                                         <span className="sr-only">View</span>
                                                     </button>

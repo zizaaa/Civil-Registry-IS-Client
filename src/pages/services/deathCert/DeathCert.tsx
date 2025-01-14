@@ -4,7 +4,7 @@ import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { BirthCert, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { DeathCertData } from '../../../types/deathCertTypes';
 import { FaEye } from 'react-icons/fa6';
@@ -139,8 +139,8 @@ function DeathCert() {
                         {/* Subhead */}
                         <tr>
                             <th className='px-2 py-2 text-left border-s-[1px]'>First</th>
+                            <th className='px-2 py-2 text-left'>Middle</th>
                             <th className='px-2 py-2 text-left'>Last</th>
-                            <th className='px-2 py-2 text-left border-e-[1px]'>Middle</th>
                             <th className='px-2 py-2 text-left border-s-[1px]'>House No., Street, Barangay</th>
                             <th className='px-2 py-2 text-left'>City/Municipality</th>
                             <th className='px-2 py-2 text-left border-e-[1px]'>Province</th>
@@ -157,8 +157,8 @@ function DeathCert() {
                                         <tr key={cert.id} className='bg-white hover:bg-[#145C7F11] transition-colors'>
                                             <td className='px-3 py-2'>{cert.registryNumber  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_first  || 'N/A'}</td>
-                                            <td className='px-3 py-2'>{cert.one_last  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.one_middle || 'N/A'}</td>
+                                            <td className='px-3 py-2'>{cert.one_last  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.eight_houseNo  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.eight_cityOrMunicipality  || 'N/A'}</td>
                                             <td className='px-3 py-2'>{cert.eight_province  || 'N/A'}</td>

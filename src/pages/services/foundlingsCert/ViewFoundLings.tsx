@@ -311,12 +311,9 @@ function ViewFoundLings() {
                             <div className="flex flex-col items-end justify-end">
                                 <div className="flex flex-col-reverse items-center gap-2 relative p-1 w-96 pe-5">
                                     <label htmlFor="twelve_signature" className="text-sm font-medium text-gray-800 border-t-[1px] border-gray-800 w-full text-center">(Signature of informant)</label>
-                                    <figure>
-                                        <img 
-                                            src={`${serverURL}/${data?.twelveInformantSignature}`}
-                                            className="w-20 max-h-10"
-                                        />
-                                    </figure>
+                                    <div className="mt-5">
+                                        
+                                    </div>
                                 </div>
                                 <div className="flex flex-row items-end gap-2 mb-2 w-96 pe-5">
                                     <label htmlFor="twelve_CommunityTax" className="text-gray-800 text-sm font-medium">
@@ -372,12 +369,9 @@ function ViewFoundLings() {
                                 </div>
                                 <div className="flex flex-col items-end justify-end mt-5 pe-5">
                                     <div>
-                                        <figure className="flex items-end justify-center">
-                                            <img 
-                                                src={`${serverURL}/${data?.twelveRegistrarSignature}`}
-                                                className="w-20 max-h-10"
-                                            />
-                                        </figure>
+                                        <div className="flex items-end justify-center mt-5">
+                                            
+                                        </div>
                                         <div className="flex flex-col-reverse items-center justify-center w-96">
                                             <label htmlFor="twelve_Name" className="text-sm text-gray-800 font-semibold">Signature over printed name of the Civil Registrar</label>
                                             <div className="flex items-center justify-center flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-700 h-30 w-full text-sm px-1" >
@@ -428,12 +422,9 @@ function ViewFoundLings() {
                         </div>
                         <div className="flex flex-col items-end justify-end mt-10 pe-5">
                             <div>
-                                <figure className="flex items-end justify-center">
-                                    <img 
-                                        src={`${serverURL}/${data?.thirteenSignature}`}
-                                        className="w-20 max-h-10"
-                                    />
-                                </figure>
+                                <div className="flex items-end mt-5 justify-center">
+                                    
+                                </div>
                                 <div className="flex flex-col-reverse items-center justify-center w-96">
                                     <label htmlFor="twelve_Name" className="text-sm text-gray-800 font-semibold">Signature over printed name of the Civil Registrar</label>
                                     <div className="flex items-center justify-center flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-700 h-30 w-full text-sm px-1" >
