@@ -78,6 +78,15 @@ export interface BirthCertDataType{
     ninetyThree:string;
     ninetyFour:string;
     registryNumber:string;
+    remarksAnnotationTwo:string;
+    eight:string;
+    nine:string;
+    eleven:string;
+    thirteen:string;
+    fifteen:string;
+    sixteen:string;
+    seventeen:string;
+    nineteen:string;
     scannedFile?:string;
 }
 

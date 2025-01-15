@@ -1,7 +1,7 @@
 import { Breadcrumb, Drawer, Sidebar } from "flowbite-react";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { LogoutModal, NavBar, SideNav } from "../hooks/imports";
+import { DeleteConfirmation, LogoutModal, NavBar, SideNav } from "../hooks/imports";
 
 function RootLayout() {
     const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -65,7 +65,7 @@ function RootLayout() {
         <main>
             {/* Modals */}
             <LogoutModal />
-
+            <DeleteConfirmation/>
             <NavBar setIsOpen={setIsOpen} isOpen={isOpen} />
 
             <div className="flex">

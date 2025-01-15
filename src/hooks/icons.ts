@@ -13,6 +13,8 @@ import { MdFileDownload } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
 
 export {
     FaBaby,
@@ -29,5 +31,7 @@ export {
     MdFileDownload,
     TbReportAnalytics,
     FaTrashCan,
-    FaEye
+    FaEye,
+    FaTrash,
+    FaEdit
 }

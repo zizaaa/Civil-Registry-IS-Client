@@ -99,7 +99,16 @@ function BirthCertInputs() {
         ninetyOne:"",
         ninetyThree:"",
         ninetyFour:"",
-        registryNumber:""
+        registryNumber:"",
+        remarksAnnotationTwo:"",
+        eight:"",
+        nine:"",
+        eleven:"",
+        thirteen:"",
+        fifteen:"",
+        sixteen:"",
+        seventeen:"",
+        nineteen:""
     });
     // acitivity mutation
     const activityMutation = useActivityMutation();
@@ -332,7 +341,16 @@ function BirthCertInputs() {
             ninetyOne:"",
             ninetyThree:"",
             ninetyFour:"",
-            registryNumber:""
+            registryNumber:"",
+            remarksAnnotationTwo:"",
+            eight:"",
+            nine:"",
+            eleven:"",
+            thirteen:"",
+            fifteen:"",
+            sixteen:"",
+            seventeen:"",
+            nineteen:""
         })
 
         // Clear signature files and image sources with proper checks
@@ -1698,6 +1716,107 @@ function BirthCertInputs() {
                                             onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, twentyTwo_date:e.target.value.toUpperCase()}))}}
                                         />
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="border-b-2 border-green ms-4 ps-9">
+                            <div className="flex flex-col w-full">
+                                <label htmlFor="remarks" className="text-green text-xl font-semibold uppercase">
+                                    Remarks/Annotation (For LCRO/OCRG Use Only)
+                                </label>
+                                <textarea 
+                                    id="remarks" 
+                                    name="remarks"
+                                    className="w-full text-sm rounded-sm border-0 min-h-28 max-h-28 focus:outline-none focus:ring-transparent"
+                                    value={birthCertCredentials.remarksAnnotationTwo}
+                                    onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, remarksAnnotationTwo:e.target.value.toUpperCase()}))}}
+                                ></textarea>   
+                            </div>
+                        </div>
+                        <div className="border-b-2 border-green ms-4 pb-2 ps-9">
+                            <div className="text-green text-xl font-semibold uppercase">
+                                To be filled-up at the office of the civil registrar
+                            </div>
+                            <div className="flex flex-row gap-6">
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">8</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={2}
+                                        value={birthCertCredentials.eight}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, eight:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">9</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={2}
+                                        value={birthCertCredentials.nine}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nine:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">11</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-14 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={3}
+                                        value={birthCertCredentials.eleven}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, eleven:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">13</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-32 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={8}
+                                        value={birthCertCredentials.thirteen}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, thirteen:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">15</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={2}
+                                        value={birthCertCredentials.fifteen}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, fifteen:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">16</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-10 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={2}
+                                        value={birthCertCredentials.sixteen}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, sixteen:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">17</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-14 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={3}
+                                        value={birthCertCredentials.seventeen}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, seventeen:e.target.value}))}}
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">19</span>
+                                    <input 
+                                        type="text" 
+                                        className="h-7 w-32 mt-2 border-2 border-gray-500 focus:border-gray-500 focus:outline-none focus:ring-transparent" 
+                                        maxLength={8}
+                                        value={birthCertCredentials.nineteen}
+                                        onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteen:e.target.value}))}}
+                                    />
                                 </div>
                             </div>
                         </div>

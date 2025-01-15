@@ -1,5 +1,5 @@
 export interface MarriageCertTypes{
-    id?:string;
+    id?:number;
     province:string;
     cityOrMunicipality:string;
     RegistryNumber:string;

@@ -34,6 +34,8 @@ import ViewlBirthCertFile from "../pages/services/birthCertificate/ViewlBirthCer
 import ViewDeathCertFile from "../pages/services/deathCert/ViewDeathCertFile";
 import ViewFoundlingsFile from "../pages/services/foundlingsCert/ViewFoundlingsFile";
 import ViewMarriageCertFile from "../pages/services/marriageCertificate/ViewMarriageCertFile";
+import DeleteConfirmation from "../components/modals/DeleteConfirmation";
+import confirmationStore from "./zustand/confirmationModalStore";
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
 
@@ -74,5 +76,7 @@ export {
     ViewlBirthCertFile,
     ViewDeathCertFile,
     ViewFoundlingsFile,
-    ViewMarriageCertFile
+    ViewMarriageCertFile,
+    DeleteConfirmation,
+    confirmationStore
 }

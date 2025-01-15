@@ -1,4 +1,4 @@
-import { Loading, serverURL } from "../../../hooks/imports";
+import { Loading } from "../../../hooks/imports";
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
@@ -83,7 +83,7 @@ function ViewBirthCert() {
                                     <span
                                         className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-6 text-sm flex items-end text-gray-800" 
                                     >
-                                        {data.province}
+                                        {data?.province}
                                     </span>
                                 </div>
                                 <div className="flex flex-row items-end gap-2">
@@ -93,7 +93,7 @@ function ViewBirthCert() {
                                     <span 
                                         className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-6 text-sm flex items-end text-gray-800" 
                                     >
-                                        {data.cityOrMunicipality}
+                                        {data?.cityOrMunicipality}
                                     </span>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@ function ViewBirthCert() {
                                 <span 
                                     className="flex-1 h-6 text-sm flex items-end text-gray-800" 
                                 >
-                                    {data.registryNumber}
+                                    {data?.registryNumber}
                                 </span>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ function ViewBirthCert() {
                         <span 
                             className="w-full flex-wrap p-2 h-7 text-sm flex items-end text-gray-800" 
                         >
-                            {data.remarksAnnotation}
+                            {data?.remarksAnnotation}
                         </span>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ function ViewBirthCert() {
                                             (First)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.one_first}
+                                            {data?.one_first}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -152,7 +152,7 @@ function ViewBirthCert() {
                                             (Middle)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.one_middle}
+                                            {data?.one_middle}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -160,7 +160,7 @@ function ViewBirthCert() {
                                             (Last)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.one_last}
+                                            {data?.one_last}
                                         </span>
                                     </div>
                                 </div>
@@ -176,13 +176,13 @@ function ViewBirthCert() {
                                             <div className="flex flex-row-reverse items-center gap-2">
                                                 <span className="text-green text-sm cursor-pointer">Male</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.two_sex === 'male' ? "/":""}
+                                                    {data?.two_sex === 'male' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-center gap-2">
                                                 <span className="text-green text-sm cursor-pointer">Female</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.two_sex === 'female' ? "/":""}
+                                                    {data?.two_sex === 'female' ? "/":""}
                                                 </span>
                                             </div>
                                         </div>
@@ -199,7 +199,7 @@ function ViewBirthCert() {
                                                     (day)
                                                 </span>
                                                 <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                                    {data.three_day}
+                                                    {data?.three_day}
                                                 </span>
                                             </div>
                                             <div className="flex flex-col text-center gap-1">
@@ -207,7 +207,7 @@ function ViewBirthCert() {
                                                     (month)
                                                 </span>
                                                 <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                                    {data.three_month}
+                                                    {data?.three_month}
                                                 </span>
                                             </div>
                                             <div className="flex flex-col text-center gap-1">
@@ -215,7 +215,7 @@ function ViewBirthCert() {
                                                     (year)
                                                 </span>
                                                 <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                                    {data.three_year}
+                                                    {data?.three_year}
                                                 </span>
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@ function ViewBirthCert() {
                                             (Name of Hospital/Clinic/Institution/House No., Street, Barangay)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800 " >
-                                            {data.four_nameOf}
+                                            {data?.four_nameOf}
                                         </span>
                                     </div>
                                     <div className="flex flex-col justify-between">
@@ -239,7 +239,7 @@ function ViewBirthCert() {
                                             (City/Municipality)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.four_cityOrMunicipality}
+                                            {data?.four_cityOrMunicipality}
                                         </span>
                                     </div>
                                     <div className="flex flex-col justify-between">
@@ -247,7 +247,7 @@ function ViewBirthCert() {
                                             (Province)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.four_province}
+                                            {data?.four_province}
                                         </span>
                                     </div>
                                 </div>
@@ -264,13 +264,13 @@ function ViewBirthCert() {
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">1. Single</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data.fiveA_typeOfBirth === 'single' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'single' ? "/":""}
                                                     </span>
                                                 </div>
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">2. Twin</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data.fiveA_typeOfBirth === 'twin' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'twin' ? "/":""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -278,7 +278,7 @@ function ViewBirthCert() {
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">3. Triplet Etc.</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data.fiveA_typeOfBirth === 'triplet' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'triplet' ? "/":""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -294,22 +294,22 @@ function ViewBirthCert() {
                                             <div className="flex flex-row-reverse items-center gap-2">
                                                 <span className="text-green text-sm cursor-pointer">1. First</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                    {data.fiveB_IfMultiple === 'first' ? "/":""}
+                                                    {data?.fiveB_IfMultiple === 'first' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-center gap-2">
                                             <span className="text-green text-sm cursor-pointer">1. Second</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                    {data.fiveB_IfMultiple === 'second' ? "/":""}
+                                                    {data?.fiveB_IfMultiple === 'second' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-center gap-2 ">
                                                 <span className="border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 min-w-20">
-                                                    {data.fiveB_IfMultiple !== 'first' && data.fiveB_IfMultiple !== 'second' ? data.fiveB_IfMultiple:""}
+                                                    {data?.fiveB_IfMultiple !== 'first' && data?.fiveB_IfMultiple !== 'second' ? data?.fiveB_IfMultiple:""}
                                                 </span>
                                                 <span className="text-green text-sm cursor-pointer">3. Others, Specify</span>
                                                 <span className="border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                    {data.fiveB_IfMultiple !== 'first' && data.fiveB_IfMultiple !== 'second' ? "/":""}
+                                                    {data?.fiveB_IfMultiple !== 'first' && data?.fiveB_IfMultiple !== 'second' ? "/":""}
                                                 </span>
                                             </div>
                                         </div>
@@ -333,7 +333,7 @@ function ViewBirthCert() {
                                         <div className="flex flex-row-reverse items-end gap-2">
                                             <span className="text-green text-sm cursor-pointer">(first, second, third, etc.) </span>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 min-w-20" >
-                                                {data.fiveC_birthOrder}
+                                                {data?.fiveC_birthOrder}
                                             </span>
                                         </div>
                                     </div>
@@ -346,7 +346,7 @@ function ViewBirthCert() {
                                         <div className="flex flex-row-reverse items-end gap-2">
                                             <span className="text-green text-sm cursor-pointer">grams</span>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-green h-7 text-sm flex items-end justify-center text-gray-800 min-w-20" >
-                                                {data.fiveD_weight}
+                                                {data?.fiveD_weight}
                                             </span>
                                         </div>
                                     </div>
@@ -376,7 +376,7 @@ function ViewBirthCert() {
                                             (First)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.six_first}
+                                            {data?.six_first}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -384,7 +384,7 @@ function ViewBirthCert() {
                                             (Middle)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.six_middle}
+                                            {data?.six_middle}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -392,7 +392,7 @@ function ViewBirthCert() {
                                             (Last)
                                         </span>
                                         <span className="w-full flex-wrap h-6 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.six_last}
+                                            {data?.six_last}
                                         </span>
                                     </div>
                                 </div>
@@ -404,7 +404,7 @@ function ViewBirthCert() {
                                                 7. CITIZENSHIP
                                             </span>
                                             <span className="w-full flex-wrap text-sm flex items-end text-gray-800" >
-                                                {data.seven_citizenship}
+                                                {data?.seven_citizenship}
                                             </span>
                                         </div>
                                     </div>
@@ -414,7 +414,7 @@ function ViewBirthCert() {
                                                 8. RELIGION
                                             </span>
                                             <span className="w-full flex-wrap text-sm flex items-end text-gray-800" >
-                                                {data.eight_religion}
+                                                {data?.eight_religion}
                                             </span>
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@ function ViewBirthCert() {
                                             </span>
                                             <div className="text-green text-sm cursor-pointer flex items-end relative"> 
                                                 Total number of children born alive:
-                                                <u className="absolute bottom-0 right-[6.5rem]">{data.nineA_totalNumber}</u>
+                                                <u className="absolute bottom-0 right-[6.5rem]">{data?.nineA_totalNumber}</u>
                                             </div>
                                         </div>
                                     </div>
@@ -439,7 +439,7 @@ function ViewBirthCert() {
                                             </span>
                                             <div className="text-green text-sm cursor-pointer flex items-end relative"> 
                                                 No. of Children still living including this birth:
-                                                <u className="absolute bottom-0 right-[0.2rem]">{data.nineB_numberOfChild}</u>
+                                                <u className="absolute bottom-0 right-[0.2rem]">{data?.nineB_numberOfChild}</u>
                                             </div>
                                         </div>
                                     </div>
@@ -450,7 +450,7 @@ function ViewBirthCert() {
                                             </span>
                                             <div className="text-green text-sm cursor-pointer flex items-end relative"> 
                                                 No. of children born alive but are now dead:
-                                                <u className="absolute bottom-0 right-[3rem]">{data.nineC_numberOfChildDead}</u>
+                                                <u className="absolute bottom-0 right-[3rem]">{data?.nineC_numberOfChildDead}</u>
                                             </div>
                                         </div>
                                     </div>
@@ -463,7 +463,7 @@ function ViewBirthCert() {
                                                 10. OCCUPATION
                                             </span>
                                             <span className="w-full flex-wrap h-6 text-sm flex items-end text-gray-800" >
-                                                {data.ten_occupation}
+                                                {data?.ten_occupation}
                                             </span>
                                         </div>
                                     </div>
@@ -477,7 +477,7 @@ function ViewBirthCert() {
                                         <div className="flex flex-row-reverse items-end gap-2">
                                             <span className="text-green text-sm cursor-pointer">years</span>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-green h-6 text-sm flex items-end justify-center text-gray-800 min-w-20" >
-                                                {data.eleven_ageAtTheTime}
+                                                {data?.eleven_ageAtTheTime}
                                             </span>
                                         </div>
                                     </div>
@@ -492,7 +492,7 @@ function ViewBirthCert() {
                                             (House No., Street, Barangay)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.twelve_house}
+                                            {data?.twelve_house}
                                         </span>
                                     </div>
                                     <div className="flex flex-col flex-1 justify-between">
@@ -500,7 +500,7 @@ function ViewBirthCert() {
                                             (City/Municipality)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.twelve_cityOrMunicipality}
+                                            {data?.twelve_cityOrMunicipality}
                                         </span>
                                     </div>
                                     <div className="flex flex-col justify-between flex-1">
@@ -508,7 +508,7 @@ function ViewBirthCert() {
                                             (Province)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.twelve_cityOrMunicipality}
+                                            {data?.twelve_cityOrMunicipality}
                                         </span>
                                     </div>
                                 </div>
@@ -537,7 +537,7 @@ function ViewBirthCert() {
                                             (First)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.thirteen_first}
+                                            {data?.thirteen_first}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -545,7 +545,7 @@ function ViewBirthCert() {
                                             (Middle)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.thirteen_middle}
+                                            {data?.thirteen_middle}
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center flex-1">
@@ -553,7 +553,7 @@ function ViewBirthCert() {
                                             (Last)
                                         </span>
                                         <span className="w-full flex-wrap text-sm flex items-end justify-center text-gray-800" >
-                                            {data.thirteen_last}
+                                            {data?.thirteen_last}
                                         </span>
                                     </div>
                                 </div>
@@ -565,7 +565,7 @@ function ViewBirthCert() {
                                                 14. CITIZENSHIP
                                             </span>
                                             <span className="w-full flex-wrap text-sm flex items-end text-gray-800" >
-                                                {data.fourteen_citizenship}
+                                                {data?.fourteen_citizenship}
                                             </span>
                                         </div>
                                     </div>
@@ -575,7 +575,7 @@ function ViewBirthCert() {
                                                 15. RELIGION
                                             </span>
                                             <span className="w-full flex-wrap text-sm flex items-end text-gray-800" >
-                                                {data.fifteen_religion}
+                                                {data?.fifteen_religion}
                                             </span>
                                         </div>
                                     </div>
@@ -588,7 +588,7 @@ function ViewBirthCert() {
                                                 16. OCCUPATION
                                             </span>
                                             <span className="w-full flex-wrap text-sm flex items-end text-gray-800" >
-                                                {data.sixteen_occupation}
+                                                {data?.sixteen_occupation}
                                             </span>
                                         </div>
                                     </div>
@@ -602,7 +602,7 @@ function ViewBirthCert() {
                                         <div className="flex flex-row-reverse items-end gap-2">
                                             <span className="text-green text-sm cursor-pointer">years</span>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-center text-gray-800 min-w-20" >
-                                                {data.seventeen_ageAtTheTime}
+                                                {data?.seventeen_ageAtTheTime}
                                             </span>
                                         </div>
                                     </div>
@@ -619,7 +619,7 @@ function ViewBirthCert() {
                             </div>
                             <div>
                                 <span className="w-full flex-wrap p-2 text-sm flex items-end text-gray-800" >
-                                    {data.eighteen_DateAndPlaceOfMarriageOfParents}
+                                    {data?.eighteen_DateAndPlaceOfMarriageOfParents}
                                 </span>
                             </div>
                         </div>
@@ -634,19 +634,19 @@ function ViewBirthCert() {
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">1. Physician</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data.nineteenA_attendant === 'physician' ? "/":""}
+                                        {data?.nineteenA_attendant === 'physician' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">2. Nurse</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data.nineteenA_attendant === 'nurse' ? "/":""}
+                                        {data?.nineteenA_attendant === 'nurse' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">3. Midwife</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data.nineteenA_attendant === 'midwife' ? "/":""}
+                                        {data?.nineteenA_attendant === 'midwife' ? "/":""}
                                     </span>
                                 </div>
                             </div>
@@ -654,13 +654,13 @@ function ViewBirthCert() {
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">4. Hilot (traditional Midwife)</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data.nineteenA_attendant === 'traditional Midwife' ? "/":""}
+                                        {data?.nineteenA_attendant === 'traditional Midwife' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">5. Others (Specify)</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data.nineteenA_attendant !== 'physician' && data.nineteenA_attendant !== 'nurse' && data.nineteenA_attendant !== 'midwife' && data.nineteenA_attendant !== 'traditional Midwife' ? data.nineteenA_attendant:""}
+                                        {data?.nineteenA_attendant !== 'physician' && data?.nineteenA_attendant !== 'nurse' && data?.nineteenA_attendant !== 'midwife' && data?.nineteenA_attendant !== 'traditional Midwife' ? data?.nineteenA_attendant:""}
                                     </span>
                                 </div>
                             </div>
@@ -676,7 +676,7 @@ function ViewBirthCert() {
                                 <span className="text-sm text-green ps-12">
                                     I hereby certify that I attended the birth of the child who was born alive at
                                 </span>
-                                <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-28 bg-transparent" value={data.nineteenB_bornAliveAt} disabled/>
+                                <input type="text" className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-28 bg-transparent" value={data?.nineteenB_bornAliveAt} disabled/>
                                 <span className="text-sm text-green">o’clock am/pm on the date stated above.</span>
                             </div>
                             <div className="grid grid-cols-2 gap-10">
@@ -690,13 +690,13 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.nineteenB_nameInPrint}
+                                            {data?.nineteenB_nameInPrint}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Title or Position</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.nineteenB_titleAndPosition}
+                                            {data?.nineteenB_titleAndPosition}
                                         </span>
                                     </div>
                                 </div>
@@ -704,13 +704,13 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end gap-2 mt-2">
                                         <span className="text-green text-sm cursor-pointer">Address</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.nineteenB_address}
+                                            {data?.nineteenB_address}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end gap-2 mt-2">
                                         <span className="text-green text-sm cursor-pointer">Date</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.nineteenB_date}
+                                            {data?.nineteenB_date}
                                         </span>
                                     </div>
                                 </div>
@@ -734,13 +734,13 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twenty_nameInPrint}
+                                            {data?.twenty_nameInPrint}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Relationship to the child</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twenty_relationToChild}
+                                            {data?.twenty_relationToChild}
                                         </span>
                                     </div>
                                 </div>
@@ -748,13 +748,13 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end gap-2">
                                         <span className="text-green text-sm cursor-pointer">Address</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twenty_address}
+                                            {data?.twenty_address}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end gap-2 mt-2">
                                         <span className="text-green text-sm cursor-pointer">Date</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twenty_date}
+                                            {data?.twenty_date}
                                         </span>
                                     </div>
                                 </div>
@@ -778,19 +778,19 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyOne_nameInPrint}
+                                            {data?.twentyOne_nameInPrint}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Title of Position</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyOne_titleOrPosition}
+                                            {data?.twentyOne_titleOrPosition}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end gap-2 mt-1">
                                         <span className="text-green text-sm cursor-pointer">Date</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyOne_date}
+                                            {data?.twentyOne_date}
                                         </span>
                                     </div>
                                 </div>
@@ -811,21 +811,208 @@ function ViewBirthCert() {
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Name in Print</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyTwo_nameInPrint}
+                                            {data?.twentyTwo_nameInPrint}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end mt-2">
                                         <span className="text-green text-sm cursor-pointer">Title of Position</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyTwo_titleOrPosition}
+                                            {data?.twentyTwo_titleOrPosition}
                                         </span>
                                     </div>
                                     <div className="flex flex-row items-end gap-2 mt-1">
                                         <span className="text-green text-sm cursor-pointer">Date</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-start ps-2 text-gray-800 w-10" >
-                                            {data.twentyTwo_date}
+                                            {data?.twentyTwo_date}
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="border-b-2 border-green ms-4 ps-9">
+                            <div className="flex flex-col w-full">
+                                <span className="text-green text-xl font-semibold uppercase">
+                                    Remarks/Annotation (For LCRO/OCRG Use Only)
+                                </span>
+                                <span 
+                                    className="w-full flex-wrap p-2 h-28 text-sm flex text-gray-800" 
+                                >
+                                    {data?.remarksAnnotationTwo}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="border-b-2 border-green ms-4 pb-5 ps-9">
+                            <div className="text-green text-xl font-semibold uppercase">
+                                To be filled-up at the office of the civil registrar
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">8</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.eight ? 
+                                            (
+                                                data?.eight.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500 text-sm">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">9</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.nine ? 
+                                            (
+                                                data?.nine.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">11</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.eleven ? 
+                                            (
+                                                data?.eleven.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">13</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.thirteen ? 
+                                            (
+                                                data?.thirteen.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">15</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.fifteen ? 
+                                            (
+                                                data?.fifteen.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">16</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.sixteen ? 
+                                            (
+                                                data?.sixteen.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-green text-sm">17</span>
+                                    <div className="mt-5">
+                                        {
+                                            data?.seventeen ? 
+                                            (
+                                                data?.seventeen.split('').map((letter:string, index:number) => (
+                                                    <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                        {letter}
+                                                    </span>
+                                                ))
+                                            ):(
+                                                <div>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                    <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col mt-5">
+                                <span className="text-green text-sm">19</span>
+                                <div className="mt-5">
+                                    {
+                                        data?.nineteen ? 
+                                        (
+                                            data?.nineteen.split('').map((letter:string, index:number) => (
+                                                <span key={index} className="border-2 p-2 bg-white border-gray-500">
+                                                    {letter}
+                                                </span>
+                                            ))
+                                        ):(
+                                            <div>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                                <span className="border-2 p-2 bg-white border-gray-500 px-3"></span>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -838,7 +1025,7 @@ function ViewBirthCert() {
                                 <span className="font-semibold text-green text-sm">Population reference No.</span>
                             </div>
                             <span className="border-2 border-gray-500 bg-gray-100 px-2 w-56 h-7">
-                                {data.populationReferenceNumber}
+                                {data?.populationReferenceNumber}
                             </span>
                         </div>
                         <div className="px-5 text-sm py-2">
@@ -852,8 +1039,8 @@ function ViewBirthCert() {
                             <span className="text-green text-sm">41</span>
                             <div className="mt-3">
                                 {
-                                    data.fourtyOne ? (
-                                        data.fourtyOne.split('').map((letter:string, index:number) => (
+                                    data?.fourtyOne ? (
+                                        data?.fourtyOne.split('').map((letter:string, index:number) => (
                                             <span key={index} className="border-2 p-2 bg-white border-gray-500">
                                                 {letter}
                                             </span>
@@ -875,14 +1062,14 @@ function ViewBirthCert() {
                         <div className="px-5 mt-6 flex flex-col">
                             <span className="text-green text-sm">48</span>
                             <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                {data.fourtyEight || ''}
+                                {data?.fourtyEight || ''}
                             </span>
                         </div>
                         <div className="px-5 mt-6 flex gap-2">
                             <div className="flex flex-col">
                                 <span className="text-green text-sm">49</span>
                                 <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                    {data.fourtyNine || ''}
+                                    {data?.fourtyNine || ''}
                                 </span>
                             </div>
                             <div className="flex flex-col">
@@ -938,7 +1125,7 @@ function ViewBirthCert() {
                         <div className="flex flex-col px-5 mt-6">
                             <span className="text-green text-sm">61</span>
                             <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                {data.sixtyOne || ''}
+                                {data?.sixtyOne || ''}
                             </span>
                         </div>
                         <div className="px-5 mt-6 flex flex-row gap-2">
@@ -989,13 +1176,13 @@ function ViewBirthCert() {
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-green text-sm">68</span>
                                 <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                    {data.sixtyEight || ''}
+                                    {data?.sixtyEight || ''}
                                 </span>
                             </div>
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-green text-sm">69</span>
                                 <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                    {data.sixtyNine || ''}
+                                    {data?.sixtyNine || ''}
                                 </span>
                             </div>
                         </div>
@@ -1131,13 +1318,13 @@ function ViewBirthCert() {
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-green text-sm">86</span>
                                 <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                    {data.eightySix || ''}
+                                    {data?.eightySix || ''}
                                 </span>
                             </div>
                             <div className="flex flex-col px-5 mt-2">
                                 <span className="text-green text-sm">87</span>
                                 <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                    {data.eightySeven || ''}
+                                    {data?.eightySeven || ''}
                                 </span>
                             </div>
                         </div>
@@ -1187,13 +1374,13 @@ function ViewBirthCert() {
                         <div className="flex flex-col px-5 mt-6">
                             <span className="text-green text-sm">93</span>
                             <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                {data.ninetyThree || ''}
+                                {data?.ninetyThree || ''}
                             </span>
                         </div>
                         <div className="flex flex-col px-5 mt-6">
                             <span className="text-green text-sm">94</span>
                             <span className="border-2 w-8 mt-1 p-2 h-10 text-center bg-white border-gray-500">
-                                {data.ninetyFour || ''}
+                                {data?.ninetyFour || ''}
                             </span>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 export interface DeathCertData{
-    id?:string;
+    id?:number;
     province:string;
     cityOrMunicipality:string;
     registryNumber:string;

@@ -1,30 +1,44 @@
 import { Tooltip, Pagination } from 'flowbite-react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { confirmationStore, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { MarriageCertTypes } from '../../../types/marriageCertTypes';
-import { FaEye } from 'react-icons/fa6';
+import { FaEye, FaTrash, FaEdit } from '../../../hooks/icons';
+import debounce from 'lodash.debounce';
+
+interface SearchType{
+    id:string;
+    one_first:string;
+    one_middle:string;
+    one_last:string;
+    one_last_wife:string;
+    one_first_wife:string;
+    RegistryNumber:string;
+    scannedFile:string | null;
+}
 
 function MarriageCert() {
+    const { setShowConfirmationModal } = confirmationStore();
+
+    const [searchResult, setSearchResult] = useState<SearchType[]>([]);
+    const [searchIsLoading, setSearchIsLoading] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [searchTerm, setSearchTerm] = useState<string>(''); // State for input
-    const [currentSearchTerm, setCurrentSearchTerm] = useState<string>(''); // State for current search term
     const navigate = useNavigate();
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
     const { data, isLoading, error } = useQuery({
-        queryKey: ['marriage-certificates', currentPage, currentSearchTerm],
+        queryKey: ['marriage-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/marriage-certificate/get-all`, {
                 params: {
                     page: currentPage,
-                    limit: itemsPerPage,
-                    searchTerm: currentSearchTerm || '',  // Use currentSearchTerm as a parameter
+                    limit: itemsPerPage
                 },
                 withCredentials: true,
             });
@@ -37,23 +51,44 @@ function MarriageCert() {
         setCurrentPage(page);
     };
 
-    // Function to handle the search input change
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);  // Update searchTerm state on input change
-    };
+    // Function to handle the search operation
+    const performSearch = async (term: string) => {
+        setSearchIsLoading(true);
 
-    // Function to handle the search button click
-    const handleSearchClick = () => {
-        setCurrentSearchTerm(searchTerm);  // Set the current search term on button click
-        setCurrentPage(1);  // Reset to the first page when a search is performed
-    };
+        if(!term) return;
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent default form submission if it's inside a form
-            handleSearchClick(); // Call the search function
+        try {
+            const { data } = await axios.get(`${serverURL}/api/cris/marriage-certificate/search`,{
+                params:{
+                    searchTerm:term
+                },
+                withCredentials: true,
+            })
+            setSearchResult(data);
+        } catch (error) {
+            console.error(error);
         }
+        setSearchIsLoading(false)
     };
+
+    // Create a debounced version of the search function
+    const debouncedSearch = useCallback(debounce(performSearch, 300), []);
+
+    // Handle input changes
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchTerm(value); // Update the local state
+        debouncedSearch(value); // Trigger the debounced search
+    };
+
+    // search navigate
+    const handleNavigateSearchedData = (searchedData:SearchType) =>{
+        if(searchedData.scannedFile){
+            navigate(`preview/file/${searchedData.id}`)
+        }else{
+            navigate( `preview/${searchedData.id}`)
+        }
+    }
 
     // Function to handle the download of data as Excel
     const handleDownload = () => {
@@ -89,24 +124,56 @@ function MarriageCert() {
             </h1>
             <div className='flex items-end justify-between mt-5 px-2'>
                 {/* Search Input */}
-                <div className='flex items-end'>
-                    <div className='group flex flex-row items-end border-b-2 border-gray-300 focus-within:border-darkCyan'>
+                <div className='flex items-end relative w-72'>
+                    <div className='group w-full flex flex-row items-end border-b-2 border-gray-300 focus-within:border-darkCyan'>
+                        <span className="py-2.5 ps-2 font-medium text-gray-400 group-focus-within:text-darkCyan">
+                            <IoSearch />
+                            <span className="sr-only">Search</span>
+                        </span>
                         <input 
                             type='text'
                             value={searchTerm}  // Bind input to searchTerm state
                             onChange={handleSearchChange}  // Update searchTerm on change
-                            onKeyDown={handleKeyDown} 
-                            placeholder='Search'
-                            className='h-9 border-0 bg-transparent focus:outline-none focus:border-transparent focus:ring-0'
+                            // onKeyDown={handleKeyDown} 
+                            placeholder='Search for Registry No. or Name'
+                            className='h-9 w-full border-0 bg-transparent focus:outline-none focus:border-transparent focus:ring-0'
                         />
                     </div>
-                    <button
-                        className="p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel"
-                        onClick={handleSearchClick} // Trigger search on button click
-                    >
-                        <IoSearch />
-                        <span className="sr-only">Search</span>
-                    </button>
+
+                    {/* suggestions */}
+                    <div className={`bg-white absolute -bottom-[11.3rem] rounded-b-sm left-0 right-0 p-3 h-44 drop-shadow-md border-t-0 border-[1px] border-slate-200 overflow-y-auto ${searchTerm.length > 0 ? '':'hidden'}`}>
+                        {
+                            searchIsLoading ?
+                            (
+                                <div className='w-full h-full flex items-center justify-center'>
+                                    <LoaderDefault/>
+                                </div>
+                            ):(
+                                searchResult.length > 0 ?
+                                (
+                                    searchResult.map((data, index)=>(
+                                        <div key={index} onClick={()=>{handleNavigateSearchedData(data)}} className='flex items-center gap-5 border-b-[1px] border-slate-300 p-1 cursor-pointer'>
+                                            <div>
+                                                <p>{data.RegistryNumber}</p>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <p>{`${data.one_first} ${data.one_middle} ${data.one_last}`}</p>
+                                                </div>
+                                                <div>
+                                                    <p>{`${data.one_first_wife} ${data.one_middle} ${data.one_last_wife}`}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                ):(
+                                    <div className='w-full h-full flex items-center justify-center text-sm font-medium text-gray-500'>
+                                        <p>No data</p>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
                 </div>
                 <div className='flex items-center gap-1'>
                     <Tooltip content="Download">
@@ -173,6 +240,18 @@ function MarriageCert() {
                                                     <button onClick={()=>{navigate(!cert.scannedFile ? `preview/${cert.id}`:`preview/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEye />
                                                         <span className="sr-only">View</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Delete">
+                                                    <button onClick={()=>{setShowConfirmationModal(true,'/api/cris/marriage-certificate', cert.id  as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-red-800'>
+                                                        <FaTrash />
+                                                        <span className="sr-only">Delete</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Edit">
+                                                    <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                        <FaEdit />
+                                                        <span className="sr-only">Edit</span>
                                                     </button>
                                                 </Tooltip>
                                             </td>
