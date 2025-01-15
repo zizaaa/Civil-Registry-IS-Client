@@ -44,7 +44,7 @@ function ViewlBirthCertFile() {
             </div>
             <figure ref={contentRef} className='flex items-center justify-center'>
                 <img 
-                    src={`${serverURL}/${data.scannedFile}`}
+                    src={`${serverURL}/${data?.scannedFile}`}
                     className='object-cover'
                     loading='lazy'
                 />

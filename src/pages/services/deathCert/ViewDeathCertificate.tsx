@@ -3,7 +3,7 @@ import { AiFillPrinter } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import { Loading, serverURL } from "../../../hooks/imports";
+import { Loading } from "../../../hooks/imports";
 import { useActivityMutation } from "../../../services/sendActivity";
 import { getSingleDeathCert } from "../../../services/getSingleDeathCert";
 

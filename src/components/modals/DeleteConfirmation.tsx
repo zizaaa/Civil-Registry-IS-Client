@@ -1,7 +1,7 @@
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { confirmationStore, errorToast, serverURL, successToast } from "../../hooks/imports";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 function DeleteConfirmation() {
