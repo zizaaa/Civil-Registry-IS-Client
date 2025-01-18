@@ -1,11 +1,13 @@
 import { Tooltip } from "flowbite-react"
-import { AiFillPrinter } from '../../../hooks/icons'
+import { MdFileDownload } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
 import { Loading } from "../../../hooks/imports";
 import { useActivityMutation } from "../../../services/sendActivity";
 import { getSingleMarriageCert } from "../../../services/getSingleMarriageCert";
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 function ViewMarriageCert() {
     const { id } = useParams();
@@ -25,19 +27,61 @@ function ViewMarriageCert() {
         <Navigate to='*'/>
     }
 
-    const handlePrint = () =>{
-        reactToPrintFn();
-
-        activityMutation.mutate(`Marriage certificate printed for ${data?.one_first} & ${data?.one_first_wife} (Registry No. ${data?.RegistryNumber})`);
-    }
+    const handlePrint = async () => {
+        const element = contentRef.current; // Get the content to be captured
+    
+        // Check if element is null
+        if (!element) {
+            console.error('Element not found');
+            return;
+        }
+    
+        // Temporarily hide overflow
+        const originalOverflow = element.style.overflow;
+        element.style.overflow = 'hidden';
+    
+        try {
+            // Capture the screenshot and convert it to a canvas
+            const canvas = await html2canvas(element, {
+                useCORS: true, // To handle cross-origin images
+            });
+    
+            // Convert the canvas to an image
+            const imageData = canvas.toDataURL('image/png');
+    
+            // Reset the overflow style
+            element.style.overflow = originalOverflow;
+    
+            // Create a new PDF
+            const pdf = new jsPDF();
+    
+            // Calculate the margin (20px is about 5.6mm)
+            const margin = 5.6; // In mm
+    
+            // A4 size is 210mm x 297mm
+            const pageWidth = 210;
+            const pageHeight = 297;
+    
+            // Add the screenshot as an image to the PDF (with margin)
+            // Adjust the image position (x, y) and size (width, height) to fit within the margins
+            pdf.addImage(imageData, 'PNG', margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin);
+    
+            // Save the PDF
+            pdf.save(`${data?.one_last}-and-${data?.one_last_wife}-marriage-certificate.pdf`); // Filename
+            
+            activityMutation.mutate(`Marriage certificate printed for ${data?.one_last} and ${data?.one_last_wife} (Registry No. ${data?.RegistryNumber})`);
+        } catch (error) {
+            console.error('Error capturing screenshot:', error);
+        }
+    };
 
     return (
         <div>
             <div className="w-full flex items-end justify-end px-4">
-                <Tooltip content="Print">
+                <Tooltip content="Download">
                     <button onClick={handlePrint} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
-                        <AiFillPrinter />
-                        <span className="sr-only">Print</span>
+                        <MdFileDownload />
+                        <span className="sr-only">Download</span>
                     </button>
                 </Tooltip>
             </div>

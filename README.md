@@ -52,4 +52,5 @@ Create a `.env` file at the root of the project to configure your environment va
   ```env
    VITE_REACT_SERVER_URL=http://localhost:8000
    VITE_REACT_CLIENT_URL=http://localhost:5173
+   VITE_REACT_SITEKEY = "key"
   ```

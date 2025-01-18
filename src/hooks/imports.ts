@@ -36,8 +36,10 @@ import ViewFoundlingsFile from "../pages/services/foundlingsCert/ViewFoundlingsF
 import ViewMarriageCertFile from "../pages/services/marriageCertificate/ViewMarriageCertFile";
 import DeleteConfirmation from "../components/modals/DeleteConfirmation";
 import confirmationStore from "./zustand/confirmationModalStore";
+import ReCaptcha from "../auth/ReCaptcha";
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
+const recaptcha_key = env.VITE_REACT_SITEKEY;
 
 export {
     RootLayout,
@@ -78,5 +80,7 @@ export {
     ViewFoundlingsFile,
     ViewMarriageCertFile,
     DeleteConfirmation,
-    confirmationStore
+    confirmationStore,
+    ReCaptcha,
+    recaptcha_key
 }
