@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, Foundlings, FoundlingsInput, FoundlingsLayout, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertFile, ViewDeathCertificate, ViewFoundLings, ViewFoundlingsFile, ViewlBirthCertFile, ViewMarriageCert, ViewMarriageCertFile } from '../hooks/imports';
+import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, EditBirthCert, EditFIleBirthCert, Foundlings, FoundlingsInput, FoundlingsLayout, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertFile, ViewDeathCertificate, ViewFoundLings, ViewFoundlingsFile, ViewlBirthCertFile, ViewMarriageCert, ViewMarriageCertFile } from '../hooks/imports';
 import LogedIn from '../auth/LogedIn';
 import ProtectedRoute from '../auth/ProtectedRoute';
 
@@ -35,6 +35,14 @@ export const router = createBrowserRouter([
                     {
                         path:"preview/file/:id",
                         element:<ViewlBirthCertFile/>
+                    },
+                    {
+                        path:"edit/:id",
+                        element:<EditBirthCert/>
+                    },
+                    {
+                        path:"edit/file/:id",
+                        element:<EditFIleBirthCert/>
                     }
                 ]
             },

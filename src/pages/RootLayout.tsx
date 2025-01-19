@@ -39,7 +39,17 @@ function RootLayout() {
                     Preview
                 </Breadcrumb.Item>
             );
-        } else {
+        } else if(segment === "edit"){
+            // Capture the id segment
+            idSegment = pathSegments[index + 1] || ''; // Get the id from the path
+            // Add Preview breadcrumb
+            breadcrumbItems.push(
+                <Breadcrumb.Item key={path} href="#">
+                    Edit
+                </Breadcrumb.Item>
+            );
+        }
+        else {
             // Use the breadcrumb map for regular segments
             const label = breadcrumbMap[path] || null; // Don't default to "Unknown"
             if (label) {
