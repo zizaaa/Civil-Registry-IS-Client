@@ -39,6 +39,8 @@ import confirmationStore from "./zustand/confirmationModalStore";
 import ReCaptcha from "../auth/ReCaptcha";
 import EditBirthCert from "../pages/services/birthCertificate/EditBirthCert";
 import EditFIleBirthCert from "../pages/services/birthCertificate/EditFIleBirthCert";
+import EditFoundlings from "../pages/services/foundlingsCert/EditFoundlings";
+import EditFileFoundlings from "../pages/services/foundlingsCert/EditFileFoundlings";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
@@ -87,5 +89,7 @@ export {
     ReCaptcha,
     recaptcha_key,
     EditBirthCert,
-    EditFIleBirthCert
+    EditFIleBirthCert,
+    EditFoundlings,
+    EditFileFoundlings
 }

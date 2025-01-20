@@ -217,7 +217,7 @@ function Foundlings() {
                                                     </button>
                                                 </Tooltip>
                                                 <Tooltip content="Edit">
-                                                    <button className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
+                                                    <button onClick={()=>{navigate(!cert.scannedFile ? `/foundlings/edit/${cert.id}`:`/foundlings/edit/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEdit />
                                                         <span className="sr-only">Edit</span>
                                                     </button>

@@ -7,9 +7,10 @@ interface ReCaptchaProps {
 }
 
 const ReCaptcha: React.FC<ReCaptchaProps> = ({ verifyCaptcha }) => {
+    
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 py-8">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <div className="flex items-center justify-center min-h-screen py-8">
+            <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-6">
                 <h1 className="text-center text-gray-700 text-xl">
                     Please verify that you're a human to proceed.
                 </h1>
@@ -18,6 +19,9 @@ const ReCaptcha: React.FC<ReCaptchaProps> = ({ verifyCaptcha }) => {
                     <ReCAPTCHA
                         sitekey={recaptcha_key}
                         onChange={verifyCaptcha}
+                        onErrored={()=>{console.log('error')}}
+                        onExpired={()=>{console.log('expired')}}
+                        badge='bottomleft'
                         className="mt-4"
                     />
                 </div>
