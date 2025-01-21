@@ -206,13 +206,13 @@ function ViewDeathCertificate() {
                                     <div className="flex flex-row-reverse items-center gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">1 Male</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.two_sex === 'male' ? "/":""}
+                                            {data.two_sex === 'MALE' ? "/":""}
                                         </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-center gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">2 Female</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800" >
-                                            {data.two_sex === 'female' ? "/":""}
+                                            {data.two_sex === 'FEMALE' ? "/":""}
                                         </span>
                                     </div>
                                 </div>
@@ -458,31 +458,31 @@ function ViewDeathCertificate() {
                                     <div className="flex flex-row-reverse items-end gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">1. Single</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                            {data.nine_civilStatus === 'single' ? "/":""}
+                                            {data.nine_civilStatus === 'SINGLE' ? "/":""}
                                         </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-end gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">2. Married</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                            {data.nine_civilStatus === 'married' ? "/":""}
+                                            {data.nine_civilStatus === 'MARRIED' ? "/":""}
                                         </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-end gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">3. Widowed</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                            {data.nine_civilStatus === 'widowed' ? "/":""}
+                                            {data.nine_civilStatus === 'WIDOWED' ? "/":""}
                                         </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-end gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">4. Others</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                            {data.nine_civilStatus === 'others' ? "/":""}
+                                            {data.nine_civilStatus === 'OTHERS' ? "/":""}
                                         </span>
                                     </div>
                                     <div className="flex flex-row-reverse items-end gap-2">
                                         <span className="text-gray-800 text-sm cursor-pointer">5. Unknown</span>
                                         <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                            {data.nine_civilStatus === 'unknown' ? "/":""}
+                                            {data.nine_civilStatus === 'UNKNOWN' ? "/":""}
                                         </span>
                                     </div>
                                 </div>
@@ -640,19 +640,19 @@ function ViewDeathCertificate() {
                                             <div className="flex flex-row-reverse items-end justify-end gap-2">
                                                 <span className="text-gray-800 text-sm cursor-pointer">1 Private Physician</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.nineTeen_Attendant === 'Private Physician' ? "/":""}
+                                                    {data.nineTeen_Attendant === 'PRIVATE PHYSICIAN' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-end justify-end gap-2">
                                                 <span className="text-gray-800 text-sm cursor-pointer">2 Public Health Officer</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.nineTeen_Attendant === 'Public Health Officer' ? "/":""}
+                                                    {data.nineTeen_Attendant === 'PUBLIC HEALTH OFFICER' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-end justify-end gap-2">
                                                 <span className="text-gray-800 text-sm cursor-pointer">3 Hospital Authority</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.nineTeen_Attendant === 'Hospital Authority' ? "/":""}
+                                                    {data.nineTeen_Attendant === 'HOSPITAL AUTHORITY' ? "/":""}
                                                 </span>
                                             </div>
                                         </div>
@@ -660,13 +660,13 @@ function ViewDeathCertificate() {
                                             <div className="flex flex-row-reverse items-end justify-end gap-2">
                                                 <span className="text-gray-800 text-sm cursor-pointer">4 None</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.nineTeen_Attendant === 'None' ? "/":""}
+                                                    {data.nineTeen_Attendant === 'NONE' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-end justify-end gap-2">
                                                 <span className="text-gray-800 text-sm cursor-pointer">5 Others</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data.nineTeen_Attendant === 'others' ? "/":""}
+                                                    {data.nineTeen_Attendant === 'OTHERS' ? "/":""}
                                                 </span>
                                             </div>
                                         </div>
@@ -825,13 +825,13 @@ function ViewDeathCertificate() {
                                         <div className="flex flex-row-reverse items-center justify-end gap-2">
                                             <label htmlFor="isAutopsyYes" className="text-gray-800 text-sm cursor-pointer">1 Yes</label>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                {data.twentyThree_Autopsy === 'Yes' ? "/":""}
+                                                {data.twentyThree_Autopsy === 'YES' ? "/":""}
                                             </span>
                                         </div>
                                         <div className="flex flex-row-reverse items-center justify-end gap-2">
                                             <label htmlFor="isAutopsyNo" className="text-gray-800 text-sm cursor-pointer">2 No</label>
                                             <span className="border-x-0 border-t-0 border-b-[1px] border-gray-800 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                {data.twentyThree_Autopsy === 'No' ? "/":""}
+                                                {data.twentyThree_Autopsy === 'NO' ? "/":""}
                                             </span>
                                         </div>
                                     </div>

@@ -215,13 +215,13 @@ function ViewBirthCert() {
                                             <div className="flex flex-row-reverse items-center gap-2">
                                                 <span className="text-green text-sm cursor-pointer">Male</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data?.two_sex === 'male' ? "/":""}
+                                                    {data?.two_sex === 'MALE' ? "/":""}
                                                 </span>
                                             </div>
                                             <div className="flex flex-row-reverse items-center gap-2">
                                                 <span className="text-green text-sm cursor-pointer">Female</span>
                                                 <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green text-sm flex items-end justify-center text-gray-800 w-10" >
-                                                    {data?.two_sex === 'female' ? "/":""}
+                                                    {data?.two_sex === 'FEMALE' ? "/":""}
                                                 </span>
                                             </div>
                                         </div>
@@ -303,13 +303,13 @@ function ViewBirthCert() {
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">1. Single</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data?.fiveA_typeOfBirth === 'single' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'SINGLE' ? "/":""}
                                                     </span>
                                                 </div>
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">2. Twin</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data?.fiveA_typeOfBirth === 'twin' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'TWIN' ? "/":""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -317,7 +317,7 @@ function ViewBirthCert() {
                                                 <div className="flex flex-row-reverse items-center gap-2">
                                                     <span className="text-green text-sm cursor-pointer">3. Triplet Etc.</span>
                                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-5 text-sm flex items-end justify-center text-gray-800 w-7" >
-                                                        {data?.fiveA_typeOfBirth === 'triplet' ? "/":""}
+                                                        {data?.fiveA_typeOfBirth === 'TRIPLET' ? "/":""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -673,19 +673,19 @@ function ViewBirthCert() {
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">1. Physician</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data?.nineteenA_attendant === 'physician' ? "/":""}
+                                        {data?.nineteenA_attendant === 'PHYSICIAN' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">2. Nurse</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data?.nineteenA_attendant === 'nurse' ? "/":""}
+                                        {data?.nineteenA_attendant === 'NURSE' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">3. Midwife</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data?.nineteenA_attendant === 'midwife' ? "/":""}
+                                        {data?.nineteenA_attendant === 'MIDWIFE' ? "/":""}
                                     </span>
                                 </div>
                             </div>
@@ -693,13 +693,13 @@ function ViewBirthCert() {
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">4. Hilot (traditional Midwife)</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data?.nineteenA_attendant === 'traditional Midwife' ? "/":""}
+                                        {data?.nineteenA_attendant === 'TRADITIONAL MIDWIFE' ? "/":""}
                                     </span>
                                 </div>
                                 <div className="flex flex-row-reverse items-center gap-2">
                                     <span className="text-green text-sm cursor-pointer">5. Others (Specify)</span>
                                     <span className="flex-1 border-x-0 border-t-0 border-b-[1px] border-green h-3 text-sm flex items-end justify-center text-gray-800 w-10" >
-                                        {data?.nineteenA_attendant !== 'physician' && data?.nineteenA_attendant !== 'nurse' && data?.nineteenA_attendant !== 'midwife' && data?.nineteenA_attendant !== 'traditional Midwife' ? data?.nineteenA_attendant:""}
+                                        {data?.nineteenA_attendant !== 'PHYSICIAN' && data?.nineteenA_attendant !== 'NURSE' && data?.nineteenA_attendant !== 'MIDWIFE' && data?.nineteenA_attendant !== 'TRADITIONAL MIDWIFE' ? data?.nineteenA_attendant:""}
                                     </span>
                                 </div>
                             </div>

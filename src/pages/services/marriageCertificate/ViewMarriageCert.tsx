@@ -2,7 +2,6 @@ import { Tooltip } from "flowbite-react"
 import { MdFileDownload } from '../../../hooks/icons'
 import { Navigate, useParams } from "react-router-dom";
 import { useRef } from "react";
-import { useReactToPrint } from 'react-to-print';
 import { Loading } from "../../../hooks/imports";
 import { useActivityMutation } from "../../../services/sendActivity";
 import { getSingleMarriageCert } from "../../../services/getSingleMarriageCert";
@@ -13,11 +12,6 @@ function ViewMarriageCert() {
     const { id } = useParams();
     const activityMutation = useActivityMutation();
     const contentRef = useRef<HTMLDivElement>(null);  // Reference to the certificate content
-
-    // Setup react-to-print for printing the specific certificate content
-    const reactToPrintFn = useReactToPrint({
-        contentRef, // Correctly pass the contentRef here
-    });
 
     const { data, isLoading } = getSingleMarriageCert(id as string);
     

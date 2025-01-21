@@ -332,6 +332,7 @@ function EditBirthCert() {
                                                     id="male" 
                                                     name="sex" 
                                                     value="male" 
+                                                    defaultChecked={data?.two_sex === 'MALE'}
                                                     className="cursor-pointer" 
                                                     onChange={(e)=>{handleChange(e)}}
                                                 />
@@ -343,6 +344,7 @@ function EditBirthCert() {
                                                     id="female" 
                                                     name="sex" 
                                                     value="female" 
+                                                    defaultChecked={data?.two_sex === 'FEMALE'}
                                                     className="cursor-pointer" 
                                                     onChange={(e)=>{handleChange(e)}}
                                                 />
@@ -454,6 +456,7 @@ function EditBirthCert() {
                                                         id="single" 
                                                         className="cursor-pointer"
                                                         name="typeOfBirth"
+                                                        defaultChecked={data?.fiveA_typeOfBirth == 'SINGLE'}
                                                         value='single'
                                                         onChange={(e)=>{handleChangeTypeOfBirth(e)}}
                                                     />
@@ -466,6 +469,7 @@ function EditBirthCert() {
                                                         className="cursor-pointer"
                                                         name="typeOfBirth"
                                                         value='twin'
+                                                        defaultChecked={data?.fiveA_typeOfBirth == 'TWIN'}
                                                         onChange={(e)=>{handleChangeTypeOfBirth(e)}}
                                                     />
                                                 </div>
@@ -478,6 +482,7 @@ function EditBirthCert() {
                                                         id="triplet" className="cursor-pointer"
                                                         name="typeOfBirth"
                                                         value='triplet'
+                                                        defaultChecked={data?.fiveA_typeOfBirth == 'TRIPLET'}
                                                         onChange={(e)=>{handleChangeTypeOfBirth(e)}}
                                                     />
                                                 </div>
@@ -499,6 +504,7 @@ function EditBirthCert() {
                                                     className="cursor-pointer"
                                                     name="ifMultiple"
                                                     value='first'
+                                                    defaultChecked={data?.fiveB_IfMultiple == 'FIRST'}
                                                     onChange={(e)=>{handleChangeMultipleBirth(e)}}
                                                 />
                                             </div>
@@ -509,6 +515,7 @@ function EditBirthCert() {
                                                     id="second" 
                                                     className="cursor-pointer"
                                                     name="ifMultiple"
+                                                    defaultChecked={data?.fiveB_IfMultiple == 'SECOND'}
                                                     value='second'
                                                     onChange={(e)=>{handleChangeMultipleBirth(e)}}
                                                 />
@@ -532,6 +539,7 @@ function EditBirthCert() {
                                                     className="cursor-pointer"
                                                     name="ifMultiple"
                                                     value='others'
+                                                    defaultChecked={data?.fiveB_IfMultiple == 'OTHERS'}
                                                     onChange={(e)=>{handleChangeMultipleBirth(e)}}
                                                 />
                                             </div>
@@ -973,6 +981,7 @@ function EditBirthCert() {
                                         id="physician" 
                                         className="cursor-pointer"
                                         name="attendant"
+                                        defaultChecked={data?.nineteenA_attendant == 'PHYSICIAN'}
                                         value="physician"
                                         onChange={(e)=>{handleChangeAttendant(e)}}
                                     />
@@ -985,6 +994,7 @@ function EditBirthCert() {
                                         className="cursor-pointer"
                                         name="attendant"
                                         value="nurse"
+                                        defaultChecked={data?.nineteenA_attendant == 'NURSE'}
                                         onChange={(e)=>{handleChangeAttendant(e)}}
                                     />
                                 </div>
@@ -996,6 +1006,7 @@ function EditBirthCert() {
                                         className="cursor-pointer"
                                         name="attendant"
                                         value="midwife"
+                                        defaultChecked={data?.nineteenA_attendant == 'MIDWIFE'}
                                         onChange={(e)=>{handleChangeAttendant(e)}}
                                     />
                                 </div>
@@ -1008,6 +1019,7 @@ function EditBirthCert() {
                                         id="traditionMidWife" className="cursor-pointer"
                                         name="attendant"
                                         value="traditional Midwife"
+                                        defaultChecked={data?.nineteenA_attendant == 'TRADITIONAL MIDWIFE'}
                                         onChange={(e)=>{handleChangeAttendant(e)}}
                                     />
                                 </div>
@@ -1030,6 +1042,7 @@ function EditBirthCert() {
                                         className="cursor-pointer"
                                         name="attendant"
                                         value="others"
+                                        defaultChecked={data?.nineteenA_attendant == 'OTHERS'}
                                         onChange={(e)=>{handleChangeAttendant(e)}}
                                     />
                                 </div>

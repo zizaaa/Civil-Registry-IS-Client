@@ -41,6 +41,10 @@ import EditBirthCert from "../pages/services/birthCertificate/EditBirthCert";
 import EditFIleBirthCert from "../pages/services/birthCertificate/EditFIleBirthCert";
 import EditFoundlings from "../pages/services/foundlingsCert/EditFoundlings";
 import EditFileFoundlings from "../pages/services/foundlingsCert/EditFileFoundlings";
+import EditDeathCert from "../pages/services/deathCert/EditDeathCert";
+import EditFileDeathCert from "../pages/services/deathCert/EditFileDeathCert";
+import EditMarriageCert from "../pages/services/marriageCertificate/EditMarriageCert";
+import EditFileMarriageCert from "../pages/services/marriageCertificate/EditFileMarriageCert";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
@@ -91,5 +95,9 @@ export {
     EditBirthCert,
     EditFIleBirthCert,
     EditFoundlings,
-    EditFileFoundlings
+    EditFileFoundlings,
+    EditDeathCert,
+    EditFileDeathCert,
+    EditMarriageCert,
+    EditFileMarriageCert
 }

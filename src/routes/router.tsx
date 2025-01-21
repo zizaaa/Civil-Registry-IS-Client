@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, EditBirthCert, EditFIleBirthCert, EditFileFoundlings, EditFoundlings, Foundlings, FoundlingsInput, FoundlingsLayout, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertFile, ViewDeathCertificate, ViewFoundLings, ViewFoundlingsFile, ViewlBirthCertFile, ViewMarriageCert, ViewMarriageCertFile } from '../hooks/imports';
+import { BirthCert, BirthCertInputs, BirthCertLayout, DeathCert, DeathCertInput, DeathCertLayout, EditBirthCert, EditDeathCert, EditFIleBirthCert, EditFileDeathCert, EditFileFoundlings, EditFileMarriageCert, EditFoundlings, EditMarriageCert, Foundlings, FoundlingsInput, FoundlingsLayout, Home, Login, MarriageCert, MarriageCertInput, MarriageCertLayout, NotFound, RootLayout, Settings, ViewBirthCert, ViewDeathCertFile, ViewDeathCertificate, ViewFoundLings, ViewFoundlingsFile, ViewlBirthCertFile, ViewMarriageCert, ViewMarriageCertFile } from '../hooks/imports';
 import LogedIn from '../auth/LogedIn';
 import ProtectedRoute from '../auth/ProtectedRoute';
 
@@ -65,6 +65,14 @@ export const router = createBrowserRouter([
                     {
                         path:"preview/file/:id",
                         element:<ViewDeathCertFile/>
+                    },
+                    {
+                        path:"edit/:id",
+                        element:<EditDeathCert/>
+                    },
+                    {
+                        path:"edit/file/:id",
+                        element:<EditFileDeathCert/>
                     }
                 ]
             },
@@ -87,6 +95,14 @@ export const router = createBrowserRouter([
                     {
                         path:"preview/file/:id",
                         element: <ViewMarriageCertFile/>
+                    },
+                    {
+                        path:"edit/:id",
+                        element:<EditMarriageCert/>
+                    },
+                    {
+                        path:"edit/file/:id",
+                        element:<EditFileMarriageCert/>
                     }
                 ]
             },
