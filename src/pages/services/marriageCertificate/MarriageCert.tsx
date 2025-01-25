@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx'; // Import the XLSX library
 import { MarriageCertTypes } from '../../../types/marriageCertTypes';
 import { FaEye, FaTrash, FaEdit } from '../../../hooks/icons';
 import debounce from 'lodash.debounce';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 interface SearchType{
     id:string;
@@ -46,7 +47,8 @@ function MarriageCert() {
             return response.data;
         }
     });
-
+    const activityMutation = useActivityMutation();
+    
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -110,6 +112,8 @@ function MarriageCert() {
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Marriage Certificates");
             XLSX.writeFile(workbook, "marriage_certificates.xlsx");
+
+            activityMutation.mutate("Downloaded Marriage certificates data");
         }
     };
 

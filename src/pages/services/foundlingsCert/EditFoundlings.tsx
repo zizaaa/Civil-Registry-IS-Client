@@ -6,6 +6,7 @@ import { FoundlingsTypes } from '../../../types/foundLingTypes';
 import { errorToast, LoaderDefault, Loading, serverURL, successToast } from '../../../hooks/imports';
 import axios, { isAxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditFoundlings() {
     const {id} = useParams();
@@ -45,6 +46,7 @@ function EditFoundlings() {
     });
 
     const { data, isLoading } = getSingleFoundlingsCert(id as string);
+    const activityMutation = useActivityMutation();
 
     const mutation = useMutation({
         mutationFn: async (formData:FoundlingsTypes) =>{
@@ -60,6 +62,7 @@ function EditFoundlings() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Foundling certificate updated with REGISTRY Number: ${foundlingCredentials.registryNumber}`);
             navigate('/birth-certificate');
         }
     });

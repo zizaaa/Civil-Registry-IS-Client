@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as XLSX from 'xlsx'; // Import XLSX library for Excel download
 import { FaBaby, GiTombstone, FaRing, FaChild, TbReportAnalytics, } from '../hooks/icons';
 import { LoaderDefault, serverURL } from '../hooks/imports';
+import { useActivityMutation } from '../services/sendActivity';
 
 interface RecentActivity {
     id: number;
@@ -27,6 +28,9 @@ function Home() {
             return data;
         }
     });
+
+    // activity mutation
+    const activityMutation = useActivityMutation();
 
     // Fetch Recent Activity Data
     const { data: recentAct, isLoading: recentActIsLoading } = useQuery({
@@ -92,6 +96,8 @@ function Home() {
 
         // Write the Excel file
         XLSX.writeFile(workbook, `Vital_Records_Report_${new Date().toLocaleDateString()}.xlsx`);
+
+        activityMutation.mutate(`Downloaded reports`);
     };
     return (
         <div>

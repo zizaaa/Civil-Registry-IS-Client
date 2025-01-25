@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx'; // Import the XLSX library
 import { FoundlingsTypes } from '../../../types/foundLingTypes';
 import debounce from 'lodash.debounce';
 import { FaTrash,FaEdit } from '../../../hooks/icons';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 interface SearchType{
     id:number;
@@ -43,6 +44,8 @@ function Foundlings() {
             return response.data;
         }
     });
+
+    const activityMutation = useActivityMutation();
 
     const onPageChange = (page: number) => {
         setCurrentPage(page);
@@ -99,6 +102,8 @@ function Foundlings() {
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Foundlings Certificates");
             XLSX.writeFile(workbook, "foundlings_certificates.xlsx");
+
+            activityMutation.mutate("Downloaded foundlings certificates data");
         }
     };
 

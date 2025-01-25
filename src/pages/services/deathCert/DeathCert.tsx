@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx'; // Import the XLSX library
 import { DeathCertData } from '../../../types/deathCertTypes';
 import debounce from 'lodash.debounce';
 import { FaTrash, FaEdit,FaEye } from "../../../hooks/icons"
+import { useActivityMutation } from '../../../services/sendActivity';
 interface SearchType{
     id:number;
     one_first:string;
@@ -43,6 +44,8 @@ function DeathCert() {
             return response.data;
         }
     });
+
+    const activityMutation = useActivityMutation();
 
     const onPageChange = (page: number) => {
         setCurrentPage(page);
@@ -104,6 +107,8 @@ function DeathCert() {
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Death Certificates");
             XLSX.writeFile(workbook, "death_certificates.xlsx");
+
+            activityMutation.mutate("Downloaded Death certificates data");
         }
     };
 

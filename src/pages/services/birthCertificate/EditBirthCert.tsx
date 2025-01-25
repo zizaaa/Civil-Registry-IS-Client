@@ -6,6 +6,7 @@ import { BirthCertDataType } from '../../../types/birthCerthTypes';
 import { errorToast, LoaderDefault, Loading, serverURL, successToast } from '../../../hooks/imports';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditBirthCert() {
     const { id } = useParams();
@@ -103,7 +104,9 @@ function EditBirthCert() {
     const [nineTeenAIsOthers, setNineTeenAIsOthers] = useState<boolean>(false);
 
     const { data, isLoading } = getSingleBirtCert(id as string)
-
+    // activity mutation
+    const activityMutation = useActivityMutation();
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBirthCertCredentials(prev => ({...prev, two_sex:e.target.value.toUpperCase()}))
     };
@@ -140,6 +143,7 @@ function EditBirthCert() {
         },
         onSuccess(data) {
             successToast(`${data.message}`);
+            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${birthCertCredentials.registryNumber}`);
             navigate('/birth-certificate');
         },
         onError(error){

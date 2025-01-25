@@ -8,6 +8,7 @@ import axios, { isAxiosError } from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getSingleBirtCert } from '../../../services/getSingleBirtCert';
 import { Toaster } from 'react-hot-toast';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditFIleBirthCert() {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ function EditFIleBirthCert() {
     const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
 
     const { data, isLoading } = getSingleBirtCert(id as string)
+    const activityMutation = useActivityMutation();
 
     const handleFileUpload = (fileRef: React.RefObject<HTMLInputElement>, setSrc: React.Dispatch<React.SetStateAction<string>>): void => {
         const file = fileRef.current?.files?.[0];
@@ -76,6 +78,7 @@ function EditFIleBirthCert() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${scannedFileData.registryNumber}`);
             navigate('/birth-certificate');
         }
     });

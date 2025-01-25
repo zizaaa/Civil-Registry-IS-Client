@@ -8,6 +8,7 @@ import { errorToast, LoaderDefault, Loading, serverURL, successToast } from '../
 import { getSingleDeathCert } from '../../../services/getSingleDeathCert';
 import { useMutation } from '@tanstack/react-query';
 import axios, { isAxiosError } from 'axios';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditFileDeathCert() {
     const { id } = useParams();
@@ -28,7 +29,8 @@ function EditFileDeathCert() {
     const scannedFileRef = useRef<HTMLInputElement | null>(null);
 
     const { data,isLoading } = getSingleDeathCert(id as string);
-    
+    const activityMutation = useActivityMutation();
+
     const handleFileUpload = (fileRef: React.RefObject<HTMLInputElement>, setSrc: React.Dispatch<React.SetStateAction<string>>): void => {
         const file = fileRef.current?.files?.[0];
 
@@ -75,6 +77,7 @@ function EditFileDeathCert() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Death certificate updated with REGISTRY Number: ${scannedFileData.registryNumber}`);
             navigate('/death-certificate');
         }
     });

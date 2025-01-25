@@ -383,7 +383,7 @@ function FoundlingsInput() {
                     <button
                         className="mt-5 drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed"
                         onClick={handleSubmitScannedFile}
-                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0]}
+                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0] || !scannedFileData.registryNumber}
                     >
                         {mutation.isPending ? (
                             <div className="w-full h-full flex items-center justify-center">
@@ -774,7 +774,7 @@ function FoundlingsInput() {
                                         Date Issued
                                     </label>
                                     <input 
-                                        type="text"
+                                        type="date"
                                         id="twelve_DateIssued" 
                                         className="flex-1 border-x-0 border-t-0 border-gray-700 h-7 focus:outline-none focus:ring-transparent focus:border-gray-700 text-sm w-full" 
                                         value={foundlingCredentials.twelve_dateIssued}
@@ -921,7 +921,7 @@ function FoundlingsInput() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    disabled={isFormEmpty(foundlingCredentials)}
+                    disabled={isFormEmpty(foundlingCredentials) || !foundlingCredentials.registryNumber}
                 >
                     {mutation.isPending ? (
                         <div className="w-full h-full flex items-center justify-center">

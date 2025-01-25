@@ -6,6 +6,7 @@ import { MarriageCertTypes } from '../../../types/marriageCertTypes';
 import { errorToast, LoaderDefault, Loading, serverURL, successToast } from '../../../hooks/imports';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditMarriageCert() {
     const { id } = useParams();
@@ -104,7 +105,8 @@ function EditMarriageCert() {
     });
 
     const { data, isLoading } = getSingleMarriageCert(id as string);
-
+    const activityMutation = useActivityMutation();
+        
     const handleDecision = (e: React.ChangeEvent<HTMLInputElement>)=>{
         console.log('click')
         setMarriageCertCredentials(prev => ({...prev, eighteen_decision:e.target.value}));
@@ -122,6 +124,7 @@ function EditMarriageCert() {
         },
         onSuccess(data) {
             successToast(`${data.message}`);
+            activityMutation.mutate(`Marriage certificate updated with REGISTRY Number: ${marriageCertCredentials.RegistryNumber}`);
             navigate('/marriage-certificate');
         },
         onError(error){

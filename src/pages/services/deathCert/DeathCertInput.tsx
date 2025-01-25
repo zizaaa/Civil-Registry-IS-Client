@@ -595,7 +595,7 @@ function DeathCertInput() {
                     <button
                         className="mt-5 drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed"
                         onClick={handleSubmitScannedFile}
-                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0]}
+                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0] || !scannedFileData.registryNumber}
                     >
                         {mutation.isPending ? (
                             <div className="w-full h-full flex items-center justify-center">
@@ -1442,7 +1442,7 @@ function DeathCertInput() {
                                         <div className="flex flex-row items-end gap-2">
                                             <label htmlFor="twentyOnedate" className="text-sm text-gray-800">Date</label>
                                             <input 
-                                                type="text" 
+                                                type="date" 
                                                 id="twentyOnedate" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twenty_Date}
@@ -1480,7 +1480,7 @@ function DeathCertInput() {
                                             <div className="flex flex-col-reverse items-center justify-center">
                                                 <label htmlFor="twentyOnedate" className="text-sm text-gray-800 font-semibold">Date</label>
                                                 <input 
-                                                    type="text" 
+                                                    type="date" 
                                                     id="twentyOnedate" 
                                                     className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-38"
                                                     value={deathCertCredentials.twenty_ReviewedBy_Date}
@@ -1563,7 +1563,7 @@ function DeathCertInput() {
                                         <div className="flex flex-row items-end justify-start gap-2">
                                             <label htmlFor="twentyTwoDateIssued" className="text-sm text-gray-800 font-semibold w-32">Date Issued</label>
                                             <input 
-                                                type="text" 
+                                                type="date" 
                                                 id="twentyTwoDateIssued" 
                                                 className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                                 value={deathCertCredentials.twentyTwo_Burial_DateIssued}
@@ -1668,7 +1668,7 @@ function DeathCertInput() {
                                     <div className="flex flex-row items-end gap-2">
                                         <label htmlFor="twentyFiveDate" className="text-sm text-gray-800">Date</label>
                                         <input 
-                                            type="text" 
+                                            type="date" 
                                             id="twentyFiveDate" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                             value={deathCertCredentials.twentyFive_Date}
@@ -1718,7 +1718,7 @@ function DeathCertInput() {
                                 <div className="flex flex-row items-end gap-2">
                                     <label htmlFor="twentySixDate" className="text-sm text-gray-800">Date</label>
                                     <input 
-                                        type="text" 
+                                        type="date" 
                                         id="twentySixDate" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySix_Date}
@@ -1764,7 +1764,7 @@ function DeathCertInput() {
                                 <div className="flex flex-row items-end gap-2">
                                     <label htmlFor="twentySevenDate" className="text-sm text-gray-800">Date</label>
                                     <input 
-                                        type="text" 
+                                        type="date" 
                                         id="twentySevenDate" 
                                         className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                         value={deathCertCredentials.twentySeven_Date}
@@ -2000,7 +2000,7 @@ function DeathCertInput() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    disabled={isFormEmpty(deathCertCredentials)}
+                    disabled={isFormEmpty(deathCertCredentials) || !deathCertCredentials.registryNumber}
                 >
                     {mutation.isPending ? (
                         <div className="w-full h-full flex items-center justify-center">

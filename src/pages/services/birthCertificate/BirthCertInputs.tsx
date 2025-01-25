@@ -6,7 +6,7 @@ import { FaTrashCan } from "../../../hooks/icons";
 import { Toaster } from "react-hot-toast";
 import { BirthCertDataType, ScannedFileTypes } from "../../../types/birthCerthTypes";
 import { useActivityMutation } from "../../../services/sendActivity";
-import { FileInput, Label } from "flowbite-react";
+import { FileInput, Label  } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 function BirthCertInputs() {
@@ -598,7 +598,7 @@ function BirthCertInputs() {
                     <button
                         className="mt-5 drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed"
                         onClick={handleSubmitScannedFile}
-                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0]}
+                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0] || !scannedFileData.registryNumber}
                     >
                         {mutation.isPending ? (
                             <div className="w-full h-full flex items-center justify-center">
@@ -687,6 +687,7 @@ function BirthCertInputs() {
                                     value={birthCertCredentials.registryNumber.toUpperCase()} 
                                     onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                                     autoCapitalize="true"
+                                    required
                                 />
                             </div>
                         </div>
@@ -1541,12 +1542,13 @@ function BirthCertInputs() {
                                     <div className="flex flex-row items-end gap-2">
                                         <label htmlFor="date" className="text-sm text-green">Date</label>
                                         <input 
-                                            type="text" 
+                                            type="date" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
                                             value={birthCertCredentials.nineteenB_date.toUpperCase()}
                                             onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, nineteenB_date:e.target.value.toUpperCase()}))}}
                                         />
+                                        {/* <Datepicker /> */}
                                     </div>
                                 </div>
                             </div>
@@ -1606,7 +1608,7 @@ function BirthCertInputs() {
                                     <div className="flex flex-row items-end gap-2">
                                         <label htmlFor="date" className="text-sm text-green">Date</label>
                                         <input 
-                                            type="text" 
+                                            type="date" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
                                             value={birthCertCredentials.twenty_date.toUpperCase()}
@@ -1659,7 +1661,7 @@ function BirthCertInputs() {
                                     <div className="flex flex-row items-end gap-2">
                                         <label htmlFor="date" className="text-sm text-green">Date</label>
                                         <input 
-                                            type="text" 
+                                            type="date" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
                                             value={birthCertCredentials.twentyOne_date.toUpperCase()}
@@ -1709,7 +1711,7 @@ function BirthCertInputs() {
                                     <div className="flex flex-row items-end gap-2">
                                         <label htmlFor="date" className="text-sm text-green">Date</label>
                                         <input 
-                                            type="text" 
+                                            type="date" 
                                             id="date" 
                                             className="h-7 text-sm border-x-0 border-t-0 border-green focus:border-green focus:outline-none focus:ring-transparent w-full"
                                             value={birthCertCredentials.twentyTwo_date.toUpperCase()}
@@ -2085,7 +2087,7 @@ function BirthCertInputs() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    disabled={isFormEmpty(birthCertCredentials)}
+                    disabled={isFormEmpty(birthCertCredentials) || !birthCertCredentials.registryNumber}
                 >
                     {mutation.isPending ? (
                         <div className="w-full h-full flex items-center justify-center">

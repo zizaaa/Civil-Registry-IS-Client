@@ -693,7 +693,7 @@ function MarriageCertInput() {
                     <button
                         className="mt-5 drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed"
                         onClick={handleSubmitScannedFile}
-                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0]}
+                        disabled={isScannedDataEmpty(scannedFileData) || !scannedFileRef.current?.files?.[0] || !scannedFileData.RegistryNumber}
                     >
                         {mutation.isPending ? (
                             <div className="w-full h-full flex items-center justify-center">
@@ -2024,7 +2024,7 @@ function MarriageCertInput() {
                             <div className="flex flex-row items-end gap-2">
                                 <label htmlFor="twentyOnedate" className="text-sm text-gray-800">Date</label>
                                 <input 
-                                    type="text" 
+                                    type="date" 
                                     id="twentyOnedate" 
                                     className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                     value={marriageCertCredentials.twentyOne_Date}
@@ -2072,7 +2072,7 @@ function MarriageCertInput() {
                             <div className="flex flex-row items-end gap-2">
                                 <label htmlFor="twentyTwodate" className="text-sm text-gray-800">Date</label>
                                 <input 
-                                    type="text" 
+                                    type="date" 
                                     id="twentyTwodate" 
                                     className="h-7 text-sm border-x-0 border-t-0 border-gray-800 focus:border-gray-800 focus:outline-none focus:ring-transparent w-full"
                                     value={marriageCertCredentials.twentyTwo_Date}
@@ -2087,7 +2087,7 @@ function MarriageCertInput() {
                 <button 
                     className="drop-shadow-md rounded-sm bg-darkCyan w-28 h-10 text-white disabled:cursor-not-allowed" 
                     onClick={handleSubmit}
-                    disabled={isFormEmpty(marriageCertCredentials)}
+                    disabled={isFormEmpty(marriageCertCredentials) || !marriageCertCredentials.RegistryNumber}
                 >
                     {mutation.isPending ? (
                         <div className="w-full h-full flex items-center justify-center">

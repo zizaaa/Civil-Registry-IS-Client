@@ -6,6 +6,7 @@ import { DeathCertData } from '../../../types/deathCertTypes';
 import { errorToast, LoaderDefault, Loading, serverURL, successToast } from '../../../hooks/imports';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditDeathCert() {
     const { id } = useParams();
@@ -94,6 +95,7 @@ function EditDeathCert() {
     const [twentyOneIsOthers, setIsTwentyOneOthers] = useState<boolean>(false);
     
     const { data,isLoading } = getSingleDeathCert(id as string);
+    const activityMutation = useActivityMutation();
 
     const handleSexChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setDeathCertCredentials(prev => ({...prev, two_sex:e.target.value.toUpperCase()}))
@@ -135,6 +137,7 @@ function EditDeathCert() {
         },
         onSuccess(data) {
             successToast(`${data.message}`);
+            activityMutation.mutate(`Death certificate updated with REGISTRY Number: ${deathCertCredentials.registryNumber}`);
             navigate('/death-certificate');
         },
         onError(error){

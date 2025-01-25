@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getSingleMarriageCert } from '../../../services/getSingleMarriageCert';
 import { useMutation } from '@tanstack/react-query';
 import axios, { isAxiosError } from 'axios';
+import { useActivityMutation } from '../../../services/sendActivity';
 
 function EditFileMarriageCert() {
     const navigate = useNavigate();
@@ -29,8 +30,10 @@ function EditFileMarriageCert() {
     const [scannedFileSrc, setScannedFileSrc] = useState<string>('');
     const [tempImage, setTemptImage] = useState<string>('');
     const [isChanged, setIsChanged] = useState<boolean>(false);
+
     const { data, isLoading } = getSingleMarriageCert(id as string);
-    
+    const activityMutation = useActivityMutation();
+
     const handleRemoveFilePreview = () =>{
         setScannedFileSrc('');
         if(scannedFileRef.current){
@@ -76,6 +79,7 @@ function EditFileMarriageCert() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Marriage certificate updated with REGISTRY Number: ${scannedFileData.RegistryNumber}`);
             navigate('/marriage-certificate');
         }
     });

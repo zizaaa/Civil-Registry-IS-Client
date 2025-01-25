@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { isAxiosError } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSingleFoundlingsCert } from "../../../services/getSingleFoundlingsCert";
+import { useActivityMutation } from "../../../services/sendActivity";
 
 function EditFileFoundlings() {
     const navigate = useNavigate();
@@ -25,7 +26,8 @@ function EditFileFoundlings() {
     const [isChanged, setIsChanged] = useState<boolean>(false);
 
     const { data, isLoading } = getSingleFoundlingsCert(id as string);
-    
+    const activityMutation = useActivityMutation();
+
     const handleRemoveFilePreview = () =>{
         setScannedFileSrc('');
         if(scannedFileRef.current){
@@ -73,6 +75,7 @@ function EditFileFoundlings() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
+            activityMutation.mutate(`Foundling certificate updated with REGISTRY Number: ${scannedFileData.registryNumber}`);
             navigate('/birth-certificate');
         }
     });
