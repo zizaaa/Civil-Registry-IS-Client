@@ -2,7 +2,7 @@ export interface MarriageCertTypes{
     id?:number;
     province:string;
     cityOrMunicipality:string;
-    RegistryNumber?:string;
+    RegistryNumber:string;
     one_first:string;
     one_middle:string;
     one_last:string;
@@ -108,7 +108,7 @@ export interface ScannedFileTypes{
     one_first_wife:string;
     one_middle_wife:string;
     one_last_wife:string;
-    RegistryNumber?:string;
+    RegistryNumber:string;
     fifteen_Office:string;
     fifteen_CityOrMunicipality:string;
     fifteen_Province:string;

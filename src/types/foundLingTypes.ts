@@ -2,7 +2,7 @@ export interface FoundlingsTypes{
     id?:number;
     province:string;
     cityOrMunicipality:string;
-    registryNumber?:string;
+    registryNumber:string;
     one_name:string;
     two_sex:string;
     three_age:string;
@@ -38,7 +38,7 @@ export interface FoundlingsTypes{
 
 export interface ScannedFileTypes{
     one_name:string;
-    registryNumber?:string;
+    registryNumber:string;
     five_place:string;
     four_dateAndTime:string;
     scannedFile?:string;

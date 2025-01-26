@@ -460,8 +460,8 @@ function BirthCertInputs() {
                             type="text" 
                             id="registryNumber" 
                             className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                            value={(scannedFileData.registryNumber || "").toUpperCase()} 
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
+                            value={scannedFileData.registryNumber.toUpperCase()} 
+                            onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                         />
                     </div>
                     <div className="flex flex-col p-2 w-full">
@@ -684,7 +684,7 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="registryNumber" 
                                     className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                                    value={(birthCertCredentials.registryNumber || "").toUpperCase()} 
+                                    value={birthCertCredentials.registryNumber.toUpperCase()} 
                                     onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                                     autoCapitalize="true"
                                     required

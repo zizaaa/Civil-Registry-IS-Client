@@ -77,7 +77,7 @@ export interface BirthCertDataType{
     ninetyOne:string;
     ninetyThree:string;
     ninetyFour:string;
-    registryNumber?:string;
+    registryNumber:string;
     remarksAnnotationTwo:string;
     eight:string;
     nine:string;
@@ -94,7 +94,7 @@ export interface ScannedFileTypes{
     one_first:string;
     one_middle:string;
     one_last:string;
-    registryNumber?:string;
+    registryNumber:string;
     twelve_house:string;
     twelve_cityOrMunicipality:string;
     twelve_province:string;
