@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Avatar, Button, Card, Label, Tabs, TextInput } from 'flowbite-react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { isAxiosError } from 'axios';
-import { ErrorInput, errorToast, LoaderDefault, serverURL, successToast } from '../../hooks/imports';
+import { Archived, ErrorInput, errorToast, LoaderDefault, serverURL, successToast } from '../../hooks/imports';
 import { User } from '../../types/user';
 import { Toaster } from 'react-hot-toast';
 import { useActivityMutation } from '../../services/sendActivity';
@@ -313,6 +313,9 @@ const Settings: React.FC = () => {
                                 }
                             </Button>
                         </form>
+                    </Tabs.Item>
+                    <Tabs.Item title="Archived">
+                        <Archived/>
                     </Tabs.Item>
                 </Tabs>
             </Card>

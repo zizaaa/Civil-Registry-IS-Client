@@ -15,6 +15,8 @@ import { FaTrashCan } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
+import { IoArchive } from "react-icons/io5";
+import { RiInboxUnarchiveFill } from "react-icons/ri";
 
 export {
     FaBaby,
@@ -33,5 +35,7 @@ export {
     FaTrashCan,
     FaEye,
     FaTrash,
-    FaEdit
+    FaEdit,
+    IoArchive,
+    RiInboxUnarchiveFill
 }

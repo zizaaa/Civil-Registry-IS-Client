@@ -45,6 +45,7 @@ import EditDeathCert from "../pages/services/deathCert/EditDeathCert";
 import EditFileDeathCert from "../pages/services/deathCert/EditFileDeathCert";
 import EditMarriageCert from "../pages/services/marriageCertificate/EditMarriageCert";
 import EditFileMarriageCert from "../pages/services/marriageCertificate/EditFileMarriageCert";
+import Archived from "../pages/services/Archived";
 
 const env = import.meta.env;
 const serverURL = env.VITE_REACT_SERVER_URL || 'http://localhost:8000';
@@ -99,5 +100,6 @@ export {
     EditDeathCert,
     EditFileDeathCert,
     EditMarriageCert,
-    EditFileMarriageCert
+    EditFileMarriageCert,
+    Archived
 }

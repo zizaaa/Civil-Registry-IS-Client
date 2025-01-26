@@ -1,15 +1,16 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useState, useCallback } from 'react';
-import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { IoArchive, IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { confirmationStore, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { DeathCertData } from '../../../types/deathCertTypes';
 import debounce from 'lodash.debounce';
-import { FaTrash, FaEdit,FaEye } from "../../../hooks/icons"
+import { FaEdit,FaEye } from "../../../hooks/icons"
 import { useActivityMutation } from '../../../services/sendActivity';
+import { useArchiveMutation } from '../../../hooks/archive';
 interface SearchType{
     id:number;
     one_first:string;
@@ -20,8 +21,6 @@ interface SearchType{
 }
 
 function DeathCert() {
-    const { setShowConfirmationModal } = confirmationStore();
-
     const [searchResult, setSearchResult] = useState<SearchType[]>([]);
     const [searchIsLoading, setSearchIsLoading] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,7 +29,7 @@ function DeathCert() {
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['death-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/death-certificate/get-all`, {
@@ -47,6 +46,8 @@ function DeathCert() {
 
     const activityMutation = useActivityMutation();
 
+    const archive = useArchiveMutation(refetch, activityMutation, 'Death certificate');
+    
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -111,6 +112,10 @@ function DeathCert() {
             activityMutation.mutate("Downloaded Death certificates data");
         }
     };
+
+    const handleArchive = (id:number) =>{
+        archive.mutate({type:'death_certificates',  certificate_id:id as number})
+    }
 
     if (isLoading) return <Loading/>;
 
@@ -230,16 +235,16 @@ function DeathCert() {
                                                         <span className="sr-only">View</span>
                                                     </button>
                                                 </Tooltip>
-                                                <Tooltip content="Delete">
-                                                    <button onClick={()=>{setShowConfirmationModal(true,'/api/cris/death-certificate', cert.id  as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-red-800'>
-                                                        <FaTrash />
-                                                        <span className="sr-only">Delete</span>
-                                                    </button>
-                                                </Tooltip>
                                                 <Tooltip content="Edit">
                                                     <button onClick={()=>{navigate(!cert.scannedFile ? `edit/${cert.id}`:`edit/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEdit />
                                                         <span className="sr-only">Edit</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Archive">
+                                                    <button onClick={()=>{handleArchive(cert.id as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-darkBlueTeel'>
+                                                        <IoArchive />
+                                                        <span className="sr-only">Archive</span>
                                                     </button>
                                                 </Tooltip>
                                             </td>

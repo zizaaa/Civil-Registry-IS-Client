@@ -1,15 +1,16 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useState, useCallback } from 'react';
-import { FaEye, IoMdPersonAdd,FaTrash, IoSearch, MdFileDownload, FaEdit } from '../../../hooks/icons';
+import { FaEye, IoMdPersonAdd, IoSearch, MdFileDownload, FaEdit, IoArchive } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { confirmationStore, Foundlings, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { Foundlings, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import { BirthCertDataType } from '../../../types/birthCerthTypes';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import debounce from 'lodash.debounce';
 import { Toaster } from 'react-hot-toast';
 import { useActivityMutation } from '../../../services/sendActivity';
+import { useArchiveMutation } from '../../../hooks/archive';
 
 interface SearchType{
     id:number;
@@ -21,7 +22,7 @@ interface SearchType{
 }
 
 function BirthCert() {
-    const { setShowConfirmationModal } = confirmationStore();
+    // const { setShowConfirmationModal } = confirmationStore();
 
     const [searchResult, setSearchResult] = useState<SearchType[]>([]);
     const [searchIsLoading, setSearchIsLoading] = useState<boolean>(false);
@@ -31,7 +32,7 @@ function BirthCert() {
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['birth-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/birth-certificate/get-all`, {
@@ -48,6 +49,8 @@ function BirthCert() {
 
     const activityMutation = useActivityMutation();
 
+    const archive = useArchiveMutation(refetch, activityMutation, 'Birth certificate');
+    
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -111,6 +114,10 @@ function BirthCert() {
             activityMutation.mutate("Downloaded birth certificates data");
         }
     };
+
+    const handleArchive = (id:number) =>{
+        archive.mutate({type:'birthcertificate',  certificate_id:id as number})
+    }
 
     if (isLoading) return <Loading/>;
 
@@ -226,16 +233,16 @@ function BirthCert() {
                                                         <span className="sr-only">View</span>
                                                     </button>
                                                 </Tooltip>
-                                                <Tooltip content="Delete">
-                                                    <button onClick={()=>{setShowConfirmationModal(true,'/api/cris/birth-certificate', cert.id  as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-red-800'>
-                                                        <FaTrash />
-                                                        <span className="sr-only">Delete</span>
-                                                    </button>
-                                                </Tooltip>
                                                 <Tooltip content="Edit">
                                                     <button onClick={()=>{navigate(!cert.scannedFile ? `edit/${cert.id}`:`edit/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEdit />
                                                         <span className="sr-only">Edit</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Archive">
+                                                    <button onClick={()=>{handleArchive(cert.id as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-darkBlueTeel'>
+                                                        <IoArchive />
+                                                        <span className="sr-only">Archive</span>
                                                     </button>
                                                 </Tooltip>
                                             </td>

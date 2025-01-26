@@ -1,15 +1,15 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useCallback, useState } from 'react';
-import { FaEye, IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { FaEye, IoArchive, IoMdPersonAdd, IoSearch, MdFileDownload, FaEdit } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { confirmationStore, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { FoundlingsTypes } from '../../../types/foundLingTypes';
 import debounce from 'lodash.debounce';
-import { FaTrash,FaEdit } from '../../../hooks/icons';
 import { useActivityMutation } from '../../../services/sendActivity';
+import { useArchiveMutation } from '../../../hooks/archive';
 
 interface SearchType{
     id:number;
@@ -19,8 +19,6 @@ interface SearchType{
 }
 
 function Foundlings() {    
-    const { setShowConfirmationModal } = confirmationStore();
-
     const [searchResult, setSearchResult] = useState<SearchType[]>([]);
     const [searchIsLoading, setSearchIsLoading] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,7 +28,7 @@ function Foundlings() {
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['foundling-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/foundling-certificate/get-all`, {
@@ -46,6 +44,8 @@ function Foundlings() {
     });
 
     const activityMutation = useActivityMutation();
+
+    const archive = useArchiveMutation(refetch, activityMutation, 'Foundling certificate');
 
     const onPageChange = (page: number) => {
         setCurrentPage(page);
@@ -106,6 +106,10 @@ function Foundlings() {
             activityMutation.mutate("Downloaded foundlings certificates data");
         }
     };
+
+    const handleArchive = (id:number) =>{
+        archive.mutate({type:'foundlings_certificate',  certificate_id:id as number})
+    }
 
     if (isLoading) return <Loading/>;
 
@@ -215,16 +219,16 @@ function Foundlings() {
                                                         <span className="sr-only">View</span>
                                                     </button>
                                                 </Tooltip>
-                                                <Tooltip content="Delete">
-                                                    <button onClick={()=>{setShowConfirmationModal(true,'/api/cris/foundling-certificate', cert.id  as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-red-800'>
-                                                        <FaTrash />
-                                                        <span className="sr-only">Delete</span>
-                                                    </button>
-                                                </Tooltip>
                                                 <Tooltip content="Edit">
                                                     <button onClick={()=>{navigate(!cert.scannedFile ? `/foundlings/edit/${cert.id}`:`/foundlings/edit/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEdit />
                                                         <span className="sr-only">Edit</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Archive">
+                                                    <button onClick={()=>{handleArchive(cert.id as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border hover:bg-darkBlueTeel'>
+                                                        <IoArchive />
+                                                        <span className="sr-only">Archive</span>
                                                     </button>
                                                 </Tooltip>
                                             </td>

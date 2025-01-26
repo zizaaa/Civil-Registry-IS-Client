@@ -2,7 +2,7 @@ export interface DeathCertData{
     id?:number;
     province:string;
     cityOrMunicipality:string;
-    registryNumber:string;
+    registryNumber?:string;
     remarksOrAnnotation:string;
     one_first:string;
     one_middle:string;
@@ -85,7 +85,7 @@ export interface ScannedFileTypes{
     one_first:string;
     one_middle:string;
     one_last:string;
-    registryNumber:string;
+    registryNumber?:string;
     eight_houseNo:string;
     eight_cityOrMunicipality:string;
     eight_province:string;

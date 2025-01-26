@@ -1,15 +1,15 @@
 import { Tooltip, Pagination } from 'flowbite-react';
 import { useState, useCallback } from 'react';
-import { IoMdPersonAdd, IoSearch, MdFileDownload } from '../../../hooks/icons';
+import { IoMdPersonAdd, IoSearch, MdFileDownload, FaEye, IoArchive, FaEdit } from '../../../hooks/icons';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { confirmationStore, LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
+import { LoaderDefault, Loading, serverURL } from '../../../hooks/imports';
 import * as XLSX from 'xlsx'; // Import the XLSX library
 import { MarriageCertTypes } from '../../../types/marriageCertTypes';
-import { FaEye, FaTrash, FaEdit } from '../../../hooks/icons';
 import debounce from 'lodash.debounce';
 import { useActivityMutation } from '../../../services/sendActivity';
+import { useArchiveMutation } from '../../../hooks/archive';
 
 interface SearchType{
     id:string;
@@ -23,8 +23,6 @@ interface SearchType{
 }
 
 function MarriageCert() {
-    const { setShowConfirmationModal } = confirmationStore();
-
     const [searchResult, setSearchResult] = useState<SearchType[]>([]);
     const [searchIsLoading, setSearchIsLoading] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -33,7 +31,7 @@ function MarriageCert() {
     const itemsPerPage = 10; // Number of records per page
 
     // Query the API including the currentSearchTerm
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['marriage-certificates', currentPage],
         queryFn: async () => {
             const response = await axios.get(`${serverURL}/api/cris/marriage-certificate/get-all`, {
@@ -48,7 +46,8 @@ function MarriageCert() {
         }
     });
     const activityMutation = useActivityMutation();
-    
+    const archive = useArchiveMutation(refetch, activityMutation, 'Marriage certificate');
+        
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -116,6 +115,11 @@ function MarriageCert() {
             activityMutation.mutate("Downloaded Marriage certificates data");
         }
     };
+
+    const handleArchive = (id:number) =>{
+        archive.mutate({type:'marriage_certificates',  certificate_id:id as number})
+    }
+
 
     if (isLoading) return <Loading/>;
 
@@ -246,16 +250,16 @@ function MarriageCert() {
                                                         <span className="sr-only">View</span>
                                                     </button>
                                                 </Tooltip>
-                                                <Tooltip content="Delete">
-                                                    <button onClick={()=>{setShowConfirmationModal(true,'/api/cris/marriage-certificate', cert.id  as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-md drop-shadow-md border border-red-bg-red-700 hover:bg-red-800'>
-                                                        <FaTrash />
-                                                        <span className="sr-only">Delete</span>
-                                                    </button>
-                                                </Tooltip>
                                                 <Tooltip content="Edit">
                                                     <button onClick={()=>{navigate(!cert.scannedFile ? `edit/${cert.id}`:`edit/file/${cert.id}`)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border border-darkCyan hover:bg-darkBlueTeel'>
                                                         <FaEdit />
                                                         <span className="sr-only">Edit</span>
+                                                    </button>
+                                                </Tooltip>
+                                                <Tooltip content="Archive">
+                                                    <button onClick={()=>{handleArchive(cert.id as number)}} className='p-2.5 ms-2 text-sm font-medium text-white bg-darkCyan rounded-md drop-shadow-md border hover:bg-darkBlueTeel'>
+                                                        <IoArchive />
+                                                        <span className="sr-only">Archive</span>
                                                     </button>
                                                 </Tooltip>
                                             </td>
@@ -274,13 +278,13 @@ function MarriageCert() {
             {/* Pagination */}
             {data?.total > 0 && (
                 <div className="flex overflow-x-auto sm:justify-center">
-                <Pagination
-                    currentPage={currentPage}
-                    onPageChange={onPageChange}
-                    totalPages={totalPages} // Pass the calculated total pages
-                    showIcons={true}
-                />
-            </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        onPageChange={onPageChange}
+                        totalPages={totalPages} // Pass the calculated total pages
+                        showIcons={true}
+                    />
+                </div>
             )}
         </section>
     );
