@@ -1,5 +1,5 @@
 import { Pagination, Tooltip } from 'flowbite-react'
-import { FaEye, RiInboxUnarchiveFill } from '../../hooks/icons';
+import { RiInboxUnarchiveFill } from '../../hooks/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { LoaderDefault, Loading, serverURL } from '../../hooks/imports';
