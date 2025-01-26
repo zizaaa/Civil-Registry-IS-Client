@@ -78,7 +78,7 @@ function EditFIleBirthCert() {
         },
         onSuccess: (data)=>{
             successToast(`${data.message}`);
-            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${scannedFileData.registryNumber ? scannedFileData.registryNumber:"N/A"}`);
+            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${scannedFileData.registryNumber}`);
             navigate('/birth-certificate');
         }
     });
@@ -145,7 +145,7 @@ function EditFIleBirthCert() {
                         type="text" 
                         id="registryNumber" 
                         className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                        value={scannedFileData.registryNumber ? scannedFileData.registryNumber.toUpperCase():""} 
+                        value={scannedFileData.registryNumber.toUpperCase()} 
                         onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                     />
                 </div>

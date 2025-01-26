@@ -143,7 +143,7 @@ function EditBirthCert() {
         },
         onSuccess(data) {
             successToast(`${data.message}`);
-            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${birthCertCredentials.registryNumber ? birthCertCredentials.registryNumber : 'N/A'}`);
+            activityMutation.mutate(`Birth certificate updated with REGISTRY Number: ${birthCertCredentials.registryNumber}`);
             navigate('/birth-certificate');
         },
         onError(error){
@@ -244,7 +244,7 @@ function EditBirthCert() {
                                     type="text" 
                                     id="registryNumber" 
                                     className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                                    value={birthCertCredentials.registryNumber ? birthCertCredentials.registryNumber.toUpperCase() : ""} 
+                                    value={birthCertCredentials.registryNumber.toUpperCase()} 
                                     onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                                     autoCapitalize="true"
                                 />
