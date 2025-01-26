@@ -460,7 +460,7 @@ function BirthCertInputs() {
                             type="text" 
                             id="registryNumber" 
                             className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                            value={scannedFileData.registryNumber.toUpperCase()} 
+                            value={scannedFileData.registryNumber ? scannedFileData.registryNumber.toUpperCase() : ""} 
                             onChange={(e)=>{setScannedFileData(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                         />
                     </div>
@@ -684,7 +684,7 @@ function BirthCertInputs() {
                                     type="text" 
                                     id="registryNumber" 
                                     className="w-full border-0 focus:outline-none focus:ring-transparent" 
-                                    value={birthCertCredentials.registryNumber.toUpperCase()} 
+                                    value={birthCertCredentials.registryNumber ? birthCertCredentials.registryNumber.toUpperCase() : ""} 
                                     onChange={(e)=>{setBirthCertCredentials(prev => ({...prev, registryNumber:e.target.value.toUpperCase()}))}}
                                     autoCapitalize="true"
                                     required
